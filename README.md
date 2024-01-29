@@ -1,13 +1,13 @@
 # brick
  simple game engine
 
-major sections
-- screen : display info such as resolution
-- window : browser info such as scrollbar
-- canvas : viewport info such as pixelation
-- lights : colors and shadows
-- camera : aspect and depth
-- action : controls and interface
-- world : objects and physics
-- scene : overlays and rooms
-- loop : data and updates
+major features :
+- _screen_ : display info such as resolution
+- _window_ : browser info such as scrollbar
+- _canvas_ : viewport info such as pixelation
+- _lights_ : colors and shadows
+- _camera_ : aspect and depth
+- _action_ : controls and interface
+- _world_ : objects and physics
+- _scene_ : overlays and rooms
+- _loop_ : data and updates
