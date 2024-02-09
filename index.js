@@ -11,37 +11,46 @@
 // size and presentation
 // Set event listener for window resize
 window.addEventListener('resize', () => {
-  reset();
+  resetWindow();
 });
 // Set event listener for device orientation change
 window.addEventListener('orientationchange', () => {
-  reset();
+  resetWindow();
 });
 
 /* CANVAS */
 // size and options
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
+
 const center = {
-  x:0,
-  y:0
+  x:canvas.width/2,
+  y:canvas.height/2
 };
 const player = {
   x:center.x,
   y:center.y,
   speed:2
 };
+const camera = {
+  x:0,
+  y:0
+};
 
+resetWindow();
 document.body.appendChild(canvas);
-reset();
 
 function resetWindow() {
-  console.log("resizing");
+  //console.log("resizing");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  center.x = canvas.width/2;
-  center.y = canvas.height/2;
+  center.x=canvas.width/2;
+  center.y=canvas.height/2;
+  //camera.x=canvas.width/2;
+  //camera.y=canvas.height/2;
+  player.x=canvas.width/2;
+  player.y=canvas.height/2;
 }
 
 /* LIGHTS */
@@ -61,11 +70,10 @@ function drawCamera() {
   function fn (v, i, a) {
     let x = v[0], y = v[1];
     //console.log(`(${x},${y})`);
-    ctx.moveTo(center.x + x/2,center.y + y/2);
-    ctx.lineTo(center.x + x,center.y + y);
+    ctx.moveTo(center.x+ x/2,center.y+camera.y + y/2);
+    ctx.lineTo(center.x+ x,center.y+camera.y + y);
   }
-  ctx.fill(); // gray fill
-  ctx.stroke(); // black border
+  ctx.stroke();
 }
 
 /* ACTION */
@@ -107,12 +115,6 @@ window.addEventListener("keydown", (e) =>{
   e.preventDefault();
   var hasKey = pressed.includes(e.code);
   if (!hasKey) pressed.push(e.code);
-  /*
-  if (e.code===KEY_UP) isUp=true;
-  if (e.code===KEY_DOWN) isDown=true;
-  if (e.code===KEY_LEFT) isLeft=true;
-  if (e.code===KEY_RIGHT) isRight=true;
-  */
 
   if (e.code===KEY_ACTION) reset();
   if (e.code===KEY_ESCAPE) window.location.reload();
@@ -122,12 +124,6 @@ window.addEventListener("keyup", (e) =>{
   e.preventDefault();
   var index = pressed.indexOf(e.code);
   pressed.splice(index,1);
-  /*
-  if (e.code===KEY_UP) isUp=false;
-  if (e.code===KEY_DOWN) isDown=false;
-  if (e.code===KEY_LEFT) isLeft=false;
-  if (e.code===KEY_RIGHT) isRight=false;
-  */
 });
 
 function updateSpeed() {
@@ -142,31 +138,20 @@ function updateSpeedComponent(keyNeg,keyPos) {
 }
 
 function updateView() {
-  //console.log(pressed);
-  //console.log(hori,vert);
-  //var cx = (isLeft?-1:0) + (isRight?1:0);
-  //var cy = (isUp?-1:0) + (isDown?1:0);
-  //console.log(isUp, isDown, isLeft, isRight);
-  //console.log(cx, cy);
-  
-  // find the angle based on vector components
   var angle = null;
   if (!(hori == 0 && vert == 0)) angle = Math.atan2(vert,hori);
-  
-  // then normalize the speed 
+  // if no movement keys are pressed, angle is null
   var speed = player.speed;
-  
-  // then find the new dx and dy
-  var dx = 0,dy = 0;
+  var dx = 0,dy = 0; // reset deltas
+  // only update deltas if angle is not null
   if (angle !== null) {
     dx = -Math.cos(angle) * speed;
     dy = -Math.sin(angle) * speed;
   }
-
-  // then change the center position
   center.x += dx;
   center.y += dy;
-
+  camera.x -= dx;
+  camera.y -= dy;
 }
 
 /* WORLD */
@@ -202,6 +187,7 @@ function drawGrid() {
   }
   ctx.stroke();
 }
+
 
 function drawCenter() {
   ctx.beginPath();
@@ -241,15 +227,10 @@ function resetPlayer() {
 
 /* FRAME */
 function frame() {
-  // clear screen
   clear();
-  // draw state
   draw();
-  // update state
   update();
-  //updatePlayer();
   // resolve conflicts
-  // await frame
   window.requestAnimationFrame(frame);
 }
 window.requestAnimationFrame(frame);
@@ -259,8 +240,9 @@ function clear() {
 }
 
 function reset() {
-  resetWindow();
-  resetPlayer();
+  //resetWindow();
+  //resetPlayer();
+  //resetCamera();
 }
 
 function draw() {
@@ -272,6 +254,7 @@ function draw() {
 function update() {
   updateSpeed();
   updateView();
+
 }
 
 /* DEBUG */
