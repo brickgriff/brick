@@ -23,13 +23,13 @@ window.addEventListener('orientationchange', () => {
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 
-const center = {
+const origin = {
   x:canvas.width/2,
   y:canvas.height/2
 };
 const player = {
-  x:center.x,
-  y:center.y,
+  x:origin.x,
+  y:origin.y,
   speed:2
 };
 const camera = {
@@ -45,8 +45,8 @@ function resetWindow() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  center.x=canvas.width/2;
-  center.y=canvas.height/2;
+  origin.x=canvas.width/2;
+  origin.y=canvas.height/2;
   //camera.x=canvas.width/2;
   //camera.y=canvas.height/2;
   player.x=canvas.width/2;
@@ -60,7 +60,7 @@ const colors = ["red","blue","green","yellow","magenta","cyan"];
 
 /* CAMERA */
 // assets and effects
-// draw a cross at the center to represent the camera
+// draw a cross at the origin to represent the camera
 function drawCamera() {
   ctx.beginPath();
   ctx.strokeStyle = "orange";
@@ -70,8 +70,8 @@ function drawCamera() {
   function fn (v, i, a) {
     let x = v[0], y = v[1];
     //console.log(`(${x},${y})`);
-    ctx.moveTo(center.x+ x/2,center.y+camera.y + y/2);
-    ctx.lineTo(center.x+ x,center.y+camera.y + y);
+    ctx.moveTo(origin.x+camera.x+ x/2,origin.y+camera.y + y/2);
+    ctx.lineTo(origin.x+camera.x+ x,origin.y+camera.y + y);
   }
   ctx.stroke();
 }
@@ -148,8 +148,8 @@ function updateView() {
     dx = -Math.cos(angle) * speed;
     dy = -Math.sin(angle) * speed;
   }
-  center.x += dx;
-  center.y += dy;
+  origin.x += dx;
+  origin.y += dy;
   camera.x -= dx;
   camera.y -= dy;
 }
@@ -160,9 +160,23 @@ function drawWorld() {
   canvas.style.backgroundColor = "gray";
   ctx.save();
   drawGrid();
-  drawCenter();
+  draworigin();
   drawBorder();
   ctx.restore();
+
+  drawPlants();
+}
+
+function drawPlants() {
+  drawGrass();
+}
+
+function drawGrass() {
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "green";
+  ctx.arc(18,13,1,0,2*Math.PI);
+  ctx.stroke();
 }
 
 function drawGrid() {
@@ -170,16 +184,16 @@ function drawGrid() {
   ctx.strokeStyle = "lightgray";
   ctx.lineWidth = 2;
   const unit = 100;
-  ctx.moveTo(center.x,0);
-  ctx.lineTo(center.x,canvas.height);
-  ctx.moveTo(0,center.y);
-  ctx.lineTo(canvas.width,center.y);
+  ctx.moveTo(origin.x,0);
+  ctx.lineTo(origin.x,canvas.height);
+  ctx.moveTo(0,origin.y);
+  ctx.lineTo(canvas.width,origin.y);
   ctx.rect(0,0,canvas.width,canvas.height);
   for (let x=0;x<canvas.width/unit;x++) {
     for (let y=0;y<canvas.height/unit;y++) {
-      let rx = center.x-(x*unit);
+      let rx = origin.x-(x*unit);
       let rw = x*2*unit;
-      let ry = center.y-(y*unit);
+      let ry = origin.y-(y*unit);
       let rh = y*2*unit;
       ctx.rect(rx,0,rw,canvas.height);
       ctx.rect(0,ry,canvas.width,rh);
@@ -189,14 +203,14 @@ function drawGrid() {
 }
 
 
-function drawCenter() {
+function draworigin() {
   ctx.beginPath();
   ctx.strokeStyle = "lightgray";
   ctx.fillStyle = "gray";
   ctx.lineWidth = 2;
   let radius = 5;
-  ctx.moveTo(center.x+radius,center.y);
-  ctx.arc(center.x,center.y,radius,0,2*Math.PI);
+  ctx.moveTo(origin.x+radius,origin.y);
+  ctx.arc(origin.x,origin.y,radius,0,2*Math.PI);
   ctx.fill();
   ctx.stroke();
 }
@@ -209,7 +223,7 @@ function drawBorder() {
   ctx.stroke();
 }
 
-// draw a dot at the center to represent the player
+// draw a dot at the origin to represent the player
 function drawPlayer() {
   ctx.restore();
   ctx.beginPath();
@@ -218,8 +232,8 @@ function drawPlayer() {
   ctx.fill();
 }
 function resetPlayer() {
-  player.x = center.x;
-  player.y = center.y;
+  player.x = origin.x;
+  player.y = origin.y;
 }
 /* SCENE */
 // menus and rooms
@@ -248,13 +262,18 @@ function reset() {
 function draw() {
   drawWorld();
   drawPlayer();
-  drawCamera();
+  //drawCamera();
 }
 
 function update() {
   updateSpeed();
   updateView();
+}
 
+function worldToScreen(x,y) {
+  // (0,0) -> (width/2,height/2)
+  // then account for camera offset
+  return {x:x, y:y};
 }
 
 /* DEBUG */
