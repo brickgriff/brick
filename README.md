@@ -3,4 +3,6 @@ the simple game engine
 
 ---
 
--- blah
+- fix file structure
+- fix basic ui
+- fix basic mvc
