@@ -1,0 +1,26 @@
+{
+  "name": "brick",
+  "version": "0.0.0",
+  "description": "simple grass game engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgriffiniv/brick.git"
+  },
+  "keywords": [
+    "simple",
+    "grass",
+    "game",
+    "engine"
+  ],
+  "author": "bgriffiniv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bgriffiniv/brick/issues"
+  },
+  "homepage": "https://github.com/bgriffiniv/brick#readme"
+}
