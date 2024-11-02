@@ -1,2 +1,2 @@
 # brick
- simple game engine
+the simple game engine
