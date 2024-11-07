@@ -170,7 +170,7 @@ canvas.addEventListener("touchmove", (e) =>{
  * R - tight
  */
  window.addEventListener("keydown", (e) =>{
-  e.preventDefault();
+  //e.preventDefault();
   //console.log(e.code);
   let speed=5;
   if (e.code==="KeyE") player.y-=speed;
