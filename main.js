@@ -358,22 +358,24 @@ function worldToScreen(x,y,z) {
 function angle(cx, cy, ex, ey) {
   let dx = ex - cx;
   let dy = ey - cy;
-  let theta = Math.atan2(dy, dx); // range (-PI, PI]
-  //theta *= 180/ Math.PI; // range (-180, 180]
+  let theta = Math.atan2(dy, dx); // range [-PI, PI]
+  //theta *= 180/ Math.PI; // range [-180, 180]
   //if (theta < 0) theta = 360 + theta; // range (0, 360]
   //if (theta < 0) theta += 2 * Math.PI;
   return theta;
 }
 
 function radToDeg(rad) {
-  deg = rad * 180 / Math.PI;
-  if (deg < 0) deg+=360;
+  // clamp rad to [-1,1]
+  deg = rad * 180 / Math.PI; // [-INF, INF]
+  //if (deg < 0) deg+=360;
   return deg;
 }
 
 function degToRad(deg) {
-  if (deg > 180) deg-=360;
-  rad = deg * Math.PI / 180;
+  // clamp deg to [-180,180]
+  //if (deg > 180) deg-=360;
+  rad = deg * Math.PI / 180; // [-INF,INF]
   return rad;
 }
 
