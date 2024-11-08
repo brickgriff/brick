@@ -123,12 +123,12 @@ var handleTouchStart = (e)=>{
 };
 var handleTouchFinish = (e)=>{
   e.preventDefault()
+    controls.isTouched=false;
   for(let i=0; i<e.changedTouches.length; i++) {
   }
 };
 var handleTouchMove = (e)=>{
   e.preventDefault()
-    controls.isTouched=false;
 
   for(let i=0; i<e.changedTouches.length; i++) {
   }
