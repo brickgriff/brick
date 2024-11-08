@@ -22,7 +22,8 @@ the simple game engine
   - build/edit entity
   - quit game
 - fix basic mvc
-- time - frames, millis, intervals (main.js)
-- space - (world.js)
-- matter - (display.js)
-- energy - (buffer.js)
+- fix basic elements
+  - time - frames, millis, intervals (main.js)
+  - space - (world.js)
+  - matter - (display.js)
+  - energy - (buffer.js)
