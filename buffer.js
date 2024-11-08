@@ -31,7 +31,6 @@ function pushInput(event) {
   const list = controls.buttons;
   const input = event.code ? event.code : event.button;
   if(input===0) controls.isTouched=true;
-  console.log(controls.isTouched);
 
   if (!list.includes(input)) list.push(input);
 }  
@@ -117,8 +116,9 @@ function ongoingTouchIndexById(idToFind) {
 
 var handleTouchStart = (e)=>{
   e.preventDefault()
-  for(let i=0; i<e.changedTouches.length; i++) {
     controls.isTouched=true;
+
+  for(let i=0; i<e.changedTouches.length; i++) {
   }
 };
 var handleTouchFinish = (e)=>{
@@ -128,8 +128,9 @@ var handleTouchFinish = (e)=>{
 };
 var handleTouchMove = (e)=>{
   e.preventDefault()
-  for(let i=0; i<e.changedTouches.length; i++) {
     controls.isTouched=false;
+
+  for(let i=0; i<e.changedTouches.length; i++) {
   }
 };
 
