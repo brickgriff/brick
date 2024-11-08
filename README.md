@@ -12,14 +12,18 @@ the simple game engine
   - buffer.js - user input (controller)
   - entity.js
   - player.js
+  - terrain.js
+  - foliage.js
+  - system.js
 - fix basic ui
   - main menu
   - debug frame
 - fix basic data
   - new game
   - save/load game
-  - build/edit world
+  - config world
   - build/edit entity
+  - build/edit system
   - quit game
 - fix basic mvc
 - fix basic elements
