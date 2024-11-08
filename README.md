@@ -12,7 +12,7 @@ the simple game engine
   - buffer.js - user input (controller)
 - fix basic ui
 - fix basic mvc
-- time - frames, millis, intervals
-- space -
-- energy - 
-- matter -
+- time - frames, millis, intervals (main.js)
+- space - (world.js)
+- matter - (display.js)
+- energy - (buffer.js)
