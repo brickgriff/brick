@@ -1,9 +1,9 @@
 const Buffer = (function (/*api*/) {
   var api = {};
 
-  api.flush = function (dt) {
+  api.flush = function (state) {
 
-    return controls;
+    state.inputs=controls;
   };
 
   // return the public api

@@ -3,7 +3,7 @@ const World = (function (/*api*/) {
 
   api.create = function (canvas) {
     var state = {
-      canvas: canvas,
+      canvas:canvas,
       frame:0,
 
     };
@@ -19,7 +19,6 @@ const World = (function (/*api*/) {
     state.frame++;
 
   };
-
 
   // return the public api
   return api;
