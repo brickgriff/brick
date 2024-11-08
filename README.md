@@ -4,6 +4,11 @@ the simple game engine
 ---
 
 - ~fix file structure~
--- a
+ - index.html
+ - index.css
+ - main.js
+ - world.js
+ - display.js
+ - buffer.js
 - fix basic ui
 - fix basic mvc
