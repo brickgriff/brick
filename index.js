@@ -413,3 +413,74 @@ ctx.lineTo(100,0);
 ctx.stroke();
 */
 
+/* 
+
+  if (e.button===keybinds.mouseL) {
+    inputs.mouse.x_=inputs.mouse._x=e.offsetX-document.body.clientWidth/2;
+    inputs.mouse.y_=inputs.mouse._y=e.offsetY-document.body.clientHeight/2;
+    
+    inputs.mouse.isClicked=false;
+    inputs.mouse.isDragged=false;
+  }
+*/
+
+/*
+(e)=>{
+  e.preventDefault()
+  for(let i=0; i<e.changedTouches.length; i++) {
+    pushKey(state.keys,ongoingTouches.length);
+    ongoingTouches.push(copyTouch(e.touches[i]));
+  }
+
+  if (ongoingTouches.length > keybinds.mouseL) return;
+
+  inputs.mouse.x_=inputs.mouse.x=e.screenX;
+  inputs.mouse.y_=inputs.mouse.y=e.screenY;
+  inputs.mouse._x=inputs.mouse.x_;
+  inputs.mouse._y=inputs.mouse.y_;
+}
+
+  e.preventDefault()
+  for(let i=0; i<e.changedTouches.length; i++) {
+    let index = ongoingTouchIndexById(e.changedTouches.identifier);
+    //let touch=ongoingTouches[index];
+    if (index===keybinds.mouseL) {
+      inputs.mouse._x=e.offsetX;
+      inputs.mouse._y=e.offsetY;
+
+      let dist = Math.hypot(inputs.mouse._x-inputs.mouse.x_,inputs.mouse._y-inputs.mouse.y_);
+      inputs.mouse.isDragged = (dist>=inputs.mouse.dragMin);
+      //console.log(dist,inputs.mouse.isDragged);
+    }
+
+    dropKey(index,state.keys);
+    ongoingTouches.splice(index,1);
+  }
+
+}
+*/
+
+
+/*
+// FIXME: how to switch bw WASD and ESDF
+let isUsingWASD = true;
+const  keybinds = {
+  up: isUsingWASD ? "KeyW" : "KeyE",
+  down: isUsingWASD ? "KeyS" : "KeyD",
+  left: isUsingWASD ? "KeyA" : "KeyS",
+  right: isUsingWASD ? "KeyD" : "KeyF",
+
+  loosen: isUsingWASD ? "KeyQ" : "KeyW",
+  tighten: isUsingWASD ? "KeyE" : "KeyR",
+  tertiary: "ShiftLeft",
+  secondary: "KeyF",
+  primary: "Space",
+
+  debug: "Backquote",
+  menu: "Escape",
+
+  mouseL: 0,
+  mouseM: 1,
+  mouseR: 2,
+};
+*/
