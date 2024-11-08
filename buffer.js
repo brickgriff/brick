@@ -2,7 +2,8 @@ const Buffer = (function (/*api*/) {
   var api = {};
 
   api.flush = function (dt) {
-    var stream = [];
+    var stream = inputs.buttons;
+    inputs.buttons=[];
 
     return stream;
   };
@@ -27,17 +28,27 @@ const inputs = {
   },
 };
 
-function pushInput(input) {
+function pushInput(event) {
   const list = inputs.buttons;
+  const input = event.code ? event.code : event.button;
   if (!list.includes(input)) list.push(input);
 }  
-function dropInput(input) {
+function dropInput(event) {
   const list = inputs.buttons;
+  const input = event.code ? event.code : event.button;
   if (list.includes(input)) list.splice(list.indexOf(input),1);
 }
-function findInput(input) {
+function findInput(event) {
   const list = inputs.buttons;
+  const input = event.code ? event.code : event.button;
   return (list.includes(input));
+}
+function resize(event) {
+  // ....
+}
+
+function setMouse(event) {
+  // ....
 }
 function getMouse() {
   return inputs.mouse;
@@ -60,18 +71,14 @@ if (typeof window === "undefined") {
 // suppress system right click menu
 window.addEventListener("contextmenu", (e)=>{e.preventDefault()});
 // trigger resize handler
-window.addEventListener("resize", (e)=>{inputs.viewport.isResized=true});
+window.addEventListener("resize", resize);
+window.addEventListener("keydown", pushInput);
+window.addEventListener("keyup", dropInput);
+window.addEventListener("mousedown", pushInput);
+window.addEventListener("mouseup", dropInput);
+window.addEventListener("mousemove", setMouse);
 
-window.addEventListener("keydown", (e) =>{
-  pushInput(e.code);
-});
-
-window.addEventListener("keyup", (e) =>{
-  dropInput(e.code);
-});
-
-window.addEventListener("mousedown", (e) =>{
-  pushInput(e.button);
+/* 
 
   if (e.button===keybinds.mouseL) {
     inputs.mouse.x_=inputs.mouse._x=e.offsetX-document.body.clientWidth/2;
@@ -80,27 +87,7 @@ window.addEventListener("mousedown", (e) =>{
     inputs.mouse.isClicked=false;
     inputs.mouse.isDragged=false;
   }
-});
-
-window.addEventListener("mouseup", (e) =>{
-  inputs.mouse.isClicked=!inputs.mouse.isDragged;
-  if (findInput(keybinds.mouseL)) {
-    inputs.mouse._x=inputs.mouse.x_=0;
-    inputs.mouse._y=inputs.mouse.y_=0;
-    inputs.mouse.isDragged = false;
-  }
-  dropInput(e.button);
-});
-
-window.addEventListener("mousemove", (e) =>{
-  if (findInput(keybinds.mouseL)) {
-    inputs.mouse._x=e.offsetX-document.body.clientWidth/2;
-    inputs.mouse._y=e.offsetY-document.body.clientHeight/2;
-
-    const dist = Math.hypot(inputs.mouse._x-inputs.mouse.x_,inputs.mouse._y-inputs.mouse.y_);
-    inputs.mouse.isDragged = (dist>=inputs.mouse.dragMin);
-  }
-});
+*/
 
 
 // FIXME: touch events
@@ -123,7 +110,26 @@ function ongoingTouchIndexById(idToFind) {
 }
 
 
-window.addEventListener("touchstart",(e)=>{
+
+var handleTouchStart = (e)=>{
+  e.preventDefault()
+  for(let i=0; i<e.changedTouches.length; i++) {
+    console.log("hey");
+  }
+};
+var handleTouchFinish = (e)=>{
+  e.preventDefault()
+  for(let i=0; i<e.changedTouches.length; i++) {
+  }
+};
+var handleTouchMove = (e)=>{
+  e.preventDefault()
+  for(let i=0; i<e.changedTouches.length; i++) {
+  }
+};
+
+/*
+(e)=>{
   e.preventDefault()
   for(let i=0; i<e.changedTouches.length; i++) {
     pushKey(state.keys,ongoingTouches.length);
@@ -136,30 +142,8 @@ window.addEventListener("touchstart",(e)=>{
   inputs.mouse.y_=inputs.mouse.y=e.screenY;
   inputs.mouse._x=inputs.mouse.x_;
   inputs.mouse._y=inputs.mouse.y_;
-});
+}
 
-var handleTouchFinish = (e)=>{
-  e.preventDefault()
-  for(let i=0; i<e.changedTouches.length; i++) {
-    let index = ongoingTouchIndexById(e.changedTouches.identifier);
-    //let touch=ongoingTouches[index];
-    if (index===keybinds.mouseL) {
-      inputs.mouse.x_=inputs.mouse.x=state.player.x;
-      inputs.mouse.y_=inputs.mouse.y=state.player.y;
-      //inputs.mouse._x=inputs.mouse.x_; 
-      //inputs.mouse._y=inputs.mouse.y_;
-      inputs.mouse.isDragged = false;
-    }
-
-    dropKey(index,state.keys);
-    ongoingTouches.splice(index,1);
-  }
-};
-
-window.addEventListener("touchend",handleTouchFinish);
-window.addEventListener("touchcancel",handleTouchFinish);
-
-window.addEventListener("touchmove",(e)=>{
   e.preventDefault()
   for(let i=0; i<e.changedTouches.length; i++) {
     let index = ongoingTouchIndexById(e.changedTouches.identifier);
@@ -177,7 +161,13 @@ window.addEventListener("touchmove",(e)=>{
     ongoingTouches.splice(index,1);
   }
 
-});
+}
+*/
+
+window.addEventListener("touchstart",handleTouchStart);
+window.addEventListener("touchend",handleTouchFinish);
+window.addEventListener("touchcancel",handleTouchFinish);
+window.addEventListener("touchmove",handleTouchMove);
 
 // FIXME: how to switch bw WASD and ESDF
 let isUsingWASD = true;

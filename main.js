@@ -9,7 +9,7 @@ function loop(now,state,ctx) {
   
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
 
-  state.inputs = Buffer.flush(); // get inputs
+  state.inputs = Buffer.flush(dt); // get inputs
   Display.draw(state, ctx); // draw entities
   World.update(state, dt); // update entities
 
@@ -28,7 +28,7 @@ function main() {
   // 2D? 3D? 4D? 1D? ASCII? Voxel? 8-bit? 16-bit? 32-bit? 1-bit?
   const canvas = document.createElement("canvas"); // default canvas
   const ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
-  const state = World.create(canvas,ctx); // initialize!
+  const state = World.create(canvas); // initialize!
 
   document.body.appendChild(canvas); // add it to body
 

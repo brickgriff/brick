@@ -1,5 +1,5 @@
-# brick
-the simple game engine
+# brick and flower
+the simple game html canvas engine
 
 ---
 
@@ -24,6 +24,8 @@ the simple game engine
   - config world
   - build/edit entity
   - build/edit system
+  - build/edit pattern
+  - build/edit audio
   - quit game
 - fix basic mvc
 - fix basic elements
@@ -31,3 +33,6 @@ the simple game engine
   - space - (world.js)
   - matter - (display.js)
   - energy - (buffer.js)
+- interactions
+  - build
+  - nurture
