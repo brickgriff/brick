@@ -4,11 +4,11 @@ the simple game engine
 ---
 
 - ~fix file structure~
-  - index.html
-  - index.css
-  - main.js
-  - world.js
-  - display.js
-  - buffer.js
+  - index.html - project files
+  - index.css - global stylesheet
+  - main.js - main game loop
+  - world.js - world state (model)
+  - display.js - canvas methods (view)
+  - buffer.js - user input (controller)
 - fix basic ui
 - fix basic mvc
