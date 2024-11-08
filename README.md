@@ -10,7 +10,17 @@ the simple game engine
   - world.js - world state (model)
   - display.js - canvas methods (view)
   - buffer.js - user input (controller)
+  - entity.js
+  - player.js
 - fix basic ui
+  - main menu
+  - debug frame
+- fix basic data
+  - new game
+  - save/load game
+  - build/edit world
+  - build/edit entity
+  - quit game
 - fix basic mvc
 - time - frames, millis, intervals (main.js)
 - space - (world.js)
