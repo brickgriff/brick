@@ -1,4 +1,4 @@
-const Control = (function (/*api*/) {
+const Buffer = (function (/*api*/) {
   var api = {};
 
   api.flush = function (dt) {
