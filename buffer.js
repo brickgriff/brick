@@ -2,17 +2,15 @@ const Buffer = (function (/*api*/) {
   var api = {};
 
   api.flush = function (dt) {
-    var stream = inputs.buttons;
-    inputs.buttons=[];
 
-    return stream;
+    return controls;
   };
 
   // return the public api
   return api;
 }());
 
-const inputs = {
+const controls = {
   buttons:[],
   mouse:{
     x_:0,
@@ -21,25 +19,31 @@ const inputs = {
     _y:0,
     dragMin:10,
     dragMax:50,
-    isDragged:false,isClicked:false,
   },
+  isDragged:false,isClicked:false,
+  isTouched:false,
   viewport:{
     isResized:false,
   },
 };
 
 function pushInput(event) {
-  const list = inputs.buttons;
+  const list = controls.buttons;
   const input = event.code ? event.code : event.button;
+  if(input===0) controls.isTouched=true;
+  console.log(controls.isTouched);
+
   if (!list.includes(input)) list.push(input);
 }  
 function dropInput(event) {
-  const list = inputs.buttons;
+  const list = controls.buttons;
   const input = event.code ? event.code : event.button;
+  if (input===0) controls.isTouched=false;
+
   if (list.includes(input)) list.splice(list.indexOf(input),1);
 }
 function findInput(event) {
-  const list = inputs.buttons;
+  const list = controls.buttons;
   const input = event.code ? event.code : event.button;
   return (list.includes(input));
 }
@@ -51,7 +55,7 @@ function setMouse(event) {
   // ....
 }
 function getMouse() {
-  return inputs.mouse;
+  return controls.mouse;
 }
 
 // CHECK BROWSER FEATURES //
@@ -114,7 +118,7 @@ function ongoingTouchIndexById(idToFind) {
 var handleTouchStart = (e)=>{
   e.preventDefault()
   for(let i=0; i<e.changedTouches.length; i++) {
-    console.log("hey");
+    controls.isTouched=true;
   }
 };
 var handleTouchFinish = (e)=>{
@@ -125,6 +129,7 @@ var handleTouchFinish = (e)=>{
 var handleTouchMove = (e)=>{
   e.preventDefault()
   for(let i=0; i<e.changedTouches.length; i++) {
+    controls.isTouched=false;
   }
 };
 

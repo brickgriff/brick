@@ -14,7 +14,8 @@ const World = (function (/*api*/) {
   // update the state
   api.update = function (state, dt) {
     //console.log(`update(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
-console.log(`update(frame=${state.frame})`);
+    //console.log(`update(frame=${state.frame})`);
+    console.log("state:",state);
     state.frame++;
 
   };
