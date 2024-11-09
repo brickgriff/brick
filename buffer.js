@@ -1,9 +1,11 @@
-const Buffer = (function (/*api*/) {
+const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
   var api = {};
 
   api.flush = function (state) {
 
-    state.inputs=controls;
+    state.controls=controls;
+    state.controls.mouse.zoom=controls.mouse.zoom;
+    controls.mouse.zoom=0;
   };
 
   // return the public api
@@ -17,13 +19,19 @@ const controls = {
     y_:0,
     _x:0,
     _y:0,
+    zoom:0,
     dragMin:10,
     dragMax:50,
   },
-  isDragged:false,isClicked:false,
+  isDragged:false,
+  isClicked:false,
   isTouched:false,
+  isLooked:false,
+  //isZoomed:false,
+  isReset:false,
+  isResized:false,
+
   viewport:{
-    isResized:false,
   },
 };
 

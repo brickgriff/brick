@@ -5,7 +5,6 @@ const World = (function (/*api*/) {
     var state = {
       canvas:canvas,
       frame:0,
-
     };
 
     return state;
@@ -15,7 +14,7 @@ const World = (function (/*api*/) {
   api.update = function (state, dt) {
     //console.log(`update(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
     //console.log(`update(frame=${state.frame})`);
-    console.log("state:",state);
+    //console.log("state:",state);
     state.frame++;
 
   };
