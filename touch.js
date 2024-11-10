@@ -20,9 +20,9 @@ function ongoingTouchIndexById(idToFind) {
 
 var handleTouchStart = (e)=>{
   e.preventDefault()
-
-  const touches = e.changedTouches.length;
-  for(let i=0; i<touches; i++) {
+console.log(e)
+  const touches = e.changedTouches;
+  for(let i=0; i<touches.length; i++) {
     ongoingTouches.push(copyTouch(touches[i]));
   }
 
@@ -33,8 +33,8 @@ var handleTouchStart = (e)=>{
 var handleTouchFinish = (e)=>{
   e.preventDefault()
 
-  const touches = e.changedTouches.length;
-  for(let i=0; i<e.changedTouches.length; i++) {
+  const touches = e.changedTouches;
+  for(let i=0; i<touches.length; i++) {
     let idx = ongoingTouchIndexById(touches[i].identifier);
     if (idx===-1) continue;
     ongoingTouches.splice(idx, 1); // remove it; we're done
