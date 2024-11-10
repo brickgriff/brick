@@ -27,6 +27,7 @@ function main() {
   // TODO: display factory/service to allow different output modes
   // 2D? 3D? 4D? 1D? ASCII? Voxel? 8-bit? 16-bit? 32-bit? 1-bit?
   const canvas = document.createElement("canvas"); // default canvas
+  canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   const ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
   const state = World.create(canvas); // initialize!
 

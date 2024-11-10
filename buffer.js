@@ -4,7 +4,6 @@ const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
   api.flush = function (state) {
 
     state.controls=controls;
-    state.controls.mouse.zoom=controls.mouse.zoom;
     controls.mouse.zoom=0;
   };
 
@@ -27,7 +26,6 @@ const controls = {
   isClicked:false,
   isTouched:false,
   isLooked:false,
-  //isZoomed:false,
   isReset:false,
   isResized:false,
 
