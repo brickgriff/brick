@@ -20,14 +20,16 @@ function ongoingTouchIndexById(idToFind) {
 
 var handleTouchStart = (e)=>{
   e.preventDefault()
-    controls.isTouched=true;
+  if(e.changedTouches.length===1) controls.isTouched=true;
+  if(e.changedTouches.length===2) controls.isLooked=true;
 
   for(let i=0; i<e.changedTouches.length; i++) {
   }
 };
 var handleTouchFinish = (e)=>{
   e.preventDefault()
-    controls.isTouched=false;
+  if(e.changedTouches.length===1) controls.isTouched=false;
+  if(e.changedTouches.length===2) controls.isLooked=false;
   for(let i=0; i<e.changedTouches.length; i++) {
   }
 };
