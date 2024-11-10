@@ -20,19 +20,30 @@ function ongoingTouchIndexById(idToFind) {
 
 var handleTouchStart = (e)=>{
   e.preventDefault()
-  if(e.changedTouches.length===1) controls.isTouched=true;
-  if(e.changedTouches.length===2) controls.isLooked=true;
 
-  for(let i=0; i<e.changedTouches.length; i++) {
+  const touches = e.changedTouches.length;
+  for(let i=0; i<touches; i++) {
+    ongoingTouches.push(copyTouch(touches[i]));
   }
+
+  if(ongoingTouches.length===1) controls.isTouched=true;
+  if(ongoingTouches.length===2) controls.isLooked=true;
+
 };
 var handleTouchFinish = (e)=>{
   e.preventDefault()
-  if(e.changedTouches.length===1) controls.isTouched=false;
-  if(e.changedTouches.length===2) controls.isLooked=false;
+
+  const touches = e.changedTouches.length;
   for(let i=0; i<e.changedTouches.length; i++) {
+    let idx = ongoingTouchIndexById(touches[i].identifier);
+    if (idx===-1) continue;
+    ongoingTouches.splice(idx, 1); // remove it; we're done
+
   }
+  if(ongoingTouches.length===0) controls.isTouched=false;
+  if(ongoingTouches.length===1) controls.isLooked=false;
 };
+
 var handleTouchMove = (e)=>{
   e.preventDefault()
 

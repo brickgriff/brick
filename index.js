@@ -439,7 +439,7 @@ ctx.stroke();
   inputs.mouse._x=inputs.mouse.x_;
   inputs.mouse._y=inputs.mouse.y_;
 }
-
+(e)=>{
   e.preventDefault()
   for(let i=0; i<e.changedTouches.length; i++) {
     let index = ongoingTouchIndexById(e.changedTouches.identifier);
@@ -456,7 +456,6 @@ ctx.stroke();
     dropKey(index,state.keys);
     ongoingTouches.splice(index,1);
   }
-
 }
 */
 
