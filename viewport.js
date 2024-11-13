@@ -1,7 +1,10 @@
 //viewport.js
 
 function resize(event) {
-  // ....
+  controls.width=window.innerWidth;
+  controls.height=window.innerHeight;
+  controls.isResized=true;
+  console.log(controls.width,controls.height);
 }
 
 // CHECK BROWSER FEATURES //

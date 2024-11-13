@@ -11,7 +11,8 @@ function loop(now,state,ctx) {
 
   World.update(state, dt); // update entities
   Display.draw(state, ctx); // draw entities
-  Buffer.flush(state); // read inputs
+  Buffer.flush(state); // reset buffer
+  console.log(state.canvas.width,state.canvas.height);
 
   // FIXME: the above may be unnecessary since state.ctx is inside state...
   // maybe Display is allowed to use other canvas contexts to draw
@@ -30,8 +31,8 @@ function main() {
   canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   const ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
   const state = World.create(canvas); // initialize!
+  Buffer.attach(state); // attach input buffer
 
   document.body.appendChild(canvas); // add it to body
-
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }

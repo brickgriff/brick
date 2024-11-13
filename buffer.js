@@ -1,10 +1,17 @@
 const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
   var api = {};
 
-  api.flush = function (state) {
+  api.attach = function (state) {
+    state.buffer=controls;
+    //controls.zoom=0;
+    //console.log(state.controls.zoom);
+    resize(null);
+  };
 
-    state.controls=controls;
-    controls.mouse.zoom=0;
+  api.flush = function (state) {
+    controls.zoom=0;
+    controls.isResized=false;
+    //console.log(state.controls.zoom);
   };
 
   // return the public api
@@ -18,7 +25,6 @@ const controls = {
     y_:0,
     _x:0,
     _y:0,
-    zoom:0,
     dragMin:10,
     dragMax:50,
   },
@@ -28,9 +34,12 @@ const controls = {
   isLooked:false,
   isReset:false,
   isResized:false,
-
-  viewport:{
-  },
+  zoom:0,  
+  radius:0,
+  angle:0,
+  length:0,
+  width:0,
+  height:0
 };
 
 

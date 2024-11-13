@@ -7,11 +7,14 @@ const Display = (function (/*api*/) {
     
     ctx.beginPath();
     ctx.fillStyle="gray";
-    if (state.controls && state.controls.isTouched) ctx.fillStyle="red";
-    if (state.controls && state.controls.isLooked) ctx.fillStyle="green";
-    if (state.controls && state.controls.isReset) ctx.fillStyle="blue";
-    if (state.controls && state.controls.mouse.zoom > 0) ctx.fillStyle="black";
-    if (state.controls && state.controls.mouse.zoom < 0) ctx.fillStyle="white";
+    if (state.buffer && state.buffer.isTouched) ctx.fillStyle="red";
+    if (state.buffer && state.buffer.isLooked) ctx.fillStyle="green";
+    if (state.buffer && state.buffer.isReset) ctx.fillStyle="blue";
+
+    //console.log(state.buffer.zoom);
+    //if (state.buffer && state.buffer.zoom > 0) ctx.fillStyle="black";
+    //if (state.buffer && state.buffer.zoom < 0) ctx.fillStyle="white";
+
     ctx.rect(0,0,state.canvas.width,state.canvas.height);
     ctx.fill();
 
@@ -19,8 +22,10 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     ctx.fillStyle="lightgray";
     ctx.strokeStyle="dimgray";
-    ctx.lineWidth=2;
-    ctx.arc(state.canvas.width/2,state.canvas.height/2,5,0,2*Math.PI);
+    const r = Math.min(500,Math.max(1,state.radius*state.zoom));
+    ctx.lineWidth=r/5;
+    console.log(state.radius,state.zoom);
+    ctx.arc(state.canvas.width/2,state.canvas.height/2,r,0,2*Math.PI);
     ctx.fill();
     ctx.stroke();
 

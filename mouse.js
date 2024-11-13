@@ -1,10 +1,10 @@
 //mouse.js
-function setMove(event) {
+function move(event) {
   // ....
 }
-function setWheel(event) {
-  controls.mouse.zoom=event.deltaY;
-  console.log(controls.mouse.zoom);
+function zoom(event) {
+  controls.zoom=event.deltaY>0?-0.5:event.deltaY<0?0.5:0;
+  //console.log(controls.mouse.zoom);
   //controls.isZoomed=controls.mouse.zoom!==0;
 }
 function getMouse() {
@@ -13,6 +13,6 @@ function getMouse() {
 
 window.addEventListener("mousedown", pushInput);
 window.addEventListener("mouseup", dropInput);
-window.addEventListener("mousemove", setMove);
-window.addEventListener("wheel", setWheel);
+window.addEventListener("mousemove", move);
+window.addEventListener("wheel", zoom);
 
