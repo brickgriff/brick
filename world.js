@@ -6,7 +6,7 @@ const World = (function (/*api*/) {
       canvas:canvas,
       buffer:{},
       frame:0,
-      zoom:5,
+      zoom:1,
       // player position
       px:0,
       py:0,
@@ -31,13 +31,12 @@ const World = (function (/*api*/) {
     state.frame++;
 
     //console.log(state.buffer.isResized);
-    state.zoom=Math.min(50,Math.max(0,state.zoom+state.buffer.zoom));
+    //state.zoom=state.zoom+state.buffer.zoom;//Math.min(50,Math.max(0,state.zoom+state.buffer.zoom));
 
     if (state.buffer.isResized) {
       state.canvas.width=state.buffer.width;
       state.canvas.height=state.buffer.height;
     }
-
   };
 
   // return the public api

@@ -12,7 +12,7 @@ function loop(now,state,ctx) {
   World.update(state, dt); // update entities
   Display.draw(state, ctx); // draw entities
   Buffer.flush(state); // reset buffer
-  console.log(state.canvas.width,state.canvas.height);
+  //console.log(state.canvas.width,state.canvas.height);
 
   // FIXME: the above may be unnecessary since state.ctx is inside state...
   // maybe Display is allowed to use other canvas contexts to draw
@@ -28,8 +28,12 @@ function main() {
   // TODO: display factory/service to allow different output modes
   // 2D? 3D? 4D? 1D? ASCII? Voxel? 8-bit? 16-bit? 32-bit? 1-bit?
   const canvas = document.createElement("canvas"); // default canvas
-  canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   const ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
+
+  canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
   const state = World.create(canvas); // initialize!
   Buffer.attach(state); // attach input buffer
 

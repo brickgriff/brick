@@ -7,6 +7,10 @@ function zoom(event) {
   //console.log(controls.mouse.zoom);
   //controls.isZoomed=controls.mouse.zoom!==0;
 }
+var doubleClick = (e)=>{
+  e.preventDefault()
+};
+
 function getMouse() {
   return controls.mouse;
 }
@@ -14,5 +18,6 @@ function getMouse() {
 window.addEventListener("mousedown", pushInput);
 window.addEventListener("mouseup", dropInput);
 window.addEventListener("mousemove", move);
-window.addEventListener("wheel", zoom);
+window.addEventListener("wheel", zoom,{passive:false});
+window.addEventListener("dblclick",doubleClick);
 

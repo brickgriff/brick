@@ -20,7 +20,7 @@ function ongoingTouchIndexById(idToFind) {
 
 var handleTouchStart = (e)=>{
   e.preventDefault()
-console.log(e)
+  //console.log(e)
   const touches = e.changedTouches;
   for(let i=0; i<touches.length; i++) {
     ongoingTouches.push(copyTouch(touches[i]));
@@ -51,7 +51,7 @@ var handleTouchMove = (e)=>{
   }
 };
 
-window.addEventListener("touchstart",handleTouchStart);
+window.addEventListener("touchstart",handleTouchStart,{passive:false});
 window.addEventListener("touchend",handleTouchFinish);
 window.addEventListener("touchcancel",handleTouchFinish);
-window.addEventListener("touchmove",handleTouchMove);
+window.addEventListener("touchmove",handleTouchMove,{passive:false});

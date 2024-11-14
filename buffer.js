@@ -5,13 +5,13 @@ const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
     state.buffer=controls;
     //controls.zoom=0;
     //console.log(state.controls.zoom);
-    resize(null);
+    //resize(null);
   };
 
   api.flush = function (state) {
     controls.zoom=0;
     controls.isResized=false;
-    //console.log(state.controls.zoom);
+    //console.log(state.buffer.isTouched);
   };
 
   // return the public api
@@ -39,7 +39,7 @@ const controls = {
   angle:0,
   length:0,
   width:0,
-  height:0
+  height:0,
 };
 
 
