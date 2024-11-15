@@ -10,7 +10,7 @@ const World = (function (/*api*/) {
       // player position
       px:0,
       py:0,
-      radius:5, // rot
+      radius:25, // rot
       length:0, // sca
       angle:0, // tra
       // camera position
