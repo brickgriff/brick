@@ -38,9 +38,9 @@ const Display = (function (/*api*/) {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle=gray3;
-    ctx.shadowOffsetX=5;
-    ctx.shadowOffsetY=5;
-    ctx.shadowColor=gray0;
+    //ctx.shadowOffsetX=5;
+    //ctx.shadowOffsetY=5;
+    //ctx.shadowColor=gray0;
     //ctx.strokeStyle="#050505";
     const r = state.radius;//*state.zoom;//Math.min(500,Math.max(1,state.radius*state.zoom));
     ctx.lineWidth=r/5;
@@ -55,7 +55,7 @@ const Display = (function (/*api*/) {
     ctx.arc(200,200,r,0,2*Math.PI);
     ctx.fill();
     ctx.beginPath();
-    ctx.fillStyle=gray5;
+    ctx.fillStyle=gray2;
     ctx.moveTo(r,200);
     ctx.arc(0,200,r,0,2*Math.PI);
     ctx.fill();
@@ -83,35 +83,32 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     //ctx.lineWidth=5; // grass length
     ctx.strokeStyle=green;
-    ctx.shadowOffsetX=5;
-    ctx.shadowOffsetY=5;
-    ctx.shadowColor=gray0;
+    //ctx.shadowOffsetX=5;
+    //ctx.shadowOffsetY=5;
+    //ctx.shadowColor=gray0;
     ctx.setLineDash([1,5]);
     let r1=ctx.lineWidth=5; // grass size
     let x=-100,y=-195;//,h=ctx.lineWidth;
-    ctx.moveTo(x+r1,y);
     ctx.arc(x,y,r1,0,2*Math.PI);
-    ctx.stroke();
+    //ctx.stroke();
     //ctx.fill();
-    //ctx.moveTo(x,y);
     //ctx.lineTo(x,y-h);
     x=-118,y=-212;
     r1=ctx.lineWidth=7;
-    ctx.beginPath();
-    ctx.moveTo(x+r1,y);
-    ctx.strokeStyle=gray4;
+    //ctx.beginPath();
+    //ctx.strokeStyle=gray4;
     //ctx.lineWidth=10;
+    ctx.moveTo(x+r1,y);
     ctx.arc(x,y,r1,0,2*Math.PI);
-    ctx.stroke();
+    //ctx.stroke();
     //ctx.fill();
-    //ctx.moveTo(x,y);
     //ctx.lineTo(x,y-h);
     x=-85,y=-220;
     r1=ctx.lineWidth=10;
-    ctx.beginPath();
-    ctx.moveTo(x+r1,y);
-    ctx.strokeStyle=gray2;
+    //ctx.beginPath();
+    //ctx.strokeStyle=gray2;
     //ctx.lineWidth=15;
+    ctx.moveTo(x+r1,y);
     ctx.arc(x,y,r1,0,2*Math.PI);
     //ctx.fill();
     //ctx.moveTo(x,y);
@@ -125,11 +122,13 @@ const Display = (function (/*api*/) {
 
     // draw mint/plantago
 
-    // draw aster/daisy
+    // draw aster/umbel
 
     // draw ivy/bindweed
 
     // draw purslane
+
+    // draw pokeweed/pigweed/burdock
 
     ctx.beginPath();
     ctx.lineWidth=2;
@@ -147,14 +146,14 @@ const Display = (function (/*api*/) {
     ctx.stroke();
     ctx.beginPath();
     //ctx.lineWidth=1;
-    ctx.strokeStyle=gray3;
+    ctx.strokeStyle=gray4;
     ctx.moveTo(-100+r1,-400);
     ctx.arc(-100,-400,r1,0,2*Math.PI);
     //ctx.fill();
     ctx.stroke();
     ctx.beginPath();
     //ctx.lineWidth=1;
-    ctx.strokeStyle=gray4;
+    ctx.strokeStyle=gray5;
     ctx.moveTo(-100+r1,-450);
     ctx.arc(-100,-450,r1,0,2*Math.PI);
     //ctx.fill();
