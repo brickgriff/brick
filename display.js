@@ -86,26 +86,30 @@ const Display = (function (/*api*/) {
     //ctx.shadowOffsetX=5;
     //ctx.shadowOffsetY=5;
     //ctx.shadowColor=gray0;
-    ctx.setLineDash([1,5]);
     let r1=ctx.lineWidth=5; // grass size
     let x=-100,y=-195;//,h=ctx.lineWidth;
+
+    ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
+
     ctx.arc(x,y,r1,0,2*Math.PI);
-    //ctx.stroke();
+    ctx.stroke();
     //ctx.fill();
     //ctx.lineTo(x,y-h);
     x=-118,y=-212;
     r1=ctx.lineWidth=7;
-    //ctx.beginPath();
+    ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
+    ctx.beginPath();
     //ctx.strokeStyle=gray4;
     //ctx.lineWidth=10;
     ctx.moveTo(x+r1,y);
     ctx.arc(x,y,r1,0,2*Math.PI);
-    //ctx.stroke();
+    ctx.stroke();
     //ctx.fill();
     //ctx.lineTo(x,y-h);
     x=-85,y=-220;
     r1=ctx.lineWidth=10;
-    //ctx.beginPath();
+    ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
+    ctx.beginPath();
     //ctx.strokeStyle=gray2;
     //ctx.lineWidth=15;
     ctx.moveTo(x+r1,y);
