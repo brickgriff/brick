@@ -18,6 +18,7 @@ const World = (function (/*api*/) {
       cy:0,
       cw:0,
       ch:0,
+      minDim:0,
     };
 
     return state;
@@ -37,6 +38,7 @@ const World = (function (/*api*/) {
       state.canvas.width=state.buffer.width;
       state.canvas.height=state.buffer.height;
     }
+    state.minDim=Math.min(state.canvas.width,state.canvas.height);
   };
 
   // return the public api
