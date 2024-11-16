@@ -7,7 +7,7 @@ const Display = (function (/*api*/) {
     ctx.reset();
     const cx=state.canvas.width/2,cy=state.canvas.height/2;
     //ctx.translate(cx,cy);
-    //ctx.clearRect(-cx,-cy,state.canvas.width,state.canvas.height);
+    //ctx.clearRect(0,0,state.canvas.width,state.canvas.height);
     //ctx.scale(state.zoom,state.zoom);
     //state.zoom=1;
 
@@ -47,6 +47,12 @@ const Display = (function (/*api*/) {
     //console.log(state.radius,state.zoom);
     ctx.arc(0,0,r,0,2*Math.PI);
     ctx.fill();
+    //ctx.moveTo(state.minDim/2,0);
+    ctx.beginPath();
+    ctx.strokeStyle=gray5;
+    ctx.lineWidth=1;
+    ctx.arc(0,0,state.minDim/2,0,2*Math.PI);
+    ctx.stroke();
     ctx.restore();
 
     ctx.beginPath();
