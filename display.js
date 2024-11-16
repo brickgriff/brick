@@ -86,17 +86,16 @@ const Display = (function (/*api*/) {
     //ctx.shadowOffsetX=5;
     //ctx.shadowOffsetY=5;
     //ctx.shadowColor=gray0;
-    let r1=ctx.lineWidth=5; // grass size
+    let r1=10;
+    ctx.lineWidth=1; // grass size
     let x=-100,y=-195;//,h=ctx.lineWidth;
-
     ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
-
     ctx.arc(x,y,r1,0,2*Math.PI);
     ctx.stroke();
     //ctx.fill();
     //ctx.lineTo(x,y-h);
     x=-118,y=-212;
-    r1=ctx.lineWidth=7;
+    //r1=ctx.lineWidth=7;
     ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
     ctx.beginPath();
     //ctx.strokeStyle=gray4;
@@ -107,7 +106,7 @@ const Display = (function (/*api*/) {
     //ctx.fill();
     //ctx.lineTo(x,y-h);
     x=-85,y=-220;
-    r1=ctx.lineWidth=10;
+    //r1=ctx.lineWidth=10;
     ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
     ctx.beginPath();
     //ctx.strokeStyle=gray2;
@@ -119,6 +118,30 @@ const Display = (function (/*api*/) {
     //ctx.lineTo(x,y-h);
     ctx.stroke();
     ctx.restore();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.lineWidth=1;
+    ctx.fillStyle=green;
+    r1=5,x=-110,y=-228;
+    //ctx.arc(x,y,r1,0,2*Math.PI);
+    let angle1=-Math.PI/2,angle2=30*Math.PI/180,angle3=150*Math.PI/180;
+    ctx.arc(x+(r1*Math.cos(angle1)),y+(r1*Math.sin(angle1)),r1-1,0,2*Math.PI);
+    ctx.moveTo(x+(r1*Math.cos(angle2))+r1-1,y+(r1*Math.sin(angle2)));
+    ctx.arc(x+(r1*Math.cos(angle2)),y+(r1*Math.sin(angle2)),r1-1,0,2*Math.PI);
+    ctx.moveTo(x+(r1*Math.cos(angle3))+r1-1,y+(r1*Math.sin(angle3)));
+    ctx.arc(x+(r1*Math.cos(angle3)),y+(r1*Math.sin(angle3)),r1-1,0,2*Math.PI);
+
+    x=-128,y=-235;
+    ctx.arc(x+(r1*Math.cos(angle1)),y+(r1*Math.sin(angle1)),r1-1,0,2*Math.PI);
+    ctx.moveTo(x+(r1*Math.cos(angle2))+r1-1,y+(r1*Math.sin(angle2)));
+    ctx.arc(x+(r1*Math.cos(angle2)),y+(r1*Math.sin(angle2)),r1-1,0,2*Math.PI);
+    ctx.moveTo(x+(r1*Math.cos(angle3))+r1-1,y+(r1*Math.sin(angle3)));
+    ctx.arc(x+(r1*Math.cos(angle3)),y+(r1*Math.sin(angle3)),r1-1,0,2*Math.PI);
+
+    ctx.fill();
+    ctx.restore();
+
 
     // draw clover
 
