@@ -11,15 +11,6 @@ const Display = (function (/*api*/) {
     //ctx.scale(state.zoom,state.zoom);
     //state.zoom=1;
 
-    const gray0="#111111"; // shadow
-    const gray1="#222222"; // background
-    const gray2="#444444"; // inactive
-    const gray3="#888888"; // player
-    const gray4="#cccccc"; // active
-    const gray5="#eeeeee"; // light
-
-    const green="#00cc00";
-
     ctx.beginPath();
     ctx.fillStyle=gray1;
     if (state.buffer && state.buffer.isTouched) ctx.fillStyle="red";
@@ -35,140 +26,58 @@ const Display = (function (/*api*/) {
 
     ctx.translate(cx,cy);
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.fillStyle=gray3;
-    //ctx.shadowOffsetX=5;
-    //ctx.shadowOffsetY=5;
-    //ctx.shadowColor=gray0;
-    //ctx.strokeStyle="#050505";
-    const r = state.radius*state.minDim/100;//*state.zoom;//Math.min(500,Math.max(1,state.radius*state.zoom));
-    ctx.lineWidth=r/5;
-    //console.log(state.radius,state.zoom);
-    ctx.arc(0,0,r,0,2*Math.PI);
-    ctx.fill();
-    //ctx.moveTo(state.minDim/2,0);
-    ctx.beginPath();
-    ctx.strokeStyle=gray5;
-    ctx.lineWidth=1;
-    ctx.arc(0,0,state.minDim/2,0,2*Math.PI);
-    ctx.stroke();
-    ctx.restore();
-
-    ctx.beginPath();
-    ctx.fillStyle=gray0;
-    ctx.moveTo(0.25*state.minDim+r,0.25*state.minDim);
-    ctx.arc(0.25*state.minDim,0.25*state.minDim,r,0,2*Math.PI);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.fillStyle=gray2;
-    ctx.moveTo(r,0.25*state.minDim);
-    ctx.arc(0,0.25*state.minDim,r,0,2*Math.PI);
-    ctx.fill();
-
-    //ctx.save();
-    ctx.beginPath();
-    //ctx.fillStyle="rgb(0,128,0,0.5)";
-    ctx.strokeStyle=green;
     ctx.lineWidth=2;
-    ctx.moveTo(r,250);
-    //ctx.shadowColor="#00c000";
-    //ctx.shadowBlur=50;
-    ctx.arc(0,250,r,0,2*Math.PI);
-    //ctx.fill();
-    ctx.stroke();
-    //ctx.restore();
 
-    ctx.beginPath();
-    ctx.fillStyle=gray4;
-    ctx.moveTo(-200+r,200);
-    ctx.arc(-200,200,r,0,2*Math.PI);
-    ctx.fill();
+    drawCircle(state,ctx,[0,0,49,gray5]);
+    ctx.clip();
+    drawCircle(state,ctx,[0,0,50,gray5]);
 
+    drawCircle(state,ctx,[0,0,5,gray3,"fill"]);
     ctx.save();
-
-    const fill="fill",stroke="stroke";
-    const drawCircle=(args) => ((x,y,r,c,f) => {
-      ctx.beginPath();
-      f===fill?ctx.fillStyle=c:ctx.strokeStyle=c;
-      circle(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100);
-      ctx[f]();
-    })(...args);
-
-    argsList=[
-      [-15,-25,1,green,stroke],
-      [-17,-26,1,green,stroke],
-      [-16,-28,1,green,stroke],
-      [-10,-30,1,gray0,stroke],
-      [-10,-35,1,gray2,stroke],
-      [-10,-40,1,gray4,stroke],
-      [-10,-45,1,gray5,stroke],
-    ];
-    argsList.forEach(drawCircle);
-
-    //ctx.beginPath();
-    //ctx.lineWidth=5; // grass length
-    //ctx.strokeStyle=green;
-    //ctx.shadowOffsetX=5;
-    //ctx.shadowOffsetY=5;
-    //ctx.shadowColor=gray0;
-    //let r1=10;
-    //ctx.lineWidth=1; // grass size
-    //let x=-100,y=-195;//,h=ctx.lineWidth;
-    //ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
-    //ctx.arc(x,y,r1,0,2*Math.PI);
-    //ctx.stroke();
-    //ctx.fill();
-    //ctx.lineTo(x,y-h);
-    ///x=-118,y=-212;
-    //r1=ctx.lineWidth=7;
-    //ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
-    //ctx.beginPath();
-    //ctx.strokeStyle=gray4;
-    //ctx.lineWidth=10;
-    //ctx.moveTo(x+r1,y);
-    //ctx.arc(x,y,r1,0,2*Math.PI);
-    //ctx.stroke();
-    //ctx.fill();
-    //ctx.lineTo(x,y-h);
-    //x=-85,y=-220;
-    //r1=ctx.lineWidth=10;
-    //ctx.setLineDash([1,(2*Math.PI*r1-10)/10]);
-    //ctx.beginPath();
-    //ctx.strokeStyle=gray2;
-    //ctx.lineWidth=15;
-    //ctx.moveTo(x+r1,y);
-    //ctx.arc(x,y,r1,0,2*Math.PI);
-    //ctx.fill();
-    //ctx.moveTo(x,y);
-    //ctx.lineTo(x,y-h);
-    //ctx.stroke();
-    //ctx.restore();
-    //ctx.lineWidth=2;
-
-    // draw clover
-    //ctx.save();
-    ctx.beginPath();
-    ctx.lineWidth=1;
-    ctx.fillStyle=green;
-    let r1=5,x=-110,y=-228;
-    //ctx.arc(x,y,r1,0,2*Math.PI);
-    let angle1=-Math.PI/2,angle2=30*Math.PI/180,angle3=150*Math.PI/180;
-    ctx.arc(x+(r1*Math.cos(angle1)),y+(r1*Math.sin(angle1)),r1-1,0,2*Math.PI);
-    ctx.moveTo(x+(r1*Math.cos(angle2))+r1-1,y+(r1*Math.sin(angle2)));
-    ctx.arc(x+(r1*Math.cos(angle2)),y+(r1*Math.sin(angle2)),r1-1,0,2*Math.PI);
-    ctx.moveTo(x+(r1*Math.cos(angle3))+r1-1,y+(r1*Math.sin(angle3)));
-    ctx.arc(x+(r1*Math.cos(angle3)),y+(r1*Math.sin(angle3)),r1-1,0,2*Math.PI);
-
-    x=-128,y=-235;
-    ctx.arc(x+(r1*Math.cos(angle1)),y+(r1*Math.sin(angle1)),r1-1,0,2*Math.PI);
-    ctx.moveTo(x+(r1*Math.cos(angle2))+r1-1,y+(r1*Math.sin(angle2)));
-    ctx.arc(x+(r1*Math.cos(angle2)),y+(r1*Math.sin(angle2)),r1-1,0,2*Math.PI);
-    ctx.moveTo(x+(r1*Math.cos(angle3))+r1-1,y+(r1*Math.sin(angle3)));
-    ctx.arc(x+(r1*Math.cos(angle3)),y+(r1*Math.sin(angle3)),r1-1,0,2*Math.PI);
-
-    ctx.fill();
+    ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
+      0.03*2*Math.PI*10*state.minDim/100
+    ]);
+    drawCircle(state,ctx,[0,0,10,gray5]);
     ctx.restore();
+
+    let argsList=[
+      [0,40,5,gray5],
+      [0,40,1,green4],
+      [25,25,5,gray0,"fill"],
+      [0,25,5,gray2,"fill"],
+      [-25,25,5,gray4,"fill"],
+      [-10,-30,1,gray0],
+      [-10,-35,1,gray2],
+      [-10,-40,1,gray4],
+      [-10,-45,1,gray5],
+    ];
+    argsList.forEach(args => drawEntity(state,ctx,args));
+
+    ctx.strokeStyle=grass;
+    argsList=[
+      [-15,-25],
+      [-17,-26],
+      [-15.5,-27],
+    ];
+    ctx.beginPath();
+    argsList.forEach(args => drawGrass(state,ctx,args));
+    ctx.stroke();
+    ctx.beginPath();
+    argsList.forEach(args => drawRange(state,ctx,...args,1));
+    ctx.stroke();
+
+    ctx.strokeStyle=clover;
+    ctx.fillStyle=clover;
+    argsList=[
+      [-14,-22],
+      [-11,-20],
+    ];
+    ctx.beginPath();
+    argsList.forEach(args => drawClover(state,ctx,args));
+    ctx.fill();
+    ctx.beginPath();
+    argsList.forEach(args => drawRange(state,ctx,...args,1.5));
+    ctx.stroke();
 
     // draw roses
 
@@ -191,6 +100,62 @@ const Display = (function (/*api*/) {
   const circle = (ctx,x,y,r) => {
     arc(ctx,x,y,r,0,2*Math.PI);
   };
+
+  const gray0=shadow="#111111"; // shadow
+  const gray1=background="#222222"; // background
+  const gray2=inactive="#444444"; // inactive
+  const gray3=player="#888888"; // player
+  const gray4=active="#cccccc"; // active
+  const gray5=light="#eeeeee"; // light
+
+  const green4=grass="#00cc00";
+  const spring4=clover="#88cc88";
+
+  const _fill="fill",
+    _stroke="stroke",
+    _dot="dot",
+    _jewel="jewel",
+    _box="box",
+    _ring="ring",
+    _circle="Circle";
+
+  const drawCircle=(state,ctx,args) => ((state,ctx,x,y,r,c,f="stroke") => {
+    ctx.beginPath();
+    f==="fill"? ctx.fillStyle=c : ctx.strokeStyle=c;
+    circle(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100);
+    ctx[f](); // ctx."stroke"();
+  })(state,ctx,...args);
+
+  const drawEntity=(state,ctx,args) => ((state,ctx,x,y,r,c,f="stroke",g=drawCircle) => {
+    g(state,ctx,[x,y,r,c,f]); // "drawCircle"(...args)
+  })(state,ctx,...args);
+    
+  const drawTime=()=>{
+
+  }; // orb
+
+  const drawSpace=()=>{}; // box
+  
+  const drawEnergy=()=>{}; // gem
+  
+  const drawMatter=()=>{}; // dot
+  
+  const drawRange=(state,ctx,x,y,r=1)=>{
+    circle(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100);    
+  };
+
+  const drawGrass=(state,ctx,args) => ((state,ctx,x,y,r=1) => {
+    ctx.moveTo(x*state.minDim/100,(y+r/2)*state.minDim/100);
+    ctx.lineTo(x*state.minDim/100,(y-r/2)*state.minDim/100);
+  })(state,ctx,...args);
+  
+  const drawClover=(state,ctx,args) => ((state,ctx,x,y,r=0.5) => {
+    const angleList=[-Math.PI/2,30*Math.PI/180,150*Math.PI/180];
+    angleList.forEach(angle=>{
+      circle(ctx,x*state.minDim/100+(r*state.minDim/100*Math.cos(angle)),y*state.minDim/100+(r*state.minDim/100*Math.sin(angle)),(r-0.1)*state.minDim/100);
+    });
+  })(state,ctx,...args);
+
 
   // return the public api
   return api;
