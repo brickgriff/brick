@@ -27,13 +27,6 @@ const Display = (function (/*api*/) {
     ctx.clip();
     drawCircle(state,ctx,0,0,50,gray5);
 
-    ctx.save();
-    drawCircle(state,ctx,0,0,5,gray3,"fill");
-    ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
-      0.03*2*Math.PI*10*state.minDim/100
-    ]);
-    drawCircle(state,ctx,0,0,10,gray5);
-    ctx.restore();
 
     let argsList=[
       [0,40,5,gray5],
@@ -102,6 +95,15 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
+
+    ctx.save();
+    drawCircle(state,ctx,0,0,5,gray3,"fill");
+    ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
+      0.03*2*Math.PI*10*state.minDim/100
+    ]);
+    drawCircle(state,ctx,0,0,10,gray5);
+    ctx.restore();
+
   };
 
   const gray0=shadow="#111111"; // shadow
@@ -164,7 +166,7 @@ const Display = (function (/*api*/) {
   };
 
   const drawEntity=(state,ctx,x,y,r,c,f="stroke",g=drawCircle) => {
-    g(state,ctx,x,y,r,c,f); // "drawCircle"(...args)
+    g(state,ctx,(x+state.px),(y+state.py),r,c,f); // "drawCircle"(...args)
   };
     
   const drawTime=()=>{
@@ -178,36 +180,36 @@ const Display = (function (/*api*/) {
   const drawMatter=()=>{}; // dot
   
   const drawRange=(state,ctx,x,y,r=1)=>{
-    circle(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100);    
+    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100);    
   };
   const drawThorns=(state,ctx,x,y,r=1)=>{
-    poly(ctx,x*state.minDim/100,y*state.minDim/100,5.5*state.minDim/100,5,
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,5.5*state.minDim/100,5,
       poly,(4/5)*state.minDim/100,3,90);
   };
 
   const drawGrass=(state,ctx,x,y,r=1) => {
     r*=1/2;
-    move(ctx,x*state.minDim/100,(y+r)*state.minDim/100);
-    line(ctx,x*state.minDim/100,(y-r)*state.minDim/100);
+    move(ctx,(x+state.px)*state.minDim/100,(y+r+state.py)*state.minDim/100);
+    line(ctx,(x+state.px)*state.minDim/100,(y-r+state.py)*state.minDim/100);
   };
   
   const drawClover=(state,ctx,x,y,r=1) => {
     r*=2/3;
-    poly(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100,3,
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,3,
       circle,(r-0.1)*state.minDim/100);
 
   };
 
   const drawRose=(state,ctx,x,y,r=1) => {
     r*=4/5;
-    circle(ctx,x*state.minDim/100,(y-1.4)*state.minDim/100,(r-0.2)*state.minDim/100);
-    poly(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100,5,
+    circle(ctx,(x+state.px)*state.minDim/100,(y-1.4+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,5,
       circle,(r-0.2)*state.minDim/100,3);
   };
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     r*=5/6;
-    poly(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100,6,null,null,null,90);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,6,null,null,null,90);
   };
 
 
