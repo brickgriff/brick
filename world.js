@@ -42,6 +42,18 @@ const World = (function (/*api*/) {
     state.minDim=Math.min(state.canvas.width,state.canvas.height);
 
     // WASD
+    if (state.buffer.buttons.includes("KeyW")) {
+      state.py+=1;
+    }
+    if (state.buffer.buttons.includes("KeyS")) {
+      state.py-=1;
+    }
+    if (state.buffer.buttons.includes("KeyA")) {
+      state.px+=1;
+    }
+    if (state.buffer.buttons.includes("KeyD")) {
+      state.px-=1;
+    }
   };
 
   // return the public api
