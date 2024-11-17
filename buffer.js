@@ -18,7 +18,7 @@ const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
   return api;
 }());
 
-const controls = {
+const controls = { // TODO: settle on a better name for this
   buttons:[],
   mouse:{
     x_:0,
