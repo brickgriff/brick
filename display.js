@@ -60,10 +60,10 @@ const Display = (function (/*api*/) {
       [-15.5,-27],
     ];
     ctx.beginPath();
-    argsList.forEach(args => drawGrass(state,ctx,args));
+    argsList.forEach(args => drawGrass(state,ctx,...args));
     ctx.stroke();
     ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args,1));
+    argsList.forEach(args => drawRange(state,ctx,...args));
     ctx.stroke();
 
     ctx.strokeStyle=clover;
@@ -73,10 +73,10 @@ const Display = (function (/*api*/) {
       [-11,-20],
     ];
     ctx.beginPath();
-    argsList.forEach(args => drawClover(state,ctx,args));
+    argsList.forEach(args => drawClover(state,ctx,...args,2));
     ctx.fill();
     ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args,1.5));
+    argsList.forEach(args => drawRange(state,ctx,...args,2));
     ctx.stroke();
 
     // draw roses
@@ -144,17 +144,24 @@ const Display = (function (/*api*/) {
     circle(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100);    
   };
 
-  const drawGrass=(state,ctx,args) => ((state,ctx,x,y,r=1) => {
-    ctx.moveTo(x*state.minDim/100,(y+r/2)*state.minDim/100);
-    ctx.lineTo(x*state.minDim/100,(y-r/2)*state.minDim/100);
-  })(state,ctx,...args);
+  const drawGrass=(state,ctx,x,y,r=1) => {
+    r/=2;
+    ctx.moveTo(x*state.minDim/100,(y+r)*state.minDim/100);
+    ctx.lineTo(x*state.minDim/100,(y-r)*state.minDim/100);
+  };
   
-  const drawClover=(state,ctx,args) => ((state,ctx,x,y,r=0.5) => {
+  const drawClover=(state,ctx,x,y,r=1) => {
+    r/=3;
     const angleList=[-Math.PI/2,30*Math.PI/180,150*Math.PI/180];
     angleList.forEach(angle=>{
-      circle(ctx,x*state.minDim/100+(r*state.minDim/100*Math.cos(angle)),y*state.minDim/100+(r*state.minDim/100*Math.sin(angle)),(r-0.1)*state.minDim/100);
+      circle(
+        ctx,
+        x*state.minDim/100+((r)*state.minDim/100*Math.cos(angle)),
+        y*state.minDim/100+((r)*state.minDim/100*Math.sin(angle)),
+        (r-0.1)*state.minDim/100
+      );
     });
-  })(state,ctx,...args);
+  };
 
 
   // return the public api
