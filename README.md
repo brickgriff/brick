@@ -16,6 +16,13 @@ the simple game html canvas engine
   - foliage.js
   - system.js
 - fix basic ui
+  - light-camera-action
+    - ~helper functions for canvas~
+    - camera controls
+      - look
+      - zoom
+      - pitch
+    - player control
   - main menu
   - debug frame
 - fix basic data
