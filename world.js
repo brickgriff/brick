@@ -38,7 +38,10 @@ const World = (function (/*api*/) {
       state.canvas.width=state.buffer.width;
       state.canvas.height=state.buffer.height;
     }
+
     state.minDim=Math.min(state.canvas.width,state.canvas.height);
+
+    // WASD
   };
 
   // return the public api
