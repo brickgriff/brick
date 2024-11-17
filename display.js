@@ -82,7 +82,23 @@ const Display = (function (/*api*/) {
     ];
     ctx.beginPath();
     argsList.forEach(args => drawRose(state,ctx,...args));
+    ctx.fill();
+    ctx.strokeStyle=thorns;
+    ctx.fillStyle=thorns;
+    ctx.beginPath();
+    argsList.forEach(args => drawThorns(state,ctx,...args));
+    ctx.fill();
+    argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
+    ctx.strokeStyle=mallow;
+    ctx.fillStyle=mallow;
+    argsList=[
+      [24,-28],
+      [21,-18],
+    ];
+    ctx.beginPath();
+    argsList.forEach(args => drawMallow(state,ctx,...args,2));
+    ctx.fill();
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
@@ -96,16 +112,20 @@ const Display = (function (/*api*/) {
   const gray5=light="#eeeeee"; // light
 
   const green4=grass="#00cc00";
-  const red4=rose="#cc0000";
+  const red4=thorns="#cc0000";
   const spring4=clover="#88cc88";
+  const lime3=rose="#228822";
+  const lime4=mallow="#44cc44";
   const blue4="#0000cc";
   const green3="#008800";
   const red3="#880000";
   const blue3="#000088";
 
-  const line = (ctx,x1,y1,x2,y2) => {
-    ctx.moveTo(x1,y1);
-    ctx.lineTo(x2,y2);
+  const move = (ctx,x,y) => {
+    ctx.moveTo(x,y);
+  };
+  const line = (ctx,x,y) => {
+    ctx.lineTo(x,y);
   };
   const arc = (ctx,x,y,r,a,b) => {
     ctx.moveTo(x+r,y);
@@ -117,19 +137,22 @@ const Display = (function (/*api*/) {
 
   const poly = (ctx,x,y,r,n,f,fr,fn,o) => {
     const angle=360/n,offset=o?o:90-angle/2,coef=Math.PI/180;
+    let x1=x+((r)*Math.cos((offset)*coef)),
+      y1=y+((r)*Math.sin((offset)*coef));
+    move(ctx,x1,y1);
     for(let i=0; i<n; i++){
-      let j=i+1;
-      let x1=x+((r)*Math.cos((angle*i+offset)*coef)),
-      y1=y+((r)*Math.sin((angle*i+offset)*coef)),
-      x2=x+((r)*Math.cos((angle*j+offset)*coef)),
-      y2=y+((r)*Math.sin((angle*j+offset)*coef));
+      let idx=i+1;
+      
+      let x2=x+((r)*Math.cos((angle*idx+offset)*coef)),
+      y2=y+((r)*Math.sin((angle*idx+offset)*coef));
       if (f) {
-
-        move(ctx,x1,y1);
+        //move(ctx,x1,y1);
         f(ctx,x1,y1,fr,fn,null,null,null,angle*i+offset);
       } else {
       line(ctx,x1,y1,x2,y2);
       }
+
+      x1=x2,y1=y2;
     }
   };
 
@@ -157,11 +180,15 @@ const Display = (function (/*api*/) {
   const drawRange=(state,ctx,x,y,r=1)=>{
     circle(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100);    
   };
+  const drawThorns=(state,ctx,x,y,r=1)=>{
+    poly(ctx,x*state.minDim/100,y*state.minDim/100,5.5*state.minDim/100,5,
+      poly,(4/5)*state.minDim/100,3,90);
+  };
 
   const drawGrass=(state,ctx,x,y,r=1) => {
     r*=1/2;
-    ctx.moveTo(x*state.minDim/100,(y+r)*state.minDim/100);
-    ctx.lineTo(x*state.minDim/100,(y-r)*state.minDim/100);
+    move(ctx,x*state.minDim/100,(y+r)*state.minDim/100);
+    line(ctx,x*state.minDim/100,(y-r)*state.minDim/100);
   };
   
   const drawClover=(state,ctx,x,y,r=1) => {
@@ -173,8 +200,14 @@ const Display = (function (/*api*/) {
 
   const drawRose=(state,ctx,x,y,r=1) => {
     r*=4/5;
-    poly(ctx,x*state.minDim/100,y*state.minDim/100,(5.4)*state.minDim/100,5,
-      poly,(r-0.1)*state.minDim/100,3);
+    circle(ctx,x*state.minDim/100,(y-1.4)*state.minDim/100,(r-0.2)*state.minDim/100);
+    poly(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100,5,
+      circle,(r-0.2)*state.minDim/100,3);
+  };
+
+  const drawMallow=(state,ctx,x,y,r=1) => {
+    r*=5/6;
+    poly(ctx,x*state.minDim/100,y*state.minDim/100,r*state.minDim/100,6,null,null,null,90);
   };
 
 
