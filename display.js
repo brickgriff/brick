@@ -146,7 +146,7 @@ const Display = (function (/*api*/) {
     arc(ctx,x,y,r,0,2*Math.PI);
   };
 
-  const poly = (ctx,x,y,r,n,f,fr,fn,o,fo) => {
+  const poly = (ctx,x,y,r,n,o,f,fr,fn,fo) => {
     const angle=360/n,offset=(o)?o:90-angle/2,coef=Math.PI/180;
     let x1=x+((r)*Math.cos((offset)*coef)),
       y1=y+((r)*Math.sin((offset)*coef));
@@ -158,7 +158,7 @@ const Display = (function (/*api*/) {
       y2=y+((r)*Math.sin((angle*idx+offset)*coef));
       if (f) {
         //move(ctx,x1,y1);
-        f(ctx,x1,y1,fr,fn,null,null,null,angle*i+offset+(fo?fo:0));
+        f(ctx,x1,y1,fr,fn,angle*i+offset+(fo?fo:0));
       } else {
       line(ctx,x1,y1,x2,y2);
       }
@@ -193,7 +193,7 @@ const Display = (function (/*api*/) {
   };
   const drawThorns=(state,ctx,x,y,r=1)=>{
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,5.5*state.minDim/100,5,
-      poly,(4/5)*state.minDim/100,3,90);
+      90,poly,(4/5)*state.minDim/100,3);
   };
 
   const drawGrass=(state,ctx,x,y,r=1) => {
@@ -205,7 +205,7 @@ const Display = (function (/*api*/) {
   const drawClover=(state,ctx,x,y,r=1) => {
     r*=2/3;
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,3,
-      circle,(r-0.1)*state.minDim/100);
+      null,circle,(r-0.1)*state.minDim/100);
 
   };
 
@@ -218,14 +218,14 @@ const Display = (function (/*api*/) {
     r*=4/5;
     circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,2*r*state.minDim/100,5,
-      circle,(r-0.2)*state.minDim/100,3,90);
+      90,circle,(r-0.2)*state.minDim/100,3);
   };
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     r*=5/6;
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,state.minDim/100,6,
-      poly,(0.5)*state.minDim/100,6,90,90);
+      90,poly,(0.5)*state.minDim/100,6,90);
   };
 
 
