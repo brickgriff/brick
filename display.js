@@ -99,7 +99,7 @@ const Display = (function (/*api*/) {
     argsList.forEach(args => drawMallow(state,ctx,...args,2));
     ctx.fill();
     ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args,5));
+    argsList.forEach(args => drawRange(state,ctx,...args,3));
     ctx.stroke();
 
     drawCircle(state,ctx,0,0,5,gray3,"fill");
