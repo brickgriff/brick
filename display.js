@@ -219,8 +219,8 @@ const Display = (function (/*api*/) {
     circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100);    
   };
   const drawThorns=(state,ctx,x,y,r=1)=>{
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,5.5*state.minDim/100,5,
-      90,poly,(4/5)*state.minDim/100,3);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,5.5*state.minDim/100,8,
+      45,poly,(r)*state.minDim/100,3);
   };
 
   const drawGrass=(state,ctx,x,y,r=1) => {
