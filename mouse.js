@@ -3,9 +3,10 @@ function move(event) {
   // ....
 }
 function zoom(event) {
+  event.preventDefault()
   controls.zoom=event.deltaY>0?-0.5:event.deltaY<0?0.5:0;
   //console.log(controls.mouse.zoom);
-  //controls.isZoomed=controls.mouse.zoom!==0;
+  //controls.isZoomed=controls.zoom!==0;
 }
 var doubleClick = (e)=>{
   e.preventDefault()
