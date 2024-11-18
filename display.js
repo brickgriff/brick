@@ -78,12 +78,13 @@ const Display = (function (/*api*/) {
       [-21,-18],
     ];
     ctx.beginPath();
-    argsList.forEach(args => drawRose(state,ctx,...args));
+    argsList.forEach(args => drawShrub(state,ctx,...args));
     ctx.fill();
     ctx.strokeStyle=thorns;
     ctx.fillStyle=thorns;
     ctx.beginPath();
     argsList.forEach(args => drawThorns(state,ctx,...args));
+    argsList.forEach(args => drawRose(state,ctx,...args));
     ctx.fill();
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,5));
@@ -208,11 +209,16 @@ const Display = (function (/*api*/) {
 
   };
 
+  const drawShrub=(state,ctx,x,y,r=1) => {
+    r*=4/5;
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(3*r)*state.minDim/100,5);
+  };
+
   const drawRose=(state,ctx,x,y,r=1) => {
     r*=4/5;
-    circle(ctx,(x+state.px)*state.minDim/100,(y-1.4+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,5,
-      circle,(r-0.2)*state.minDim/100,3);
+    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,2*r*state.minDim/100,5,
+      circle,(r-0.2)*state.minDim/100,3,90);
   };
 
   const drawMallow=(state,ctx,x,y,r=1) => {
