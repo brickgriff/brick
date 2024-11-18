@@ -151,7 +151,7 @@ const Display = (function (/*api*/) {
   const red4=thorns="#cc0000";
   const red5=flowers="#ee88cc";
   const spring4=clover="#88cc88";
-  const spring5=mint="#cceecc";
+  const lawn4=mint="#44ee44";
   const lime3=rose="#228822";
   const lime4=mallow="#44cc44";
   const blue4="#0000cc";
