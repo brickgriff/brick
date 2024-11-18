@@ -62,8 +62,8 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=clover;
     ctx.fillStyle=clover;
     argsList=[
-      [-12.6,-22],
-      [-9,-20],
+      [-11,-20],
+      [-7,-20],
       [-9,-24],
     ];
     ctx.beginPath();
@@ -77,19 +77,21 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=rose;
     ctx.fillStyle=rose;
     argsList=[
-      [-24,-28],
+      [-26,-27],
       [-21,-18],
     ];
     ctx.beginPath();
     argsList.forEach(args => drawShrub(state,ctx,...args));
     ctx.fill();
+    ctx.fillStyle=flowers;
+    ctx.beginPath();
+    argsList.forEach(args => drawRose(state,ctx,...args));
+    ctx.fill();
     ctx.strokeStyle=thorns;
     ctx.fillStyle=thorns;
     ctx.beginPath();
     argsList.forEach(args => drawThorns(state,ctx,...args));
-    argsList.forEach(args => drawRose(state,ctx,...args));
     ctx.fill();
-    //ctx.strokeStyle=gray4;
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
@@ -147,6 +149,7 @@ const Display = (function (/*api*/) {
 
   const green4=grass="#00cc00";
   const red4=thorns="#cc0000";
+  const red5=flowers="#ee88cc";
   const spring4=clover="#88cc88";
   const spring5=mint="#cceecc";
   const lime3=rose="#228822";
@@ -232,11 +235,12 @@ const Display = (function (/*api*/) {
   };
 
   const drawShrub=(state,ctx,x,y,r=1) => {
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(3*r)*state.minDim/100,5);
+    //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(3*r)*state.minDim/100,12,30);
+    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r*3)*state.minDim/100);
   };
 
   const drawRose=(state,ctx,x,y,r=1) => {
-    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
+    //circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,2*r*state.minDim/100,5,
       90,circle,(r-0.2)*state.minDim/100,3);
   };
