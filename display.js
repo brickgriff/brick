@@ -236,13 +236,15 @@ const Display = (function (/*api*/) {
 
   const drawShrub=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(3*r)*state.minDim/100,12,30);
-    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r*3)*state.minDim/100);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(2*r)*state.minDim/100,15,null,
+      circle,(r)*state.minDim/100);
+    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r*2)*state.minDim/100);
   };
 
   const drawRose=(state,ctx,x,y,r=1) => {
     //circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(r-0.2)*state.minDim/100);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,2*r*state.minDim/100,5,
-      90,circle,(r-0.2)*state.minDim/100,3);
+      90,circle,(r-0.2)*state.minDim/100);
   };
 
   const drawMallow=(state,ctx,x,y,r=1) => {
@@ -257,6 +259,14 @@ const Display = (function (/*api*/) {
 
   const drawMint=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.9*state.minDim/100,4,
+      null,poly,(r*0.5)*state.minDim/100,3);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.4*state.minDim/100,4,
+      null,poly,(r*0.5)*state.minDim/100,3,180);
+  };
+  const drawSorrel=(state,ctx,x,y,r=1) => {
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,3,
+      poly,r*state.minDim/100,3);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.9*state.minDim/100,4,
       null,poly,(r*0.5)*state.minDim/100,3);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.4*state.minDim/100,4,
