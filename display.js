@@ -54,6 +54,7 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawGrass(state,ctx,...args));
     ctx.stroke();
+    ctx.strokeStyle=gray4;
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args));
     ctx.stroke();
@@ -68,6 +69,7 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawClover(state,ctx,...args));
     ctx.fill();
+    ctx.strokeStyle=gray4;
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,2));
     ctx.stroke();
@@ -87,6 +89,7 @@ const Display = (function (/*api*/) {
     argsList.forEach(args => drawThorns(state,ctx,...args));
     argsList.forEach(args => drawRose(state,ctx,...args));
     ctx.fill();
+    //ctx.strokeStyle=gray4;
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
@@ -99,9 +102,14 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawMallow(state,ctx,...args,2));
     ctx.fill();
+    ctx.strokeStyle=gray4;
     ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,3));
     ctx.stroke();
+    ctx.fillStyle=gray1;
+    ctx.beginPath();
+    argsList.forEach(args => drawNotch(state,ctx,...args,2));
+    ctx.fill();
 
     drawCircle(state,ctx,0,0,5,gray3,"fill");
     ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
@@ -224,9 +232,14 @@ const Display = (function (/*api*/) {
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     r*=5/6;
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
+    //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,state.minDim/100,6,
-      90,poly,(0.5)*state.minDim/100,6,90);
+      90,poly,(0.7)*state.minDim/100,6);
+  };
+  const drawNotch=(state,ctx,x,y,r=1) => {
+    r*=5/6;
+    //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+1.5+state.py)*state.minDim/100,state.minDim/100,3);
   };
 
 
