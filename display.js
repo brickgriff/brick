@@ -209,7 +209,9 @@ const Display = (function (/*api*/) {
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     r*=5/6;
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,6,null,null,null,90);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,state.minDim/100,6,
+      poly,(0.5)*state.minDim/100,6);
   };
 
 
