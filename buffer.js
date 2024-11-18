@@ -11,6 +11,7 @@ const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
   api.flush = function (state) {
     controls.zoom=0;
     controls.isResized=false;
+    //controls.isResized=false;
     //console.log(state.buffer.isTouched);
   };
 
