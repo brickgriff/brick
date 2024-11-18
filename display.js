@@ -61,8 +61,9 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=clover;
     ctx.fillStyle=clover;
     argsList=[
-      [-14,-22],
-      [-10,-20],
+      [-12.6,-22],
+      [-9,-20],
+      [-9,-24],
     ];
     ctx.beginPath();
     argsList.forEach(args => drawClover(state,ctx,...args));
