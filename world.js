@@ -33,7 +33,7 @@ const World = (function (/*api*/) {
     state.frame++;
 
     //console.log(state.buffer.isResized);
-    state.zoom=state.zoom+state.buffer.zoom;//Math.min(50,Math.max(0,state.zoom+state.buffer.zoom));
+    state.zoom=Math.min(5,Math.max(0.5,state.zoom+state.buffer.zoom));
 
     if (state.buffer.isResized) {
       state.canvas.width=state.buffer.width;
