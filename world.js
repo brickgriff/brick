@@ -10,6 +10,7 @@ const World = (function (/*api*/) {
       // player position
       px:0,
       py:0,
+      speed:0.25,
       radius:5, // rot
       length:0, // sca
       angle:0, // tra
@@ -32,7 +33,7 @@ const World = (function (/*api*/) {
     state.frame++;
 
     //console.log(state.buffer.isResized);
-    //state.zoom=state.zoom+state.buffer.zoom;//Math.min(50,Math.max(0,state.zoom+state.buffer.zoom));
+    state.zoom=state.zoom+state.buffer.zoom;//Math.min(50,Math.max(0,state.zoom+state.buffer.zoom));
 
     if (state.buffer.isResized) {
       state.canvas.width=state.buffer.width;
@@ -43,17 +44,19 @@ const World = (function (/*api*/) {
 
     // WASD
     if (state.buffer.buttons.includes("KeyW")) {
-      state.py+=1;
+      state.py+=state.speed;
     }
     if (state.buffer.buttons.includes("KeyS")) {
-      state.py-=1;
+      state.py-=state.speed;
     }
     if (state.buffer.buttons.includes("KeyA")) {
-      state.px+=1;
+      state.px+=state.speed;
     }
     if (state.buffer.buttons.includes("KeyD")) {
-      state.px-=1;
+      state.px-=state.speed;
     }
+
+    // calculate movement vector
   };
 
   // return the public api
