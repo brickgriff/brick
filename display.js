@@ -17,16 +17,19 @@ const Display = (function (/*api*/) {
     ctx.fill();
 
     const cx=state.canvas.width/2,cy=state.canvas.height/2;
-    ctx.translate(cx,cy);
+
     //ctx.clearRect(0,0,state.canvas.width,state.canvas.height);
-    //ctx.scale(state.zoom,state.zoom);
-    //state.zoom=1;
     ctx.lineWidth=2;
-
-    drawCircle(state,ctx,0,0,49,gray5);
+    ctx.strokeStyle=gray5;
+    ctx.beginPath();
+    ctx.save();
+    circle(ctx,cx,cy,(0.99*state.minDim)/2);
     ctx.clip();
-    drawCircle(state,ctx,0,0,50,gray5);
+    circle(ctx,cx,cy,state.minDim/2);
+    //ctx.stroke();
 
+    ctx.translate(cx,cy);
+    ctx.scale(state.zoom,state.zoom);
 
     let argsList=[
       [0,40,5,gray5],
@@ -46,6 +49,7 @@ const Display = (function (/*api*/) {
       [-15,-25],
       [-17,-26],
       [-15,-27],
+      [-13,-26],
     ];
     ctx.beginPath();
     argsList.forEach(args => drawGrass(state,ctx,...args));
@@ -81,6 +85,7 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawThorns(state,ctx,...args));
     ctx.fill();
+    ctx.beginPath();
     argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
     ctx.strokeStyle=mallow;
@@ -96,14 +101,17 @@ const Display = (function (/*api*/) {
     argsList.forEach(args => drawRange(state,ctx,...args,5));
     ctx.stroke();
 
-    ctx.save();
     drawCircle(state,ctx,0,0,5,gray3,"fill");
     ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
       0.03*2*Math.PI*10*state.minDim/100
     ]);
     drawCircle(state,ctx,0,0,10,gray5);
+    ctx.setLineDash([]);
+    ctx.strokeStyle=gray5;
     ctx.restore();
-
+    ctx.beginPath();
+    circle(ctx,cx,cy,0.495*state.minDim);
+    ctx.stroke();
   };
 
   const gray0=shadow="#111111"; // shadow
@@ -137,8 +145,8 @@ const Display = (function (/*api*/) {
     arc(ctx,x,y,r,0,2*Math.PI);
   };
 
-  const poly = (ctx,x,y,r,n,f,fr,fn,o) => {
-    const angle=360/n,offset=o?o:90-angle/2,coef=Math.PI/180;
+  const poly = (ctx,x,y,r,n,f,fr,fn,o,fo) => {
+    const angle=360/n,offset=(o)?o:90-angle/2,coef=Math.PI/180;
     let x1=x+((r)*Math.cos((offset)*coef)),
       y1=y+((r)*Math.sin((offset)*coef));
     move(ctx,x1,y1);
@@ -149,7 +157,7 @@ const Display = (function (/*api*/) {
       y2=y+((r)*Math.sin((angle*idx+offset)*coef));
       if (f) {
         //move(ctx,x1,y1);
-        f(ctx,x1,y1,fr,fn,null,null,null,angle*i+offset);
+        f(ctx,x1,y1,fr,fn,null,null,null,angle*i+offset+(fo?fo:0));
       } else {
       line(ctx,x1,y1,x2,y2);
       }
@@ -209,9 +217,9 @@ const Display = (function (/*api*/) {
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     r*=5/6;
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,state.minDim/100,6,
-      poly,(0.5)*state.minDim/100,6);
+      poly,(0.5)*state.minDim/100,6,90,90);
   };
 
 
