@@ -254,7 +254,7 @@ const Display = (function (/*api*/) {
   };
   const drawNotch=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+1+state.py)*state.minDim/100,r*state.minDim/100,3);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+1.1+state.py)*state.minDim/100,r*state.minDim/100,3);
   };
 
   const drawMint=(state,ctx,x,y,r=1) => {
