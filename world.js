@@ -7,6 +7,7 @@ const World = (function (/*api*/) {
       buffer:{},
       frame:0,
       zoom:1,
+      pitch:1,
       // player position
       px:0,
       py:0,
