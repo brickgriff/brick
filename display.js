@@ -55,9 +55,9 @@ const Display = (function (/*api*/) {
     argsList.forEach(args => drawGrass(state,ctx,...args));
     ctx.stroke();
     ctx.strokeStyle=gray4;
-    ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args));
-    ctx.stroke();
+    //ctx.beginPath();
+    //argsList.forEach(args => drawRange(state,ctx,...args));
+    //ctx.stroke();
 
     ctx.strokeStyle=clover;
     ctx.fillStyle=clover;
@@ -70,9 +70,9 @@ const Display = (function (/*api*/) {
     argsList.forEach(args => drawClover(state,ctx,...args));
     ctx.fill();
     ctx.strokeStyle=gray4;
-    ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args,3));
-    ctx.stroke();
+    //ctx.beginPath();
+    //argsList.forEach(args => drawRange(state,ctx,...args,3));
+    //ctx.stroke();
 
     ctx.strokeStyle=rose;
     ctx.fillStyle=rose;
@@ -104,15 +104,15 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawMallow(state,ctx,...args,2));
     ctx.fill();
-    ctx.strokeStyle=gray4;
-    ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args,2));
-    ctx.stroke();
     ctx.fillStyle=gray1;
     ctx.beginPath();
     argsList.forEach(args => drawNotch(state,ctx,...args));
     ctx.fill();
-
+    ctx.strokeStyle=gray4;
+    //ctx.beginPath();
+    //argsList.forEach(args => drawRange(state,ctx,...args,2));
+    //ctx.stroke();
+    
     ctx.strokeStyle=mint;
     ctx.fillStyle=mint;
     argsList=[
@@ -123,9 +123,9 @@ const Display = (function (/*api*/) {
     argsList.forEach(args => drawMint(state,ctx,...args,2));
     ctx.fill();
     ctx.strokeStyle=gray4;
-    ctx.beginPath();
-    argsList.forEach(args => drawRange(state,ctx,...args,4));
-    ctx.stroke();
+    //ctx.beginPath();
+    //argsList.forEach(args => drawRange(state,ctx,...args,4));
+    //ctx.stroke();
 
     drawCircle(state,ctx,0,0,5,gray3,"fill");
     ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
@@ -249,8 +249,8 @@ const Display = (function (/*api*/) {
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.3*state.minDim/100,6,
-      90,poly,(r*0.2)*state.minDim/100,6);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.3*state.minDim/100,8,
+      90,poly,(r*0.3)*state.minDim/100,5);
   };
   const drawNotch=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
