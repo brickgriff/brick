@@ -23,9 +23,9 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=gray5;
     ctx.beginPath();
     ctx.save();
-    circle(ctx,cx,cy,(0.99*state.minDim)/2);
+    circle(ctx,cx,cy,(0.5*state.minDim));
     ctx.clip();
-    circle(ctx,cx,cy,state.minDim/2);
+    //circle(ctx,cx,cy,state.minDim/2);
     //ctx.stroke();
 
     ctx.translate(cx,cy);
@@ -136,7 +136,7 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=gray5;
     ctx.restore();
     ctx.beginPath();
-    circle(ctx,cx,cy,0.495*state.minDim);
+    circle(ctx,cx,cy,0.5*state.minDim);
     ctx.stroke();
   };
 
