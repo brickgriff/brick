@@ -104,10 +104,10 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     argsList.forEach(args => drawMallow(state,ctx,...args,2));
     ctx.fill();
-    ctx.fillStyle=gray1;
+    ctx.strokeStyle=gray1;
     ctx.beginPath();
     argsList.forEach(args => drawNotch(state,ctx,...args));
-    ctx.fill();
+    ctx.stroke();
     ctx.strokeStyle=gray4;
     //ctx.beginPath();
     //argsList.forEach(args => drawRange(state,ctx,...args,2));
@@ -224,8 +224,9 @@ const Display = (function (/*api*/) {
   };
 
   const drawGrass=(state,ctx,x,y,r=1) => {
-    move(ctx,(x+state.px)*state.minDim/100,(y+r/2+state.py)*state.minDim/100);
-    line(ctx,(x+state.px)*state.minDim/100,(y-r/2+state.py)*state.minDim/100);
+    //move(ctx,(x+state.px)*state.minDim/100,(y+r/2+state.py)*state.minDim/100);
+    //line(ctx,(x+state.px)*state.minDim/100,(y-r/2+state.py)*state.minDim/100);
+    circle(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.2*state.minDim/100);
   };
   
   const drawClover=(state,ctx,x,y,r=1) => {
@@ -249,12 +250,15 @@ const Display = (function (/*api*/) {
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.4*state.minDim/100,8,
-      90,poly,(r*0.4)*state.minDim/100,5);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.4*state.minDim/100,7,
+      0,poly,(r*0.4)*state.minDim/100,5);
   };
   const drawNotch=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+1.1+state.py)*state.minDim/100,r*state.minDim/100,3);
+    //poly(ctx,(x+state.px)*state.minDim/100,(y+1.1+state.py)*state.minDim/100,r*state.minDim/100,3);
+    move(ctx,(x+state.px)*state.minDim/100,(y+r*2+state.py)*state.minDim/100);
+    line(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100);
+
   };
 
   const drawMint=(state,ctx,x,y,r=1) => {
