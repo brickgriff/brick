@@ -44,16 +44,16 @@ const World = (function (/*api*/) {
     state.minDim=Math.min(state.canvas.width,state.canvas.height);
 
     // WASD
-    if (state.buffer.buttons.includes("KeyW")) {
+    if (state.buffer.buttons.includes("KeyE")||state.buffer.buttons.includes("KeyI")) {
       state.py+=state.speed;
     }
-    if (state.buffer.buttons.includes("KeyS")) {
+    if (state.buffer.buttons.includes("KeyD")||state.buffer.buttons.includes("KeyK")) {
       state.py-=state.speed;
     }
-    if (state.buffer.buttons.includes("KeyA")) {
+    if (state.buffer.buttons.includes("KeyS")||state.buffer.buttons.includes("KeyJ")) {
       state.px+=state.speed;
     }
-    if (state.buffer.buttons.includes("KeyD")) {
+    if (state.buffer.buttons.includes("KeyF")||state.buffer.buttons.includes("KeyL")) {
       state.px-=state.speed;
     }
 
