@@ -29,7 +29,7 @@ const Display = (function (/*api*/) {
     //ctx.stroke();
 
     ctx.translate(cx,cy);
-    ctx.scale(state.zoom,state.zoom);
+    ctx.scale(state.zoom,state.zoom*state.pitch);
 
     let argsList=[
       [0,40,5,gray5],
