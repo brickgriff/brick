@@ -229,8 +229,8 @@ const Display = (function (/*api*/) {
   };
   
   const drawClover=(state,ctx,x,y,r=1) => {
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*state.minDim/100,3,
-      null,circle,(r-0.1)*state.minDim/100);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.8*state.minDim/100,3,
+      null,circle,(r*0.7)*state.minDim/100);
 
   };
 
@@ -249,20 +249,20 @@ const Display = (function (/*api*/) {
 
   const drawMallow=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.3*state.minDim/100,8,
-      90,poly,(r*0.3)*state.minDim/100,5);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.4*state.minDim/100,8,
+      90,poly,(r*0.4)*state.minDim/100,5);
   };
   const drawNotch=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+1.2+state.py)*state.minDim/100,r*state.minDim/100,3);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+1+state.py)*state.minDim/100,r*state.minDim/100,3);
   };
 
   const drawMint=(state,ctx,x,y,r=1) => {
     //poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,6,null,null,null);
-    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.9*state.minDim/100,4,
-      null,poly,(r*0.5)*state.minDim/100,3);
+    poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.8*state.minDim/100,4,
+      null,poly,(r*0.4)*state.minDim/100,3);
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,r*0.4*state.minDim/100,4,
-      null,poly,(r*0.5)*state.minDim/100,3,180);
+      null,poly,(r*0.4)*state.minDim/100,3,180);
   };
   const drawSorrel=(state,ctx,x,y,r=1) => {
     poly(ctx,(x+state.px)*state.minDim/100,(y+state.py)*state.minDim/100,(0.5)*state.minDim/100,3,
