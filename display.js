@@ -127,16 +127,16 @@ const Display = (function (/*api*/) {
     //argsList.forEach(args => drawRange(state,ctx,...args,4));
     //ctx.stroke();
 
-    drawCircle(state,ctx,0,0,5,gray3,"fill");
+    drawCircle(state,ctx,0,0,state.radius,gray3,"fill");
     ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
       0.03*2*Math.PI*10*state.minDim/100
     ]);
-    drawCircle(state,ctx,0,0,10,gray5);
+    drawCircle(state,ctx,0,0,2*state.radius,gray5);
     ctx.setLineDash([]);
     ctx.strokeStyle=gray5;
     ctx.restore();
     ctx.beginPath();
-    circle(ctx,cx,cy,0.5*state.minDim);
+    circle(ctx,cx,cy,state.minDim/2);
     ctx.stroke();
   };
 

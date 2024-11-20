@@ -37,6 +37,7 @@ function main() {
   const state = World.create(canvas); // initialize!
   Buffer.attach(state); // attach input buffer
 
+  canvas.focus();
   document.body.appendChild(canvas); // add it to body
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }

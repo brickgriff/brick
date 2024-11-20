@@ -11,7 +11,7 @@ const World = (function (/*api*/) {
       // player position
       px:0,
       py:0,
-      speed:0.2,
+      speed:0.1,
       radius:5, // rot
       length:0, // sca
       angle:0, // tra
