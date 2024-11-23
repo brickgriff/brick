@@ -1,5 +1,5 @@
 # brick and flower
-the simple game html canvas engine
+## html canvas game engine
 
 ---
 
@@ -26,20 +26,17 @@ the simple game html canvas engine
   - main menu
   - debug frame
 - fix basic data
-  - new game
-  - save/load game
-  - config world
-  - build/edit entity
-  - build/edit system
-  - build/edit pattern
-  - build/edit audio
-  - quit game
-- fix basic mvc
+  - game CRUD
+  - world config
+  - entities, systems, patterns, assets, etc
+  - sessions
 - fix basic elements
-  - time - frames, millis, intervals (main.js)
-  - space - (world.js)
-  - matter - (display.js)
-  - energy - (buffer.js)
-- interactions
-  - build
-  - nurture
+  - time - frames, millis (main.js)
+  - space - pixels, spans, turns (display.js)
+  - matter - primitives (world.js)
+  - energy - deltaMouse (buffer.js)
+- libraries
+  - modeler
+  - physics
+  - seedrandom
+  - shader
