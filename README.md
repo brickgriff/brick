@@ -3,24 +3,24 @@
 
 ---
 
-- [x] ~fix file structure~
-  - [ ] [ ] index.html - project files, libraries
-  - index.css - global stylesheet, animations
-  - main.js - main game loop, config
-  - world.js - world state (model)
-  - display.js - canvas methods (view)
-  - buffer.js - user input (controller)
-- minimalist tools
-  - light-camera-action
-    - canvas helpers (lights)
-      - shapes([[x,y]])
-      - polygon(x,y,radius,vertexCount)
-      - arc(x,y,radius,angle,offset), circle, ellipse
-      - color palettes, themes
-    - viewport controls (camera)
-      - look
-      - zoom
-      - pitch
+- [ ] fix file structure
+  - [x] index.html - project files, libraries
+  - [x] index.css - global stylesheet, animations
+  - [ ] main.js - main game loop, config
+  - [ ] world.js - world state (model)
+  - [ ] display.js - canvas methods (view)
+  - [ ] buffer.js - user input (controller)
+- [ ] minimalist tools
+  - [ ] light-camera-action
+    - [ ] canvas helpers (lights)
+      - [ ] shapes([[x,y]])
+      - [ ] polygon(x,y,radius,vertexCount)
+      - [] arc(x,y,radius,angle,offset), circle, ellipse
+      - []color palettes, themes
+    - []viewport controls (camera)
+      - []look
+      - []zoom
+      - []pitch
     - player control (action)
       - move
       - touch
