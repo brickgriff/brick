@@ -11,21 +11,20 @@
   - [ ] display.js - canvas methods (view)
   - [x] buffer.js - user input (controller)
 - [ ] minimalist tools
-  - [ ] light-camera-action
-    - [ ] canvas helpers (lights)
-      - [ ] shapes([[x,y]])
-      - [ ] polygon(x,y,radius,vertexCount)
-      - [ ] arc(x,y,radius,angle,offset), circle, ellipse
-      - [ ] color palettes, themes
-    - [ ] viewport controls (camera)
-      - [ ] look
-      - [x] zoom
-      - [ ] pitch
-    - [ ] player control (action)
-      - [x] move
-      - [ ] touch
-  - [ ] main menu
-  - [ ] debug frame
+  - [ ] canvas helpers <lights>
+    - [ ] shapes([[x,y]])
+    - [ ] polygon(x,y,radius,vertexCount)
+    - [ ] arc(x,y,radius,angle,offset), circle, ellipse
+    - [ ] color palettes, themes
+  - [ ] viewport controls <camera>
+    - [ ] look
+    - [x] zoom
+    - [ ] pitch
+  - [ ] player control <action>
+    - [x] move
+    - [ ] touch
+- [ ] main menu
+- [ ] debug frame
 - [ ] basic data
   - [ ] game CRUD
   - [ ] world config
