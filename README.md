@@ -32,7 +32,7 @@
   - [ ] entities, systems, patterns, assets, etc
   - [ ] sessions
 - [ ] basic elements
-  - [ ] frames, millis (main.js) [commment]: <> (time)
+  - [ ] frames, millis (main.js) [comment]: <> (time)
   - [ ] pixels, spans, turns (display.js) <space>
   - [ ] primitives (world.js) <matter>
   - [ ] deltaMouse (buffer.js) <energy>
