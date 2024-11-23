@@ -6,10 +6,10 @@
 - [ ] fix file structure
   - [x] index.html - project files, libraries
   - [x] index.css - global stylesheet, animations
-  - [ ] main.js - main game loop, config
+  - [x] main.js - main game loop, config
   - [ ] world.js - world state (model)
   - [ ] display.js - canvas methods (view)
-  - [ ] buffer.js - user input (controller)
+  - [x] buffer.js - user input (controller)
 - [ ] minimalist tools
   - [ ] light-camera-action
     - [ ] canvas helpers (lights)
@@ -19,10 +19,10 @@
       - [ ] color palettes, themes
     - [ ] viewport controls (camera)
       - [ ] look
-      - [ ] zoom
+      - [x] zoom
       - [ ] pitch
     - [ ] player control (action)
-      - [ ] move
+      - [x] move
       - [ ] touch
   - [ ] main menu
   - [ ] debug frame
