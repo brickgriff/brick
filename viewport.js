@@ -14,7 +14,7 @@ function resize(event) {
   // window.dispatchEvent(load_event);
 
   //window.location.reload();
-  draw();
+  testDraw();
 }
 
 // CHECK BROWSER FEATURES //

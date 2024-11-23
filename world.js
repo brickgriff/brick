@@ -3,19 +3,19 @@ const World = (function (/*api*/) {
 
   api.create = function (canvas) {
     var state = {
-      canvas:canvas,
-      buffer:{},
-      frame:0,
-      zoom:5,
-      pitch:1,
+      canvas:canvas, // for resizing... anything else?
+      //buffer:{}, // use the global game object?
+      frame:0, // frame count
+      zoom:5, // zoom factor (bigger is zoomed-in)
+      pitch:1, // percent angle b/w 90deg and 0deg
       // player position
-      px:0,
-      py:0,
+      //px:0,
+      //py:0,
       speed:0.1,
-      radius:5, // rot
-      length:0, // sca
-      angle:0, // tra
-      // camera position
+      radius:5,
+      length:0,
+      angle:0,
+      // center position
       cx:0,
       cy:0,
       cw:0,

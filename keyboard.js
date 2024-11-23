@@ -25,7 +25,7 @@ function pushInput(event) {
 
   //console.log(game.buttons);
 
-  draw();
+  testDraw();
 }  
 function dropInput(event) {
   const list = game.buttons;

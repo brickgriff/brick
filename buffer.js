@@ -1,12 +1,6 @@
 const Buffer = (function (/*api*/) { // FIXME: pick a non-keyword
   var api = {};
 
-  api.attach = function (state) {
-    state.buffer=controls;
-    //controls.zoom=0;
-    //console.log(state.controls.zoom);
-    //resize(null);
-  };
 
   api.flush = function (state) {
     controls.zoom=0;

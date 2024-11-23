@@ -7,13 +7,9 @@ const game = {
   height:0,
   cx:0,
   cy:0,
-  cr:0,
-  //isResized:false,
   ctx:null,
-  //main:main,
   buttons:[],
-  speed:0.05,
-  //abc:0,
+  speed:0.05, // move 5% of the screen unit
 };
 
 function loop(now,state,ctx) {
@@ -36,7 +32,7 @@ function loop(now,state,ctx) {
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }
 
-function draw() {
+function testDraw() {
   let ctx = game.ctx;
   ctx.save();
 
@@ -48,11 +44,12 @@ function draw() {
   const minDim = Math.min(game.width,game.height); // one screen unit
   const cr = minDim/2; // center radius
   const TWO_PI = 2*Math.PI;
-  game.cr = cr;
 
+  // fill background
   ctx.fillStyle="gray";
   ctx.fillRect(-game.width/2,-game.height/2,game.width,game.height);
 
+  // draw horizon ring
   ctx.beginPath();
   ctx.lineWidth=5;
   ctx.moveTo(0+cr,0);
@@ -64,6 +61,7 @@ function draw() {
   const polarGrids=5;
   const cartesianGrids=5;
 
+  // draw nested rings
   for(let i=0; i<polarGrids; i++) {
     ctx.beginPath();
     const r = cr * i / polarGrids;
@@ -73,6 +71,7 @@ function draw() {
     ctx.stroke();
   }
 
+  // draw nested crosses
   for(let j=0; j<cartesianGrids; j++) {
     ctx.beginPath();
     const breadth = minDim * j / cartesianGrids;
@@ -82,16 +81,15 @@ function draw() {
     ctx.stroke();
   }
 
-  // Create a linear gradient for the root
+  // Create a linear gradient for the diagonals
   //const gradient1 = ctx.createLinearGradient(0,-cr,0,cr);
   const gradient1 = ctx.createRadialGradient(0,0,0,0,0,cr);
-  gradient1.addColorStop(0, "black");
-  gradient1.addColorStop(0.3, "rgba(0,0,0,0.0)");
-  gradient1.addColorStop(0.5, "rgba(0,0,0,0.0)");
+  gradient1.addColorStop(0, "white");
+  gradient1.addColorStop(0.5, "rgba(125,125,125,0.0)");
   gradient1.addColorStop(1, "black");
-
   ctx.strokeStyle = gradient1; // Use gradient for stroke
 
+  // draw diagonals
   ctx.lineWidth=1;
   ctx.moveTo(-cr,-cr);
   ctx.lineTo(cr,cr);
@@ -103,55 +101,67 @@ function draw() {
   ctx.fillStyle="black";//game.abc%2===0?"black":"white";
   ctx.strokeStyle="white";
 
-  const itemX=0.10*cr;
-  const itemY=-0.5*cr;
-  const itemSize=0.05*cr;
-  const offsetX=game.cx*game.speed*cr;
-  const offsetY=game.cy*game.speed*cr;
-  const playerR = 0.1*cr;
+  const offsetX=game.cx*game.speed*minDim;
+  const offsetY=game.cy*game.speed*minDim;
 
+  const itemX=0.10*minDim+offsetX;
+  const itemY=-0.30*minDim+offsetY;
+  const itemR=0.05*cr;
+
+  // draw item
   ctx.beginPath();
-  ctx.rect(
-    itemX-itemSize/2+offsetX,
-    itemY-itemSize/2+offsetY,
-    itemSize,
-    itemSize);
-
+  ctx.rect(itemX-itemR,itemY-itemR,itemR*2,itemR*2);
   ctx.fill();
   ctx.stroke();
 
+  const platformX=-0.25*minDim+offsetX;
+  const platformY=-0.25*minDim+offsetY;
+  const platformR=0.15*cr;
+
+  // draw platform
+  ctx.lineWidth=3;
+  ctx.setLineDash([10,10]);
+  ctx.beginPath();
+  ctx.moveTo(platformX+platformR,platformY);
+  ctx.arc(platformX,platformY,platformR,0,TWO_PI);
+  ctx.stroke();
+
+  const playerR = 0.1*cr;
+
+  // draw player
+  ctx.lineWidth=1;
+  ctx.setLineDash([]);
   ctx.beginPath();
   ctx.moveTo(0+playerR,0);
   ctx.arc(0,0,playerR,0,TWO_PI);
-
   ctx.fill();
   ctx.stroke();
 
-  game.abc = game.abc!==undefined ? game.abc+1 : 0;
-  //console.log(game.abc);
   ctx.restore();
-
+  
+  ctx.fillStyle="dimgray";//game.abc%2===0?"black":"white";
+  ctx.fillRect(0,0,game.width,(game.height-minDim)/2);
+  ctx.fillRect(0,minDim+(game.height-minDim)/2,game.width,(game.height-minDim)/2);
+  ctx.fillRect(0,0,(game.width-minDim)/2,game.height);
+  ctx.fillRect(minDim+(game.width-minDim)/2,0,(game.width-minDim)/2,game.height);
 }
-
-game.draw = draw;
 
 function main() {  
   // TODO: display factory/service to allow different output modes
   // 2D? 3D? 4D? 1D? ASCII? Voxel? 8-bit? 16-bit? 32-bit? 1-bit?
   const canvas = document.createElement("canvas"); // default canvas
-  const ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
+  const ctx = game.ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
 
   canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   game.width=window.innerWidth;
   game.height=window.innerHeight;
-  canvas.width=5000;//game.width;
-  canvas.height=5000;//game.height;
+  // make the canvas large enough to resize to fit large screens
+  canvas.width=5000;
+  canvas.height=5000;
 
-  game.ctx = ctx;
-  draw();
+  testDraw();
 
-  //const state = World.create(canvas); // initialize!
-  //Buffer.attach(state); // attach input buffer
+  const state = World.create(canvas); // initialize!
 
   //canvas.focus();
   document.body.appendChild(canvas); // add it to body
