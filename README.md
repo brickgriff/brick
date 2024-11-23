@@ -7,9 +7,9 @@
   - [x] index.html - project files, libraries
   - [x] index.css - global stylesheet, animations
   - [x] main.js - main game loop, config
-  - [ ] world.js - world state (model)
-  - [ ] display.js - canvas methods (view)
-  - [x] buffer.js - user input (controller)
+  - [ ] world.js - world state <model>
+  - [ ] display.js - canvas methods <view>
+  - [x] buffer.js - user input <control>
 - [ ] minimalist tools
   - [ ] canvas helpers <lights>
     - [ ] shapes([[x,y]])
