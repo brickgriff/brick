@@ -3,7 +3,7 @@
 
 ---
 
-- ~fix file structure~
+- [x] ~fix file structure~
   - index.html - project files, libraries
   - index.css - global stylesheet, animations
   - main.js - main game loop, config
@@ -13,7 +13,7 @@
 - minimalist tools
   - light-camera-action
     - canvas helpers (lights)
-      - shapes(vector[[x,y]])
+      - shapes([[x,y]])
       - polygon(x,y,radius,vertexCount)
       - arc(x,y,radius,angle,offset), circle, ellipse
       - color palettes, themes
