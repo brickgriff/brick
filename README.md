@@ -4,25 +4,26 @@
 ---
 
 - ~fix file structure~
-  - index.html - project files
-  - index.css - global stylesheet
-  - main.js - main game loop
+  - index.html - project files, libraries
+  - index.css - global stylesheet, animations
+  - main.js - main game loop, config
   - world.js - world state (model)
   - display.js - canvas methods (view)
   - buffer.js - user input (controller)
-  - entity.js
-  - player.js
-  - terrain.js
-  - foliage.js
-  - system.js
-- fix basic ui
+- minimalist tools
   - light-camera-action
-    - ~helper functions for canvas~
-    - camera controls
+    - canvas helpers (lights)
+      - shapes(vector[[x,y]])
+      - polygon(x,y,radius,vertexCount)
+      - arc(x,y,radius,angle,offset), circle, ellipse
+      - color palettes, themes
+    - viewport controls (camera)
       - look
       - zoom
       - pitch
-    - player control
+    - player control (action)
+      - move
+      - touch
   - main menu
   - debug frame
 - fix basic data
