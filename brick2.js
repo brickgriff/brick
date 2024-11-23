@@ -19,9 +19,6 @@
 // let's keep learning then simulate later
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
-
-// TODO: is 3D possible? let's keep learning then simulate later
-
 // what are the window dimensions?
 canvas.width=Math.floor((window.innerWidth-25)/100)*100;
 canvas.height=Math.floor((window.innerHeight-25)/100)*100;
@@ -308,7 +305,7 @@ function drawObjects() {
       ctx.arc(object.screen.x,(object.screen.y+Math.cos(pitch)*(object.z))/scaleFactor,rootWidth/2,0,Math.PI*2);
       ctx.fill();
       ctx.restore();
-      drawLine(ctx,object.screen.x,object.screen.y,object.screen.x,object.screen.y+Math.cos(pitch)*(object.z),rootWidth,"brown");
+       drawLine(ctx,object.screen.x,object.screen.y,object.screen.x,object.screen.y+Math.cos(pitch)*(object.z),"brown",rootWidth);
     }
     ctx.beginPath();
     ctx.fillStyle = object.color;
@@ -334,7 +331,7 @@ function drawObjects() {
  * width
  * color
  */
-function drawLine(ctx, x1, y1, x2, y2, width, color) {
+function drawLine(ctx, x1, y1, x2, y2, color, width) {
   ctx.beginPath();
   if (!color) { ctx.strokeStyle="black"; }
   else { ctx.strokeStyle=color; }
@@ -387,24 +384,22 @@ function worldToScreen(x,y,z) {
 function angle(cx, cy, ex, ey) {
   let dx = ex - cx;
   let dy = ey - cy;
-  let theta = Math.atan2(dy, dx); // range [-PI, PI]
-  //theta *= 180/ Math.PI; // range [-180, 180]
+  let theta = Math.atan2(dy, dx); // range (-PI, PI]
+  //theta *= 180/ Math.PI; // range (-180, 180]
   //if (theta < 0) theta = 360 + theta; // range (0, 360]
   //if (theta < 0) theta += 2 * Math.PI;
   return theta;
 }
 
 function radToDeg(rad) {
-  // clamp rad to [-1,1]
-  deg = rad * 180 / Math.PI; // [-INF, INF]
-  //if (deg < 0) deg+=360;
+  deg = rad * 180 / Math.PI;
+  if (deg < 0) deg+=360;
   return deg;
 }
 
 function degToRad(deg) {
-  // clamp deg to [-180,180]
-  //if (deg > 180) deg-=360;
-  rad = deg * Math.PI / 180; // [-INF,INF]
+  if (deg > 180) deg-=360;
+  rad = deg * Math.PI / 180;
   return rad;
 }
 
@@ -442,73 +437,3 @@ ctx.lineTo(100,0);
 ctx.stroke();
 */
 
-/* 
-
-  if (e.button===keybinds.mouseL) {
-    inputs.mouse.x_=inputs.mouse._x=e.offsetX-document.body.clientWidth/2;
-    inputs.mouse.y_=inputs.mouse._y=e.offsetY-document.body.clientHeight/2;
-    
-    inputs.mouse.isClicked=false;
-    inputs.mouse.isDragged=false;
-  }
-*/
-
-/*
-(e)=>{
-  e.preventDefault()
-  for(let i=0; i<e.changedTouches.length; i++) {
-    pushKey(state.keys,ongoingTouches.length);
-    ongoingTouches.push(copyTouch(e.touches[i]));
-  }
-
-  if (ongoingTouches.length > keybinds.mouseL) return;
-
-  inputs.mouse.x_=inputs.mouse.x=e.screenX;
-  inputs.mouse.y_=inputs.mouse.y=e.screenY;
-  inputs.mouse._x=inputs.mouse.x_;
-  inputs.mouse._y=inputs.mouse.y_;
-}
-(e)=>{
-  e.preventDefault()
-  for(let i=0; i<e.changedTouches.length; i++) {
-    let index = ongoingTouchIndexById(e.changedTouches.identifier);
-    //let touch=ongoingTouches[index];
-    if (index===keybinds.mouseL) {
-      inputs.mouse._x=e.offsetX;
-      inputs.mouse._y=e.offsetY;
-
-      let dist = Math.hypot(inputs.mouse._x-inputs.mouse.x_,inputs.mouse._y-inputs.mouse.y_);
-      inputs.mouse.isDragged = (dist>=inputs.mouse.dragMin);
-      //console.log(dist,inputs.mouse.isDragged);
-    }
-
-    dropKey(index,state.keys);
-    ongoingTouches.splice(index,1);
-  }
-}
-*/
-
-
-/*
-// FIXME: how to switch bw WASD and ESDF
-let isUsingWASD = true;
-const  keybinds = {
-  up: isUsingWASD ? "KeyW" : "KeyE",
-  down: isUsingWASD ? "KeyS" : "KeyD",
-  left: isUsingWASD ? "KeyA" : "KeyS",
-  right: isUsingWASD ? "KeyD" : "KeyF",
-
-  loosen: isUsingWASD ? "KeyQ" : "KeyW",
-  tighten: isUsingWASD ? "KeyE" : "KeyR",
-  tertiary: "ShiftLeft",
-  secondary: "KeyF",
-  primary: "Space",
-
-  debug: "Backquote",
-  menu: "Escape",
-
-  mouseL: 0,
-  mouseM: 1,
-  mouseR: 2,
-};
-*/

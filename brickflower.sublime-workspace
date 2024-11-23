@@ -1,0 +1,546 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"res",
+				"reset"
+			],
+			[
+				"rest",
+				"reset"
+			],
+			[
+				"bu",
+				"buttons"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"draw",
+				"drawEntity"
+			],
+			[
+				"lin",
+				"lineTo"
+			],
+			[
+				"angle",
+				"angleList"
+			],
+			[
+				"f",
+				"fillStyle"
+			],
+			[
+				"i",
+				"isTouched"
+			],
+			[
+				"inn",
+				"innerWidth"
+			],
+			[
+				"fill",
+				"fillStyle"
+			],
+			[
+				"csn",
+				"canvas"
+			],
+			[
+				"path",
+				"pathColor"
+			],
+			[
+				"pathc",
+				"pathColor"
+			],
+			[
+				"canopy",
+				"canopyColor"
+			],
+			[
+				"dar",
+				"DARKSLATEGRAY"
+			],
+			[
+				"sto",
+				"strokeStyle"
+			],
+			[
+				"stork",
+				"strokeStyle"
+			],
+			[
+				"LIH",
+				"LIGHTBLUE"
+			],
+			[
+				"key",
+				"keybinds"
+			],
+			[
+				"on",
+				"ongoingTouchIndexById"
+			],
+			[
+				"stro",
+				"strokeStyle"
+			],
+			[
+				"dim",
+				"DIMGRAY"
+			],
+			[
+				"LIGH",
+				"LIGHTBLUE"
+			],
+			[
+				"D",
+				"DARKGRAY"
+			],
+			[
+				"cell",
+				"cellHeight"
+			],
+			[
+				"point",
+				"pointHeight"
+			],
+			[
+				"is",
+				"isDragged"
+			],
+			[
+				"normalpoin",
+				"normalPoint2"
+			],
+			[
+				"worldPoin",
+				"worldPoint2"
+			],
+			[
+				"worldpi",
+				"worldPixelValue"
+			],
+			[
+				"worldpix",
+				"worldPixelValue"
+			],
+			[
+				"GRA",
+				"GRAY_L"
+			],
+			[
+				"re",
+				"resizeWindow"
+			],
+			[
+				"updateSp",
+				"updateSpeedComponent"
+			],
+			[
+				"strok",
+				"strokeStyle"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Install Package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 258.0,
+		"history":
+		[
+			"return",
+			"quit",
+			"reset",
+			"clear",
+			"print(a.length())",
+			"print(a.length)",
+			"print(a.size)",
+			"print(a)",
+			"a = list([1,2,3])",
+			"a = list(1,2,3)",
+			"print(a)",
+			"print a",
+			"1,2,3",
+			"a",
+			"1,2,3",
+			"a=list",
+			"1,2,3",
+			"list",
+			"python",
+			"pwd",
+			"/?",
+			"?",
+			"exit",
+			"?",
+			"help",
+			"hellp",
+			"exit",
+			"javac",
+			"1+1",
+			"1",
+			"dir",
+			"ls",
+			"dir",
+			"ls",
+			"javac SubsequenceTime.java",
+			"import",
+			"lib",
+			"rand",
+			"math",
+			"module",
+			"b=():{}",
+			"b=()=>{}",
+			"b.get",
+			"b()",
+			"b",
+			"b:()",
+			"b=()=>print",
+			"a+2",
+			"a+2=",
+			"a=1",
+			"a",
+			"console",
+			"sys",
+			"help()",
+			"man",
+			"help",
+			"null",
+			"print",
+			"\"\"",
+			"print",
+			"print()",
+			"print \"\"",
+			"print hello",
+			"hello",
+			"print",
+			"echo",
+			"ls",
+			"console.log()",
+			"radius",
+			"radiu",
+			"man",
+			"?",
+			"help",
+			"Clear",
+			"clr",
+			"cls",
+			"clear()",
+			"clear"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/J/local/code/apps/brickflower"
+	],
+	"file_history":
+	[
+		"/J/local/code/apps/brick/main.js",
+		"/J/local/code/apps/brick/index.html",
+		"/J/local/code/apps/brick/index.css",
+		"/J/local/code/apps/brick/world.js",
+		"/J/local/code/apps/brick/display.js",
+		"/J/local/code/apps/brick/buffer.js",
+		"/J/local/code/apps/brick/keyboard.js",
+		"/J/local/code/apps/chatgpt/script.js",
+		"/J/local/code/apps/brick/README.md",
+		"/J/local/code/apps/brick/mouse.js",
+		"/J/local/code/apps/brick/touch.js",
+		"/J/local/code/apps/brick/viewport.js",
+		"/J/local/code/apps/brick/index.js",
+		"/J/local/code/apps/gotouchgrass/world.js",
+		"/J/local/code/apps/brick/.htaccess",
+		"/J/local/code/apps/brick/.gitignore",
+		"/J/local/code/apps/gotouchgrass/Find Results",
+		"/J/local/code/apps/gotouchgrass/main.js",
+		"/J/local/code/apps/gotouchgrass/display.js",
+		"/J/local/code/apps/gotouchgrass/index.html",
+		"/J/local/code/apps/gotouchgrass/index.css",
+		"/J/local/code/apps/gotouchgrass/events.js",
+		"/J/local/code/apps/gotouchgrass/index.js",
+		"/J/local/code/apps/brick/brick.js",
+		"/J/local/code/apps/gotouchgrass/gotouchgrass/README.md",
+		"/J/local/code/apps/gotouchgrass/plant.js",
+		"/J/local/code/apps/gotouchgrass/camera.js",
+		"/J/local/code/apps/gotouchgrass/model.js",
+		"/J/local/code/apps/gotouchgrass/index - Copy.js",
+		"/J/local/code/apps/brick/index-old.js",
+		"/J/local/code/apps/brick/brick2.js",
+		"/J/local/code/apps/brick/import.js",
+		"/J/local/code/apps/idealogicllc/rollme/src/app/app.component.html",
+		"/J/local/code/apps/brick/test.java",
+		"/J/local/code/interviews/hackerrank/src/com/bgriffiniv/hackerrank/minis/SubsequenceTime.java",
+		"/C/Users/House of Ease/AppData/Roaming/npm/node_modules/npm/docs/output/commands/npm-update.html",
+		"/J/local/code/interviews/hackerrank/src/com/bgriffiniv/hackerrank/maxis/Solution.java",
+		"/J/local/code/apps/brick/game.html",
+		"/J/local/code/apps/brick/styles.css",
+		"/J/local/code/apps/DontGoDark2.html",
+		"/J/local/code/apps/DontGoDark.html"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+			"-index.js, -\"Find Results\"",
+			"-index.js, -'Find Results'",
+			"-index.js",
+			"!index.js",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"3",
+			"505050",
+			"pixelated",
+			"TODO|FIXME",
+			"v ",
+			"v",
+			"v:",
+			".v",
+			"v",
+			"state.player.v",
+			"state.player.score",
+			"TODO|FIXME",
+			"[TODO|FIXME]",
+			"TODO || FIXME",
+			"\n        ",
+			"cx",
+			"state.mouse",
+			"state",
+			"canvas",
+			"maxFrame",
+			"frame",
+			"TODO",
+			"mouse.x",
+			"mouse.y",
+			"mouse.x",
+			"dropKey",
+			"y",
+			"x",
+			"canvas.width",
+			"cImg",
+			"canopy",
+			"isOnWall",
+			"fStyle",
+			"isOnWall",
+			"player.s",
+			"x",
+			"onload",
+			"console",
+			"isTouchedGrass",
+			"hey",
+			"')?\n",
+			"grassvalue",
+			"darkslategray",
+			"state.player.dg",
+			"isundercano",
+			"y",
+			"path1",
+			"arc",
+			"vecto",
+			"vector",
+			"getVector",
+			"fImg",
+			"cImg",
+			"cimg",
+			"cImg",
+			"getVector",
+			"canopy",
+			"fImg",
+			"terrain",
+			"isunder",
+			"score",
+			"speed",
+			"back",
+			"setglobal",
+			"fill",
+			"    //ctx.beginPath();\n",
+			"points",
+			"400",
+			"4000",
+			"buttons",
+			"speed",
+			"length",
+			"keybinds",
+			"camera",
+			"canvasExtents",
+			"newCoords",
+			"mainLoop",
+			"\n  ",
+			"0",
+			"'",
+			"center",
+			"resizeWindow",
+			"console",
+			"_ctx",
+			"_canvas",
+			"_window"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"state.player.points",
+			"inputs",
+			"py",
+			"px",
+			"cells",
+			"cameraOnCanvas",
+			"canvasExtents",
+			"update",
+			"`",
+			"origin",
+			"resetWindow",
+			"ctx",
+			"canvas",
+			"window"
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": false,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "brickflower.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 349.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

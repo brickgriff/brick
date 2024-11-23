@@ -126,6 +126,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# sublime
-*.sublime*
+# sublime workspaces and projects
+.sublime-workspace
+.sublime-project
 Find Results
