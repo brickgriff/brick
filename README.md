@@ -4,7 +4,7 @@
 ---
 
 - [x] ~fix file structure~
-  - index.html - project files, libraries
+  - [ ] [ ] index.html - project files, libraries
   - index.css - global stylesheet, animations
   - main.js - main game loop, config
   - world.js - world state (model)
