@@ -3,7 +3,7 @@
 
 ### feature plan
 
-- [ ] fix file structure
+- [ ] file structure
   - [x] index.html - project files, libraries
   - [x] index.css - global stylesheet, animations
   - [x] main.js - main game loop, config
@@ -26,16 +26,16 @@
       - [ ] touch
   - [ ] main menu
   - [ ] debug frame
-- [ ] fix basic data
+- [ ] basic data
   - [ ] game CRUD
   - [ ] world config
   - [ ] entities, systems, patterns, assets, etc
   - [ ] sessions
-- [ ] fix basic elements
-  - [ ] time - frames, millis (main.js)
-  - [ ] space - pixels, spans, turns (display.js)
-  - [ ] matter - primitives (world.js)
-  - [ ] energy - deltaMouse (buffer.js)
+- [ ] basic elements
+  - [ ] frames, millis (main.js) <time>
+  - [ ] pixels, spans, turns (display.js) <space>
+  - [ ] primitives (world.js) <matter>
+  - [ ] deltaMouse (buffer.js) <energy>
 - [ ] libraries
   - [ ] modeler
   - [ ] physics
