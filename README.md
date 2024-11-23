@@ -1,7 +1,7 @@
 # brick and flower
 ## html canvas game engine
 
----
+### feature plan
 
 - [ ] fix file structure
   - [x] index.html - project files, libraries
