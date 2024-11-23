@@ -15,29 +15,29 @@
     - [ ] canvas helpers (lights)
       - [ ] shapes([[x,y]])
       - [ ] polygon(x,y,radius,vertexCount)
-      - [] arc(x,y,radius,angle,offset), circle, ellipse
-      - []color palettes, themes
-    - []viewport controls (camera)
-      - []look
-      - []zoom
-      - []pitch
-    - player control (action)
-      - move
-      - touch
-  - main menu
-  - debug frame
-- fix basic data
-  - game CRUD
-  - world config
-  - entities, systems, patterns, assets, etc
-  - sessions
-- fix basic elements
-  - time - frames, millis (main.js)
-  - space - pixels, spans, turns (display.js)
-  - matter - primitives (world.js)
-  - energy - deltaMouse (buffer.js)
-- libraries
-  - modeler
-  - physics
-  - seedrandom
-  - shader
+      - [ ] arc(x,y,radius,angle,offset), circle, ellipse
+      - [ ] color palettes, themes
+    - [ ] viewport controls (camera)
+      - [ ] look
+      - [ ] zoom
+      - [ ] pitch
+    - [ ] player control (action)
+      - [ ] move
+      - [ ] touch
+  - [ ] main menu
+  - [ ] debug frame
+- [ ] fix basic data
+  - [ ] game CRUD
+  - [ ] world config
+  - [ ] entities, systems, patterns, assets, etc
+  - [ ] sessions
+- [ ] fix basic elements
+  - [ ] time - frames, millis (main.js)
+  - [ ] space - pixels, spans, turns (display.js)
+  - [ ] matter - primitives (world.js)
+  - [ ] energy - deltaMouse (buffer.js)
+- [ ] libraries
+  - [ ] modeler
+  - [ ] physics
+  - [ ] seedrandom
+  - [ ] shader
