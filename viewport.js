@@ -1,10 +1,20 @@
 //viewport.js
 
 function resize(event) {
-  controls.width=window.innerWidth;
-  controls.height=window.innerHeight;
-  controls.isResized=true;
+  // update global/system state
+  game.width=window.innerWidth;
+  game.height=window.innerHeight;
+  //game.isResized=true;
   //console.log(controls.width,controls.height);
+
+  //console.log(game);
+
+  // var load_event = document.createEvent('Event');  
+  // load_event.initEvent('load', false, false);  
+  // window.dispatchEvent(load_event);
+
+  //window.location.reload();
+  draw();
 }
 
 // CHECK BROWSER FEATURES //
