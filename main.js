@@ -41,7 +41,7 @@ function loop(now,state,ctx) {
   // maybe Display is allowed to use other canvas contexts to draw
   // ... like maybe an offscreen canvas context
 
-  //if (state.isQuit) return console.log("quit");
+  if (state.isQuit) return console.log("quit");
   state.start=now;
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }

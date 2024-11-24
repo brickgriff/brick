@@ -97,14 +97,23 @@ const World = (function (/*api*/) {
     state.growth=state.entities.filter(entity=>entity.isActive).length+state.flow;
 
     //console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
-    if (state.growth!==0) {
-      state.reset=state.frame+60*Math.floor(1/dt); // +(5s*fps)
-    } 
 
-    if (state.reset<=state.frame ||  state.isQuit) {
+
+    // auto reset
+    const resetDuration = state.duration = 60*60;
+    if (state.growth===0) {
+      state.reset=state.reset-1;
+    } else {
+      state.reset=resetDuration;
+    }
+
+    if (state.reset===0) {
       client.cx=0;
       client.cy=0;
+      state.reset=resetDuration;
     }
+
+    state.progress = 1-state.reset/resetDuration;
 
     //console.log(state.buffer.isResized);
     //state.zoom=Math.min(5,Math.max(0.5,state.zoom+client.zoom));
@@ -132,12 +141,20 @@ const World = (function (/*api*/) {
       vector.x-=1;
     }
     if (list.includes("Escape")) {
-      state.quitting=state.quitting===-1?state.quitting=5*Math.floor(1/dt):state.quitting-1;
-      state.isQuit=state.quitting===0;
+      state.isQuit=true;
+    }
+    // reset override
+    const quitDuration = state.duration = 5*60;
+    if (list.includes("Backspace")) {
+      state.reset=state.reset-1;
+      //state.isQuit=state.quitting===0;
       //console.log(state.quitting,state.isQuit);
     } else {
-      state.quitting=-1;
+      state.reset+=state.reset<quitDuration?1:0;
     }
+
+    state.progress = 1-state.reset/quitDuration;
+
 
     // calculate movement vector
     const length = Math.min(1,Math.hypot(vector.y,vector.x));

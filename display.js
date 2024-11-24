@@ -10,15 +10,16 @@ const Display = (function (/*api*/) {
     const limit = Math.pow(10,client.level+1); // f(0)=10,f(1)=100,etc
     const count = Math.floor(state.growth%limit);
     const offset = count/limit*Math.PI;
-    const middle=Math.PI/2;
-    const a = middle - offset;
-    const b = middle + offset;
+    //const middle=Math.PI/2;
+    //const a = middle - offset;
+    //const b = middle + offset;
     const eMargin = 5;
     const lMargin = 2;
     const hMargin = 1;
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
+    drawReset(ctx,state.progress*Math.PI);
     drawLevel(ctx,lMargin);
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hMargin);
     drawEntities(ctx,state.entities);
@@ -66,7 +67,7 @@ const Display = (function (/*api*/) {
     move(ctx,0,client.cr-margin*2);
     line(ctx,0,client.cr);
 
-    for (let i=0;i<client.level-1;i++) {
+    for (let i=0;i<client.level;i++) {
       circle(ctx,0,0,client.cr-9-i*margin*2);
     }
     ctx.stroke();
@@ -82,6 +83,19 @@ const Display = (function (/*api*/) {
     ctx.beginPath();
     ctx.lineWidth=margin;
     arc(ctx,0,0,client.cr-margin/2,a,b);
+    ctx.stroke();
+  }
+
+  function drawReset(ctx,offset) {
+    const middle=Math.PI/2;
+    const a = middle - offset;
+    const b = middle + offset;
+
+    ctx.strokeStyle=thorns;
+
+    ctx.beginPath();
+    ctx.lineWidth=5;
+    arc(ctx,0,0,client.cr-5/2,a,b);
     ctx.stroke();
   }
 
