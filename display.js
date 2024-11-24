@@ -70,8 +70,10 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
+    circle(ctx,0,0,game.cr-margin*2);
+
     for (let i=0;i<game.level;i++) {
-      circle(ctx,0,0,game.cr-7-i*margin*2);
+      circle(ctx,0,0,game.cr-8-i*margin*2);
     }
     ctx.stroke();
   }
@@ -110,9 +112,16 @@ const Display = (function (/*api*/) {
       const entityR = entity.r*game.cr*game.scalingFactor;
 
       ctx.beginPath();
-      ctx.strokeStyle=entity.isActive?active:inactive;
+      ctx.strokeStyle=inactive;//entity.isActive?active:inactive;
       circle(ctx,entityX,entityY,entityR);
       ctx.stroke();
+      ctx.beginPath();
+      ctx.strokeStyle=active;
+      //console.log(entity.timer);
+      ctx.globalAlpha=entity.timer/10;
+      circle(ctx,entityX,entityY,entityR);
+      ctx.stroke();
+      ctx.globalAlpha=1;
     });
   }
 
