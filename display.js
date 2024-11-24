@@ -4,37 +4,26 @@ const Display = (function (/*api*/) {
   // public api is a function
   api.draw = function (state, ctx) {
     //console.log(`draw`);
-
-    //ctx.reset();
     ctx.save();
     ctx.translate(client.width/2,client.height/2);
-
-    drawBackground(ctx);
-
+    
     const limit = Math.pow(10,client.level+1); // f(0)=10,f(1)=100,etc
     const count = Math.floor(state.growth%limit);
     const offset = count/limit*Math.PI;
     const middle=Math.PI/2;
     const a = middle - offset;
     const b = middle + offset;
-
-    //console.log(state.growth,state.level,limit,grassCount,grassOffset);
-
     const eMargin = 5;
     const lMargin = 2;
     const hMargin = 1;
 
+    drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
     drawLevel(ctx,lMargin);
-
-    clipHorizon(ctx,eMargin+lMargin+hMargin);
-
+    clipHorizon(ctx,eMargin+lMargin*2*client.level+hMargin);
     drawEntities(ctx,state.entities);
-
     drawPlayer(ctx,state);
-
     ctx.restore();
-
     // centered on width/2,height/2
   };
 
@@ -47,6 +36,8 @@ const Display = (function (/*api*/) {
 
   function clipHorizon(ctx,margin) {
     // clip out horizon
+    //console.log(margin);
+    ctx.beginPath();
     circle(ctx,0,0,client.cr-margin);
     ctx.clip();
   }
@@ -70,10 +61,13 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
-    circle(ctx,0,0,client.cr-margin*2);
+    circle(ctx,0,0,client.cr-5);
+    circle(ctx,0,0,client.cr);
+    move(ctx,0,client.cr-margin*2);
+    line(ctx,0,client.cr);
 
     for (let i=0;i<client.level;i++) {
-      circle(ctx,0,0,client.cr-8-i*margin*2);
+      circle(ctx,0,0,client.cr-9-i*margin*2);
     }
     ctx.stroke();
   }
@@ -151,7 +145,6 @@ const Display = (function (/*api*/) {
     ctx.lineTo(x,y);
   };
   const arc = (ctx,x,y,r,a,b) => {
-
     move(ctx,x+r*Math.cos(a),y+r*Math.sin(a));
     ctx.arc(x,y,r,a,b);
   };
