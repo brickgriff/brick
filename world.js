@@ -98,8 +98,10 @@ const World = (function (/*api*/) {
 
     //console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
     if (state.growth!==0) {
-      state.reset=state.frame+5*Math.floor(1/dt); // +(5s*fps)
-    } else if (state.reset<=state.frame) {
+      state.reset=state.frame+60*Math.floor(1/dt); // +(5s*fps)
+    } 
+
+    if (state.reset<=state.frame ||  state.isQuit) {
       client.cx=0;
       client.cy=0;
     }
@@ -128,6 +130,13 @@ const World = (function (/*api*/) {
     }
     if (list.includes("KeyF")||list.includes("KeyL")||list.includes("ArrowRight")) {
       vector.x-=1;
+    }
+    if (list.includes("Escape")) {
+      state.quitting=state.quitting===-1?state.quitting=5*Math.floor(1/dt):state.quitting-1;
+      state.isQuit=state.quitting===0;
+      //console.log(state.quitting,state.isQuit);
+    } else {
+      state.quitting=-1;
     }
 
     // calculate movement vector

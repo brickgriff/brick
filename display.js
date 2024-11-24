@@ -61,12 +61,12 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
-    circle(ctx,0,0,client.cr-5);
-    circle(ctx,0,0,client.cr);
+    //circle(ctx,0,0,client.cr-5);
+    //circle(ctx,0,0,client.cr);
     move(ctx,0,client.cr-margin*2);
     line(ctx,0,client.cr);
 
-    for (let i=0;i<client.level;i++) {
+    for (let i=0;i<client.level-1;i++) {
       circle(ctx,0,0,client.cr-9-i*margin*2);
     }
     ctx.stroke();
