@@ -33,6 +33,17 @@ const Display = (function (/*api*/) {
     circle(ctx,0,0,game.cr-10);
     ctx.stroke();
 
+    //draw player
+    ctx.beginPath();
+    circle(ctx,0,0,0.1*game.cr*state.zoom);
+    ctx.fill();
+    //ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
+    //  0.03*2*Math.PI*10*state.minDim/100
+    //]);
+    //drawCircle(state,ctx,0,0,2*state.radius,gray5);
+    //ctx.setLineDash([]);
+    //ctx.strokeStyle=gray5;
+
     ctx.beginPath();
     ctx.lineWidth=5;
     const level = Math.floor(Math.log10(state.growth));
@@ -52,17 +63,6 @@ const Display = (function (/*api*/) {
       arc(ctx,0,0,game.cr-14-i*4,0,2*Math.PI);
 
     }
-
-    //draw player
-    ctx.beginPath();
-    circle(ctx,0,0,0.1*game.cr*state.zoom);
-    ctx.fill();
-    //ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
-    //  0.03*2*Math.PI*10*state.minDim/100
-    //]);
-    //drawCircle(state,ctx,0,0,2*state.radius,gray5);
-    //ctx.setLineDash([]);
-    //ctx.strokeStyle=gray5;
 
     ctx.stroke();
 
