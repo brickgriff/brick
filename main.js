@@ -2,17 +2,25 @@
   @Author: BrickGriff@GitHub.com
 */
 
+
+// globals for I/O
 const game = {
+  // client inner dimensions
+  // i.e. innerWidth, innerHeight
   width:0,
   height:0,
+
+  // center offsets
   cx:0,
   cy:0,
-  cr:0,
-  ctx:null,
+  cr:0, // radial
+  // ctx:null,
 
+  // input keyboard
   buttons:[],
-  zoom:1,
-  speed:0.05, // move 5% of the screen unit
+  // input mouse
+  // zoom:1,
+  speed:0.05, // move 5% of center radial offset (cr)
 };
 
 function loop(now,state,ctx) {
