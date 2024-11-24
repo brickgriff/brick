@@ -12,11 +12,11 @@ const Display = (function (/*api*/) {
     drawBackground(ctx);
 
     const limit = Math.pow(10,game.level+1); // f(0)=10,f(1)=100,etc
-    const grassCount = Math.floor(state.growth%limit);
-    const grassOffset = grassCount/limit*Math.PI;
+    const count = Math.floor(state.growth%limit);
+    const offset = count/limit*Math.PI;
     const middle=Math.PI/2;
-    const a = middle - grassOffset;
-    const b = middle + grassOffset;
+    const a = middle - offset;
+    const b = middle + offset;
 
     //console.log(state.growth,state.level,limit,grassCount,grassOffset);
 
@@ -24,7 +24,7 @@ const Display = (function (/*api*/) {
     const lMargin = 2;
     const hMargin = 1;
 
-    drawExperience(ctx,grassOffset,eMargin);
+    drawExperience(ctx,offset,eMargin);
     drawLevel(ctx,lMargin);
 
     clipHorizon(ctx,eMargin+lMargin+hMargin);
