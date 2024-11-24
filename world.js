@@ -73,7 +73,7 @@ const World = (function (/*api*/) {
       //if (idx===2) console.log(isTouching,entity.timer);
 
       if (entity.timer===undefined) entity.timer=0;
-      entity.timer=Math.max(0,!entity.isActive&&isTouching?100:entity.timer-1);
+      entity.timer=Math.max(0,isTouching?100:entity.timer-1);
       entity.isActive=entity.timer>0;
     });
 
