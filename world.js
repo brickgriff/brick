@@ -96,7 +96,7 @@ const World = (function (/*api*/) {
     //state.flow+=1;//+state.growthRate - decay;
     state.growth=state.entities.filter(entity=>entity.isActive).length+state.flow;
 
-    console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
+    //console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
     if (state.growth!==0) {
       state.reset=state.frame+5*Math.floor(1/dt); // +(5s*fps)
     } else if (state.reset<=state.frame) {
