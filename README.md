@@ -47,3 +47,12 @@
   - [ ] seedrandom
   - [ ] shader
   - [ ] svg
+
+### journal
+
+I'm trying to build a platform to develop small game for the Commons.
+I want it to be as minimalist and accessible as the games it can make.
+It should be able to do the following:
+
+- 
+- 
