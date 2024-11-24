@@ -19,6 +19,7 @@ const World = (function (/*api*/) {
       flow:0,
       growthRate:0,
       decayRate:0,
+      isTouching:-1,
       // center position
       cx:0,
       cy:0,
@@ -73,8 +74,19 @@ const World = (function (/*api*/) {
       //if (idx===2) console.log(isTouching,entity.timer);
 
       if (entity.timer===undefined) entity.timer=0;
-      entity.timer=Math.max(0,isTouching?100:entity.timer-1);
+      
+      if (isTouching) {
+        entity.timer=100;
+        state.isTouching=idx;
+      } else if (idx===state.isTouching) {
+        state.isTouching=-1;
+      } else if (state.isTouching!==-1) {
+        // pause
+      } else {
+        entity.timer=Math.max(0,entity.timer-1);
+      }
       entity.isActive=entity.timer>0;
+
     });
 
     // TODO: make the decay function polynomial to maintain challenge
