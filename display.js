@@ -8,34 +8,54 @@ const Display = (function (/*api*/) {
     //ctx.reset();
     ctx.save();
     ctx.translate(game.width/2,game.height/2);
+
+    drawBackground(ctx);
+
+    const limit = Math.pow(10,game.level+1); // f(0)=10,f(1)=100,etc
+    const grassCount = Math.floor(state.growth%limit);
+    const grassOffset = grassCount/limit*Math.PI;
+    const middle=Math.PI/2;
+    const a = middle - grassOffset;
+    const b = middle + grassOffset;
+
+    //console.log(state.growth,state.level,limit,grassCount,grassOffset);
+
+    const eMargin = 5;
+    const lMargin = 2;
+    const hMargin = 1;
+
+    drawExperience(ctx,grassOffset,eMargin);
+    drawLevel(ctx,lMargin);
+
+    clipHorizon(ctx,eMargin+lMargin+hMargin);
+
+    drawEntities(ctx,state.entities);
+
+    drawPlayer(ctx,state);
+
+    ctx.restore();
+
+    // centered on width/2,height/2
+  };
+
+  function drawBackground(ctx) {
     ctx.fillStyle=background;
     ctx.beginPath();
     ctx.rect(-game.cr,-game.cr,2*game.cr,2*game.cr);
     ctx.fill();
+  }
 
-    circle(ctx,0,0,game.cr);
-    ctx.save();
+  function clipHorizon(ctx,margin) {
+    // clip out horizon
+    circle(ctx,0,0,game.cr-margin);
     ctx.clip();
+  }
 
-    // centered on 0,0
-
-
-
-
-    ctx.restore();
-
-    // draw horizon ring
-    ctx.lineWidth=2;
-    ctx.strokeStyle=gray5;
-    ctx.fillStyle=gray5;
-    ctx.beginPath();
-    circle(ctx,0,0,game.cr);
-    circle(ctx,0,0,game.cr-10);
-    ctx.stroke();
-
+  function drawPlayer(ctx) {
     //draw player
+    ctx.fillStyle=player;
     ctx.beginPath();
-    circle(ctx,0,0,0.1*game.cr*state.zoom);
+    circle(ctx,0,0,game.cr*game.scalingFactor);
     ctx.fill();
     //ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
     //  0.03*2*Math.PI*10*state.minDim/100
@@ -43,33 +63,58 @@ const Display = (function (/*api*/) {
     //drawCircle(state,ctx,0,0,2*state.radius,gray5);
     //ctx.setLineDash([]);
     //ctx.strokeStyle=gray5;
+  }
+
+  function drawLevel(ctx,margin) {
+    ctx.strokeStyle=light;
 
     ctx.beginPath();
-    ctx.lineWidth=5;
-    const level = Math.floor(Math.log10(state.growth));
-    const limit = Math.pow(10,level+1);
-    const middle=Math.PI/2;
-    const grassCount = state.growth%limit;
-    const grassOffset = grassCount/limit*Math.PI;
-    const a = middle - grassOffset;
-    const b = middle + grassOffset;
-
-    arc(ctx,0,0,game.cr-5,a,b);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.lineWidth=2;
-    for (let i=0;i<level;i++) {
-
-      arc(ctx,0,0,game.cr-14-i*4,0,2*Math.PI);
-
+    ctx.lineWidth=margin;
+    for (let i=0;i<game.level;i++) {
+      circle(ctx,0,0,game.cr-7-i*margin*2);
     }
-
     ctx.stroke();
+  }
 
-    ctx.restore();
+  function drawExperience(ctx,offset,margin) {
+    const middle=Math.PI/2;
+    const a = middle - offset;
+    const b = middle + offset;
 
-    // centered on width/2,height/2
-  };
+    ctx.strokeStyle=light;
+
+    ctx.beginPath();
+    ctx.lineWidth=margin;
+    arc(ctx,0,0,game.cr-margin/2,a,b);
+    ctx.stroke();
+  }
+
+  function drawEntities(ctx, entities) {
+    const fraction=1/24;
+    const radius = game.cr*game.scalingFactor;
+    const circumference = 2 * Math.PI * radius;
+    ctx.setLineDash([fraction*circumference]);
+    ctx.lineDashOffset=fraction*circumference/2;
+    
+    ctx.beginPath();
+    ctx.strokeStyle=light;
+    circle(ctx,game.offsetX,game.offsetY,radius);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    entities.forEach(entity=>{
+      if (!(entity.x!=null&&entity.y!=null&&entity.r!=null)) return;
+
+      const entityX = entity.x*game.scalingFactor*game.cr+game.offsetX;
+      const entityY = entity.y*game.scalingFactor*game.cr+game.offsetY;
+      const entityR = entity.r*game.cr*game.scalingFactor;
+
+      ctx.beginPath();
+      ctx.strokeStyle=entity.isActive?active:inactive;
+      circle(ctx,entityX,entityY,entityR);
+      ctx.stroke();
+    });
+  }
 
   const gray0=shadow="#111111"; // shadow
   const gray1=background="#222222"; // background

@@ -7,6 +7,7 @@ const game = {
   height:0,
   cx:0,
   cy:0,
+  cr:0,
   ctx:null,
 
   buttons:[],
@@ -125,11 +126,12 @@ function testDraw() {
 
   const circumference = TWO_PI*platformR;
   const distance = 0.15*cr;
+  const fraction = 1/24;
 
   // draw platform
   ctx.lineWidth=3;
-  ctx.setLineDash([1/24*circumference,1/24*circumference]);
-  ctx.lineDashOffset = 1/48*circumference;
+  ctx.setLineDash([fraction*circumference]);
+  ctx.lineDashOffset = fraction*circumference/2;
 
   // collision detection
   if (Math.abs(platformX)<=distance&&Math.abs(platformY)<=distance) {
