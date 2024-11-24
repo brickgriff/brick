@@ -56,3 +56,5 @@ It should be able to do the following:
 
 - 
 - 
+
+Remember to switch focus from global client object to shared state object.
