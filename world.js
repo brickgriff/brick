@@ -15,12 +15,14 @@ const World = (function (/*api*/) {
       radius:5,
       length:0,
       angle:0,
+      growth:0,
+      growthRate:1,
       // center position
       cx:0,
       cy:0,
       cw:0,
       ch:0,
-      minDim:0,
+      //minDim:0,
     };
 
     return state;
@@ -34,28 +36,29 @@ const World = (function (/*api*/) {
     state.frame++;
 
     //console.log(state.buffer.isResized);
-    state.zoom=Math.min(5,Math.max(0.5,state.zoom+state.buffer.zoom));
+     state.zoom=Math.min(5,Math.max(0.5,state.zoom+game.zoom));
 
-    if (state.buffer.isResized) {
-      state.canvas.width=state.buffer.width;
-      state.canvas.height=state.buffer.height;
+    // if (game.isResized) {
+    //   state.canvas.width=game.width;
+    //   state.canvas.height=game.height;
+    // }
+
+    //state.minDim=Math.min(state.canvas.width,state.canvas.height);
+    const list = game.buttons;
+    if (list.includes("KeyE")||list.includes("KeyI")) {
+      game.cy+=1;
+    }
+    if (list.includes("KeyD")||list.includes("KeyK")) {
+      game.cy-=1;
+    }
+    if (list.includes("KeyS")||list.includes("KeyJ")) {
+      game.cx+=1;
+    }
+    if (list.includes("KeyF")||list.includes("KeyL")) {
+      game.cx-=1;
     }
 
-    state.minDim=Math.min(state.canvas.width,state.canvas.height);
-
-    // WASD
-    if (state.buffer.buttons.includes("KeyE")||state.buffer.buttons.includes("KeyI")) {
-      state.py+=state.speed;
-    }
-    if (state.buffer.buttons.includes("KeyD")||state.buffer.buttons.includes("KeyK")) {
-      state.py-=state.speed;
-    }
-    if (state.buffer.buttons.includes("KeyS")||state.buffer.buttons.includes("KeyJ")) {
-      state.px+=state.speed;
-    }
-    if (state.buffer.buttons.includes("KeyF")||state.buffer.buttons.includes("KeyL")) {
-      state.px-=state.speed;
-    }
+    state.growth+=state.growthRate;
 
     // calculate movement vector
   };

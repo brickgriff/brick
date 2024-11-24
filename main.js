@@ -8,18 +8,22 @@ const game = {
   cx:0,
   cy:0,
   ctx:null,
+
   buttons:[],
+  zoom:1,
   speed:0.05, // move 5% of the screen unit
 };
 
 function loop(now,state,ctx) {
   const elapsed = (now - state.start) / 1000; // deltaTime in seconds
-  const dt = elapsed > 1 ? 1 : elapsed; // cap deltaTime @ 1s
+  const dt = elapsed > 1 ? 1 : elapsed; // cap deltaTime to 1s
   
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
 
-  //World.update(state, dt); // update entities
-  //Display.draw(state, ctx); // draw entities
+  testDraw();
+
+  World.update(state, dt); // update entities
+  Display.draw(state, ctx); // draw entities
   //Buffer.flush(state); // reset buffer
   //console.log(state.canvas.width,state.canvas.height);
 
@@ -38,11 +42,12 @@ function testDraw() {
 
   // normalize coordinates
   ctx.translate(game.width/2,game.height/2);
+
   //ctx.scale(1,0.5); 
   // TODO: scale manually to avoid distorting the line art
 
   const minDim = Math.min(game.width,game.height); // one screen unit
-  const cr = minDim/2; // center radius
+  const cr = game.cr = minDim/2; // center radius
   const TWO_PI = 2*Math.PI;
 
   // fill background
@@ -101,8 +106,8 @@ function testDraw() {
   ctx.fillStyle="black";//game.abc%2===0?"black":"white";
   ctx.strokeStyle="white";
 
-  const offsetX=game.cx*game.speed*minDim;
-  const offsetY=game.cy*game.speed*minDim;
+  const offsetX=game.offsetX=game.cx*game.speed*minDim;
+  const offsetY=game.offsetY=game.cy*game.speed*minDim;
 
   const itemX=0.10*minDim+offsetX;
   const itemY=-0.30*minDim+offsetY;
@@ -115,12 +120,23 @@ function testDraw() {
   ctx.stroke();
 
   const platformX=-0.25*minDim+offsetX;
-  const platformY=-0.25*minDim+offsetY;
+  const platformY=-0.15*minDim+offsetY;
   const platformR=0.15*cr;
+
+  const circumference = TWO_PI*platformR;
+  const distance = 0.15*cr;
 
   // draw platform
   ctx.lineWidth=3;
-  ctx.setLineDash([10,10]);
+  ctx.setLineDash([1/24*circumference,1/24*circumference]);
+  ctx.lineDashOffset = 1/48*circumference;
+
+  // collision detection
+  if (Math.abs(platformX)<=distance&&Math.abs(platformY)<=distance) {
+    ctx.strokeStyle="pink";
+    ctx.lineWidth=5;
+  }
+
   ctx.beginPath();
   ctx.moveTo(platformX+platformR,platformY);
   ctx.arc(platformX,platformY,platformR,0,TWO_PI);
@@ -130,6 +146,7 @@ function testDraw() {
 
   // draw player
   ctx.lineWidth=1;
+  ctx.strokeStyle="white";
   ctx.setLineDash([]);
   ctx.beginPath();
   ctx.moveTo(0+playerR,0);
@@ -138,12 +155,19 @@ function testDraw() {
   ctx.stroke();
 
   ctx.restore();
-  
+
   ctx.fillStyle="dimgray";//game.abc%2===0?"black":"white";
   ctx.fillRect(0,0,game.width,(game.height-minDim)/2);
   ctx.fillRect(0,minDim+(game.height-minDim)/2,game.width,(game.height-minDim)/2);
   ctx.fillRect(0,0,(game.width-minDim)/2,game.height);
   ctx.fillRect(minDim+(game.width-minDim)/2,0,(game.width-minDim)/2,game.height);
+
+  ctx.beginPath();
+  ctx.lineWidth=5;
+  ctx.strokeStyle="black";
+  ctx.rect(0,0,game.width,game.height);
+  ctx.stroke();
+
 }
 
 function main() {  
@@ -152,20 +176,18 @@ function main() {
   const canvas = document.createElement("canvas"); // default canvas
   const ctx = game.ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
 
-  canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
+  //canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   game.width=window.innerWidth;
   game.height=window.innerHeight;
   // make the canvas large enough to resize to fit large screens
   canvas.width=5000;
   canvas.height=5000;
-
-  testDraw();
+  canvas.focus();
 
   const state = World.create(canvas); // initialize!
 
-  //canvas.focus();
   document.body.appendChild(canvas); // add it to body
-  //requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
+  requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }
 
 window.onload = main;

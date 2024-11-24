@@ -14,6 +14,138 @@
 /* OBJECTS */
 /* SCENES */
 
+    // if (state.buffer && state.buffer.isTouched) ctx.fillStyle=red3;
+    // if (state.buffer && state.buffer.isLooked) ctx.fillStyle=green3;
+    // if (state.buffer && state.buffer.isReset) ctx.fillStyle=blue3;
+    //if (state.buffer && state.buffer.zoom > 0) ctx.fillStyle="black";
+    //if (state.buffer && state.buffer.zoom < 0) ctx.fillStyle="white";
+
+
+    // const cx=state.canvas.width/2,cy=state.canvas.height/2;
+
+    // //ctx.clearRect(0,0,state.canvas.width,state.canvas.height);
+    // ctx.lineWidth=2;
+    // ctx.strokeStyle=gray5;
+    // ctx.beginPath();
+    // ctx.save();
+    // circle(ctx,cx,cy,(0.5*state.minDim));
+    // ctx.clip();
+    // //circle(ctx,cx,cy,state.minDim/2);
+    // //ctx.stroke();
+
+    // ctx.translate(cx,cy);
+    // ctx.scale(state.zoom,state.zoom*state.pitch);
+
+    // let argsList=[
+    //   [0,40,5,gray5],
+    //   [0,40,1,green4],
+    //   [25,25,5,gray0,"fill"],
+    //   [0,25,5,gray2,"fill"],
+    //   [-25,25,5,gray4,"fill"],
+    //   [-10,-30,1,gray0],
+    //   [-10,-35,1,gray2],
+    //   [-10,-40,1,gray4],
+    //   [-10,-45,1,gray5],
+    // ];
+    // argsList.forEach(args => drawEntity(state,ctx,...args));
+
+    // ctx.strokeStyle=grass;
+    // argsList=[
+    //   [-15,-25],
+    //   [-17,-26],
+    //   [-15,-27],
+    //   [-13,-26],
+    // ];
+    // ctx.beginPath();
+    // argsList.forEach(args => drawGrass(state,ctx,...args));
+    // ctx.stroke();
+    // ctx.strokeStyle=gray4;
+    // //ctx.beginPath();
+    // //argsList.forEach(args => drawRange(state,ctx,...args));
+    // //ctx.stroke();
+
+    // ctx.strokeStyle=clover;
+    // ctx.fillStyle=clover;
+    // argsList=[
+    //   [-11,-20],
+    //   [-7,-20],
+    //   [-9,-24],
+    // ];
+    // ctx.beginPath();
+    // argsList.forEach(args => drawClover(state,ctx,...args));
+    // ctx.fill();
+    // ctx.strokeStyle=gray4;
+    // //ctx.beginPath();
+    // //argsList.forEach(args => drawRange(state,ctx,...args,3));
+    // //ctx.stroke();
+
+    // ctx.strokeStyle=rose;
+    // ctx.fillStyle=rose;
+    // argsList=[
+    //   [-26,-27],
+    //   [-21,-18],
+    // ];
+    // ctx.beginPath();
+    // argsList.forEach(args => drawShrub(state,ctx,...args));
+    // ctx.fill();
+    // ctx.fillStyle=flowers;
+    // ctx.beginPath();
+    // argsList.forEach(args => drawRose(state,ctx,...args));
+    // ctx.fill();
+    // ctx.strokeStyle=thorns;
+    // ctx.fillStyle=thorns;
+    // ctx.beginPath();
+    // argsList.forEach(args => drawThorns(state,ctx,...args));
+    // ctx.fill();
+    // ctx.beginPath();
+    // argsList.forEach(args => drawRange(state,ctx,...args,5));
+    // ctx.stroke();
+    // ctx.strokeStyle=mallow;
+    // ctx.fillStyle=mallow;
+    // argsList=[
+    //   [24,-28],
+    //   [21,-18],
+    // ];
+    // ctx.beginPath();
+    // argsList.forEach(args => drawMallow(state,ctx,...args,2));
+    // ctx.fill();
+    // ctx.strokeStyle=gray1;
+    // ctx.beginPath();
+    // argsList.forEach(args => drawNotch(state,ctx,...args));
+    // ctx.stroke();
+    // ctx.strokeStyle=gray4;
+    // //ctx.beginPath();
+    // //argsList.forEach(args => drawRange(state,ctx,...args,2));
+    // //ctx.stroke();
+    
+    // ctx.strokeStyle=mint;
+    // ctx.fillStyle=mint;
+    // argsList=[
+    //   [15,-12],
+    //   [10,-18],
+    // ];
+    // ctx.beginPath();
+    // argsList.forEach(args => drawMint(state,ctx,...args,2));
+    // ctx.fill();
+    // ctx.strokeStyle=gray4;
+    //ctx.beginPath();
+    //argsList.forEach(args => drawRange(state,ctx,...args,4));
+    //ctx.stroke();
+
+    //drawCircle(state,ctx,0,0,state.radius,gray3,"fill");
+    //ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
+    //  0.03*2*Math.PI*10*state.minDim/100
+    //]);
+    //drawCircle(state,ctx,0,0,2*state.radius,gray5);
+    //ctx.setLineDash([]);
+    //ctx.strokeStyle=gray5;
+    //ctx.fillStyle=gray5;
+    //ctx.restore();
+    //ctx.beginPath();
+    //circle(ctx,game.cx,game.cy,game.cr);
+    //ctx.stroke();
+
+
 // handles for canvas and context (2D)
 // is 3D possible?
 // let's keep learning then simulate later

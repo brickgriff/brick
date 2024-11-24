@@ -8,24 +8,10 @@ function pushInput(event) {
   // if(input===1) controls.isReset=true;
   // if(input===2) controls.isLooked=true;
 
+  //console.log(game.buttons);
   if (!list.includes(input)) list.push(input);
 
-  if (list.includes("KeyE")||list.includes("KeyI")) {
-    game.cy+=1;
-  }
-  if (list.includes("KeyD")||list.includes("KeyK")) {
-    game.cy-=1;
-  }
-  if (list.includes("KeyS")||list.includes("KeyJ")) {
-    game.cx+=1;
-  }
-  if (list.includes("KeyF")||list.includes("KeyL")) {
-    game.cx-=1;
-  }
-
-  //console.log(game.buttons);
-
-  testDraw();
+  //testDraw();
 }  
 function dropInput(event) {
   const list = game.buttons;
