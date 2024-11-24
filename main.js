@@ -26,6 +26,7 @@ const client = {
 function loop(now,state,ctx) {
   const elapsed = (now - state.start) / 1000; // deltaTime in seconds
   const dt = elapsed > 1 ? 1 : elapsed; // cap deltaTime to 1s
+  //console.log(now,state.start);
   
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
 
@@ -41,7 +42,7 @@ function loop(now,state,ctx) {
   // ... like maybe an offscreen canvas context
 
   if (state.isQuit) return console.log("quit");
-
+  state.start=now;
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }
 

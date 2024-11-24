@@ -20,13 +20,15 @@ const World = (function (/*api*/) {
       growthRate:0,
       decayRate:0,
       isTouching:-1,
+      reset:0,
       // center position
       cx:0,
       cy:0,
       cw:0,
       ch:0,
-      entities:[]
+      entities:[],
       //minDim:0,
+      start:0,
     };
 
     state.entities = [
@@ -93,6 +95,14 @@ const World = (function (/*api*/) {
     //const decay = state.decayRate * (state.growth/50);
     //state.flow+=1;//+state.growthRate - decay;
     state.growth=state.entities.filter(entity=>entity.isActive).length+state.flow;
+
+    console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
+    if (state.growth!==0) {
+      state.reset=state.frame+5*Math.floor(1/dt); // +(5s*fps)
+    } else if (state.reset<=state.frame) {
+      client.cx=0;
+      client.cy=0;
+    }
 
     //console.log(state.buffer.isResized);
     //state.zoom=Math.min(5,Math.max(0.5,state.zoom+client.zoom));
