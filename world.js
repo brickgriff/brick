@@ -57,7 +57,7 @@ const World = (function (/*api*/) {
     //console.log("state:",state);
     state.frame++;
 
-    const level=game.level=state.growth<1 ? 0 :Math.floor(Math.log10(state.growth));
+    const level=game.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
     const scalingFactor = game.scalingFactor = 1/(level+2);
     game.offsetX=game.cx*game.speed*game.cr*2*scalingFactor;
     game.offsetY=game.cy*game.speed*game.cr*2*scalingFactor;
