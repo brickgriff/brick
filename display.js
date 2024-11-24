@@ -7,11 +7,11 @@ const Display = (function (/*api*/) {
 
     //ctx.reset();
     ctx.save();
-    ctx.translate(game.width/2,game.height/2);
+    ctx.translate(client.width/2,client.height/2);
 
     drawBackground(ctx);
 
-    const limit = Math.pow(10,game.level+1); // f(0)=10,f(1)=100,etc
+    const limit = Math.pow(10,client.level+1); // f(0)=10,f(1)=100,etc
     const count = Math.floor(state.growth%limit);
     const offset = count/limit*Math.PI;
     const middle=Math.PI/2;
@@ -41,13 +41,13 @@ const Display = (function (/*api*/) {
   function drawBackground(ctx) {
     ctx.fillStyle=background;
     ctx.beginPath();
-    ctx.rect(-game.cr,-game.cr,2*game.cr,2*game.cr);
+    ctx.rect(-client.cr,-client.cr,2*client.cr,2*client.cr);
     ctx.fill();
   }
 
   function clipHorizon(ctx,margin) {
     // clip out horizon
-    circle(ctx,0,0,game.cr-margin);
+    circle(ctx,0,0,client.cr-margin);
     ctx.clip();
   }
 
@@ -55,7 +55,7 @@ const Display = (function (/*api*/) {
     //draw player
     ctx.fillStyle=player;
     ctx.beginPath();
-    circle(ctx,0,0,game.cr*game.scalingFactor);
+    circle(ctx,0,0,client.cr*client.scalingFactor);
     ctx.fill();
     //ctx.setLineDash([0.02*2*Math.PI*10*state.minDim/100,
     //  0.03*2*Math.PI*10*state.minDim/100
@@ -70,10 +70,10 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
-    circle(ctx,0,0,game.cr-margin*2);
+    circle(ctx,0,0,client.cr-margin*2);
 
-    for (let i=0;i<game.level;i++) {
-      circle(ctx,0,0,game.cr-8-i*margin*2);
+    for (let i=0;i<client.level;i++) {
+      circle(ctx,0,0,client.cr-8-i*margin*2);
     }
     ctx.stroke();
   }
@@ -87,29 +87,29 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
-    arc(ctx,0,0,game.cr-margin/2,a,b);
+    arc(ctx,0,0,client.cr-margin/2,a,b);
     ctx.stroke();
   }
 
   function drawEntities(ctx, entities) {
     const fraction=1/24;
-    const radius = game.cr*game.scalingFactor;
+    const radius = client.cr*client.scalingFactor;
     const circumference = 2 * Math.PI * radius;
     ctx.setLineDash([fraction*circumference]);
     ctx.lineDashOffset=fraction*circumference/2;
     
     ctx.beginPath();
     ctx.strokeStyle=light;
-    circle(ctx,game.offsetX,game.offsetY,radius);
+    circle(ctx,client.offsetX,client.offsetY,radius);
     ctx.stroke();
     ctx.setLineDash([]);
     
     entities.forEach(entity=>{
       if (!(entity.x!=null&&entity.y!=null&&entity.r!=null)) return;
 
-      const entityX = entity.x*game.scalingFactor*game.cr+game.offsetX;
-      const entityY = entity.y*game.scalingFactor*game.cr+game.offsetY;
-      const entityR = entity.r*game.cr*game.scalingFactor;
+      const entityX = entity.x*client.scalingFactor*client.cr+client.offsetX;
+      const entityY = entity.y*client.scalingFactor*client.cr+client.offsetY;
+      const entityR = entity.r*client.cr*client.scalingFactor;
 
       ctx.beginPath();
       ctx.strokeStyle=inactive;//entity.isActive?active:inactive;

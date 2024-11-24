@@ -57,15 +57,15 @@ const World = (function (/*api*/) {
     //console.log("state:",state);
     state.frame++;
 
-    const level=game.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
-    const scalingFactor = game.scalingFactor = 1/(level+2);
-    game.offsetX=game.cx*game.speed*game.cr*2*scalingFactor;
-    game.offsetY=game.cy*game.speed*game.cr*2*scalingFactor;
+    const level=client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
+    const scalingFactor = client.scalingFactor = 1/(level+2);
+    client.offsetX=client.cx*client.speed*client.cr*2*scalingFactor;
+    client.offsetY=client.cy*client.speed*client.cr*2*scalingFactor;
 
     state.entities.forEach((entity,idx)=>{
-      const unitR = game.cr*game.scalingFactor;
-      const entityX=entity.x*unitR+game.offsetX;
-      const entityY=entity.y*unitR+game.offsetY;
+      const unitR = client.cr*client.scalingFactor;
+      const entityX=entity.x*unitR+client.offsetX;
+      const entityY=entity.y*unitR+client.offsetY;
       const entityR=entity.r*unitR;
 
       const distance = Math.hypot(entityY,entityX);
@@ -83,16 +83,16 @@ const World = (function (/*api*/) {
     state.growth=state.entities.filter(entity=>entity.isActive).length+state.flow;
 
     //console.log(state.buffer.isResized);
-    //state.zoom=Math.min(5,Math.max(0.5,state.zoom+game.zoom));
+    //state.zoom=Math.min(5,Math.max(0.5,state.zoom+client.zoom));
 
-    // if (game.isResized) {
-    //   state.canvas.width=game.width;
-    //   state.canvas.height=game.height;
+    // if (client.isResized) {
+    //   state.canvas.width=client.width;
+    //   state.canvas.height=client.height;
     // }
 
     //state.minDim=Math.min(state.canvas.width,state.canvas.height);
 
-    const list = game.buttons;
+    const list = client.buttons;
     const vector = {x:0,y:0};
 
     if (list.includes("KeyE")||list.includes("KeyI")||list.includes("ArrowUp")) {
@@ -112,8 +112,8 @@ const World = (function (/*api*/) {
     const length = Math.min(1,Math.hypot(vector.y,vector.x));
     const angle = Math.atan2(vector.y,vector.x);
 
-    game.cx += Math.round(length * Math.cos(angle));
-    game.cy += Math.round(length * Math.sin(angle));
+    client.cx += Math.round(length * Math.cos(angle));
+    client.cy += Math.round(length * Math.sin(angle));
   };
 
   // return the public api

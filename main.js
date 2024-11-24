@@ -4,7 +4,7 @@
 
 
 // globals for I/O
-const game = {
+const client = {
   // client inner dimensions
   // i.e. innerWidth, innerHeight
   width:0,
@@ -46,22 +46,22 @@ function loop(now,state,ctx) {
 }
 
 function testDraw() {
-  let ctx = game.ctx;
+  let ctx = client.ctx;
   ctx.save();
 
   // normalize coordinates
-  ctx.translate(game.width/2,game.height/2);
+  ctx.translate(client.width/2,client.height/2);
 
   //ctx.scale(1,0.5); 
   // TODO: scale manually to avoid distorting the line art
 
-  const minDim = Math.min(game.width,game.height); // one screen unit
-  const cr = game.cr = minDim/2; // center radius
+  const minDim = Math.min(client.width,client.height); // one screen unit
+  const cr = client.cr = minDim/2; // center radius
   const TWO_PI = 2*Math.PI;
 
   // fill background
   ctx.fillStyle="gray";
-  ctx.fillRect(-game.width/2,-game.height/2,game.width,game.height);
+  ctx.fillRect(-client.width/2,-client.height/2,client.width,client.height);
 
   // draw horizon ring
   ctx.beginPath();
@@ -112,11 +112,11 @@ function testDraw() {
   ctx.stroke();
 
   //console.log(itemX,itemY,itemX+offsetX,itemY+offsetY);
-  ctx.fillStyle="black";//game.abc%2===0?"black":"white";
+  ctx.fillStyle="black";//client.abc%2===0?"black":"white";
   ctx.strokeStyle="white";
 
-  const offsetX=game.offsetX=game.cx*game.speed*minDim;
-  const offsetY=game.offsetY=game.cy*game.speed*minDim;
+  const offsetX=client.offsetX=client.cx*client.speed*minDim;
+  const offsetY=client.offsetY=client.cy*client.speed*minDim;
 
   const itemX=0.10*minDim+offsetX;
   const itemY=-0.30*minDim+offsetY;
@@ -166,16 +166,16 @@ function testDraw() {
 
   ctx.restore();
 
-  ctx.fillStyle="dimgray";//game.abc%2===0?"black":"white";
-  ctx.fillRect(0,0,game.width,(game.height-minDim)/2);
-  ctx.fillRect(0,minDim+(game.height-minDim)/2,game.width,(game.height-minDim)/2);
-  ctx.fillRect(0,0,(game.width-minDim)/2,game.height);
-  ctx.fillRect(minDim+(game.width-minDim)/2,0,(game.width-minDim)/2,game.height);
+  ctx.fillStyle="dimgray";//client.abc%2===0?"black":"white";
+  ctx.fillRect(0,0,client.width,(client.height-minDim)/2);
+  ctx.fillRect(0,minDim+(client.height-minDim)/2,client.width,(client.height-minDim)/2);
+  ctx.fillRect(0,0,(client.width-minDim)/2,client.height);
+  ctx.fillRect(minDim+(client.width-minDim)/2,0,(client.width-minDim)/2,client.height);
 
   ctx.beginPath();
   ctx.lineWidth=5;
   ctx.strokeStyle="black";
-  ctx.rect(0,0,game.width,game.height);
+  ctx.rect(0,0,client.width,client.height);
   ctx.stroke();
 
 }
@@ -184,11 +184,11 @@ function main() {
   // TODO: display factory/service to allow different output modes
   // 2D? 3D? 4D? 1D? ASCII? Voxel? 8-bit? 16-bit? 32-bit? 1-bit?
   const canvas = document.createElement("canvas"); // default canvas
-  const ctx = game.ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
+  const ctx = client.ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
 
   //canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
-  game.width=window.innerWidth;
-  game.height=window.innerHeight;
+  client.width=window.innerWidth;
+  client.height=window.innerHeight;
   // make the canvas large enough to resize to fit large screens
   canvas.width=5000;
   canvas.height=5000;

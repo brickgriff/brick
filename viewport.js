@@ -2,8 +2,8 @@
 
 function resize(event) {
   // update global/system state
-  game.width=window.innerWidth;
-  game.height=window.innerHeight;
+  client.width=window.innerWidth;
+  client.height=window.innerHeight;
   //game.isResized=true;
   //console.log(controls.width,controls.height);
 
