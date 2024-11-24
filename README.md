@@ -8,8 +8,13 @@
   - [x] index.css - global stylesheet, animations
   - [x] main.js - main game loop, config
   - [ ] world.js - world state <model>
+    - [x] generate 1000s of entities
+    - [x] update world positions
   - [ ] display.js - canvas methods <view>
-  - [x] buffer.js - user input <control>
+  - [ ] buffer.js - user input <control>
+    - [x] keyboard
+    - [ ] mouse
+    - [x] viewport
 - [ ] minimalist tools
   - [ ] canvas helpers <lights>
     - [ ] shapes([[x,y]])
@@ -22,7 +27,8 @@
     - [ ] pitch
   - [ ] player control <action>
     - [x] move
-    - [ ] touch
+    - [x] see
+    - [ ] use
 - [ ] main menu
 - [ ] debug frame
 - [ ] basic data
@@ -31,7 +37,7 @@
   - [ ] entities, systems, patterns, assets, etc
   - [ ] sessions
 - [ ] basic elements
-  - [ ] frames, millis (main.js) <time>
+  - [x] frames, millis (main.js) <time>
   - [ ] pixels, spans, turns (display.js) <space>
   - [ ] primitives (world.js) <matter>
   - [ ] deltaMouse (buffer.js) <energy>
@@ -40,3 +46,4 @@
   - [ ] physics
   - [ ] seedrandom
   - [ ] shader
+  - [ ] svg
