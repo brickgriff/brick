@@ -35,10 +35,10 @@ const Display = (function (/*api*/) {
     if (!state.isDebug) return;
 
     ctx.fillStyle="red";
-    const fontSize = client.cr*client.scalingFactor/10;
-    ctx.font=`${fontSize}px sans-serif`
+    //const fontSize = client.cr*client.scalingFactor/10;
+    //ctx.font=`${fontSize}px sans-serif`
     //console.log(fontSize,ctx.font);
-    ctx.fillText(""+state.fps,0,fontSize);
+    ctx.fillText(""+state.fps,0,10);
   }
 
   function drawBackground(ctx) {
