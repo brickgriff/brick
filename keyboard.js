@@ -14,7 +14,10 @@ function pushInput(event) {
       client.isQuit=true;
     }
     if (list.includes("Backquote")) {
-      client.isDebug=(client.isDebug^=true);
+      if (!client.debug) {
+        client.isDebug=(client.isDebug^=true);
+        client.debug=6;
+      }
     }
 
   //testDraw();

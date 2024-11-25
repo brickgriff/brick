@@ -47,6 +47,7 @@ function loop(now,state,ctx) {
   // maybe Display is allowed to use other canvas contexts to draw
   // ... like maybe an offscreen canvas context
 
+  if (client.debug) client.debug--;
   drawDebug(ctx);
 
   if (client.isQuit) return console.log("quit");
