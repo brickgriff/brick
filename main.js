@@ -29,12 +29,13 @@ function loop(now,state,ctx) {
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
   //console.log(now,state.start);
   client.fps= Math.floor(1/dt);
+  client.scalingFactor= 0.5;
+  client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
   state.canvas.width=client.width;
   state.canvas.height=client.height;
 
   ctx.clearRect(0,0,client.width,client.height);
   //const minDim = Math.min(client.width,client.height); // one screen unit
-  client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
   
   //drawTest();
 

@@ -131,8 +131,9 @@ const Display = (function (/*api*/) {
     const cFraction=1/24;
     const radius = client.cr*client.scalingFactor;
     const circumference = 2 * Math.PI * radius;
-    ctx.setLineDash([cFraction*circumference]);
-    ctx.lineDashOffset=cFraction*circumference/2;
+    const segmentLength = cFraction*circumference;
+    ctx.setLineDash([segmentLength]);
+    ctx.lineDashOffset=segmentLength/2;
     
     ctx.beginPath();
     //ctx.lineWidth=1;
