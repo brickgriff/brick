@@ -31,15 +31,17 @@ const Display = (function (/*api*/) {
     //const b = middle + offset;
     const eMargin = 5;
     const lMargin = 2;
-    const hMargin = 1;
+    const hrMargin = 1;
+    const hMargin = 3;
 
     //console.log(state.growth,client.level,limit,count,offset);
 
     drawBackground(ctx);
-    drawExperience(ctx,offset,eMargin,homeward);
-    drawReset(ctx,state.progress*Math.PI,homeward);
-    drawLevel(ctx,lMargin,homeward);
-    clipHorizon(ctx,eMargin+lMargin*2*client.level+hMargin);
+    drawExperience(ctx,offset,eMargin);
+    drawReset(ctx,state.progress*Math.PI);
+    drawLevel(ctx,lMargin);
+    drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
+    clipHorizon(ctx,eMargin+lMargin*2*client.level+hrMargin+hMargin);
     drawEntities(ctx,state.entities);
     drawPlayer(ctx,state);
     ctx.restore();
@@ -87,23 +89,34 @@ const Display = (function (/*api*/) {
     //ctx.strokeStyle=gray5;
   }
 
-  function drawLevel(ctx,margin,homeward=Math.PI/2) {
+  function drawHomeward(ctx,iMargin,oMargin,middle=Math.PI/2) {
     ctx.strokeStyle=light;
-    const middle=client.level>0?homeward:Math.PI/2;
     const vector1 = {x:0,y:0};
     const vector2 = {x:0,y:0};
+    const distance1=client.cr-2*margin;
+    const distance2=client.cr;
 
-    vector1.x = (client.cr-2*margin)*Math.cos(middle);
-    vector1.y = (client.cr-2*margin)*Math.sin(middle);
-    vector2.x = (client.cr)*Math.cos(middle);
-    vector2.y = (client.cr)*Math.sin(middle);
-
+    vector1.x = (distance1)*Math.cos(middle);
+    vector1.y = (distance1)*Math.sin(middle);
+    vector2.x = (distance2)*Math.cos(middle);
+    vector2.y = (distance2)*Math.sin(middle);
     ctx.beginPath();
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
     move(ctx,vector1.x,vector1.y);
     line(ctx,vector2.x,vector2.y);
+    ctx.stroke();
+  }
+
+  function drawLevel(ctx,margin,middle=Math.PI/2) {
+
+    ctx.beginPath();
+    ctx.lineWidth=margin;
+    //circle(ctx,0,0,client.cr-5);
+    //circle(ctx,0,0,client.cr);
+    move(ctx,0,client.cr-5);
+    line(ctx,0,client.cr);
 
     for (let i=0;i<client.level;i++) {
       circle(ctx,0,0,client.cr-9-i*margin*2);
@@ -111,8 +124,7 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawExperience(ctx,offset,margin,homeward=Math.PI/2) {
-    const middle=client.level>0?homeward:Math.PI/2;
+  function drawExperience(ctx,offset,margin,middle=Math.PI/2) {
     const a = middle - offset;
     const b = middle + offset;
 
@@ -124,8 +136,7 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawReset(ctx,offset,homeward=Math.PI/2) {
-    const middle=client.level>0?homeward:Math.PI/2;
+  function drawReset(ctx,offset,middle=Math.PI/2) {
     const a = middle - offset;
     const b = middle + offset;
 
