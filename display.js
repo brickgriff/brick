@@ -6,6 +6,8 @@ const Display = (function (/*api*/) {
     //console.log(`draw`);
 
     const minDim = client.cr*2; // one screen unit
+    const homeward = Math.atan2(client.cy,client.cx);
+
     ctx.fillStyle="dimgray";//client.abc%2===0?"black":"white";
     ctx.fillRect(0,0,client.width,(client.height-minDim)/2);
     ctx.fillRect(0,minDim+(client.height-minDim)/2,client.width,(client.height-minDim)/2);
@@ -34,9 +36,9 @@ const Display = (function (/*api*/) {
     //console.log(state.growth,client.level,limit,count,offset);
 
     drawBackground(ctx);
-    drawExperience(ctx,offset,eMargin);
-    drawReset(ctx,state.progress*Math.PI);
-    drawLevel(ctx,lMargin);
+    drawExperience(ctx,offset,eMargin,homeward);
+    drawReset(ctx,state.progress*Math.PI,homeward);
+    drawLevel(ctx,lMargin,homeward);
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hMargin);
     drawEntities(ctx,state.entities);
     drawPlayer(ctx,state);
@@ -85,15 +87,23 @@ const Display = (function (/*api*/) {
     //ctx.strokeStyle=gray5;
   }
 
-  function drawLevel(ctx,margin) {
+  function drawLevel(ctx,margin,homeward=Math.PI/2) {
     ctx.strokeStyle=light;
+    const middle=client.level>0?homeward:Math.PI/2;
+    const vector1 = {x:0,y:0};
+    const vector2 = {x:0,y:0};
+
+    vector1.x = (client.cr-2*margin)*Math.cos(middle);
+    vector1.y = (client.cr-2*margin)*Math.sin(middle);
+    vector2.x = (client.cr)*Math.cos(middle);
+    vector2.y = (client.cr)*Math.sin(middle);
 
     ctx.beginPath();
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,0,client.cr-margin*2);
-    line(ctx,0,client.cr);
+    move(ctx,vector1.x,vector1.y);
+    line(ctx,vector2.x,vector2.y);
 
     for (let i=0;i<client.level;i++) {
       circle(ctx,0,0,client.cr-9-i*margin*2);
@@ -101,8 +111,7 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawExperience(ctx,offset,margin) {
-    const homeward = Math.atan2(client.cy,client.cx);
+  function drawExperience(ctx,offset,margin,homeward=Math.PI/2) {
     const middle=client.level>0?homeward:Math.PI/2;
     const a = middle - offset;
     const b = middle + offset;
@@ -115,8 +124,7 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawReset(ctx,offset) {
-    const homeward = Math.atan2(client.cy,client.cx);
+  function drawReset(ctx,offset,homeward=Math.PI/2) {
     const middle=client.level>0?homeward:Math.PI/2;
     const a = middle - offset;
     const b = middle + offset;
