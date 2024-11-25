@@ -38,18 +38,18 @@ const World = (function (/*api*/) {
       {x:-1.05,y:-1.05,r:0.1},
     ];
 
-    for (let i=0; i<1000; i++) {
+    // for (let i=0; i<1000; i++) {
 
-      const distance = Math.random()*100;
-      const angle = Math.random()*Math.PI*2;
-      const x =distance*Math.cos(angle);
-      const y =distance*Math.sin(angle);
-      const r = 0.5;
+    //   const distance = Math.random()*100;
+    //   const angle = Math.random()*Math.PI*2;
+    //   const x =distance*Math.cos(angle);
+    //   const y =distance*Math.sin(angle);
+    //   const r = 0.5;
 
-      state.entities.push({
-        x:x,y:y,r:r
-      });
-    }
+    //   state.entities.push({
+    //     x:x,y:y,r:r
+    //   });
+    // }
 
     return state;
   };
@@ -60,7 +60,7 @@ const World = (function (/*api*/) {
     //console.log(`update(frame=${state.frame})`);
     //console.log("state:",state);
     const fps = Math.floor(1/dt);
-    //console.log(fps<60);
+    console.log(fps);
     state.frame++;
 
     const level=client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
@@ -71,6 +71,7 @@ const World = (function (/*api*/) {
     state.isTouching=false;
     const timerDuration = 1*60;
 
+    //console.log(state.entities[0]);
     state.entities.forEach((entity,idx)=>{
       const unitR = client.cr*client.scalingFactor;
       const entityX=entity.x*unitR+client.offsetX;
@@ -78,12 +79,15 @@ const World = (function (/*api*/) {
       const entityR=entity.r*unitR;
 
       const distance = Math.hypot(entityY,entityX);
-      const isTouching=Math.abs(distance)<=unitR+entityR;
+      const isTouching = Math.abs(distance)<=unitR+entityR;
 
       if (entity.timer===undefined) entity.timer=0;
-
+      if (entity.fraction===undefined) entity.fraction=0;
+      if (entity.activeIdx===undefined) entity.activeIdx=-1;
+      
       if (isTouching) {
         entity.timer=timerDuration;
+        entity.fraction=1;
         state.isTouching=true;
 
         // move it in the list
@@ -97,13 +101,6 @@ const World = (function (/*api*/) {
         }
         entity.activeIdx = state.activeEntities.length;
         state.activeEntities.push(entity);
-      } else if (entity.activeIdx>-1 && entity.timer===0) {
-        // remove it from the list
-        state.activeEntities.splice(entity.activeIdx,1);
-        // decrease the ids for the rest of the list
-        state.activeEntities.forEach(iEntity => {
-          iEntity.activeIdx=iEntity.activeIdx-1;
-        });
       }
     });
 
@@ -112,15 +109,23 @@ const World = (function (/*api*/) {
     //state.flow+=1;//+state.growthRate - decay;
     
     const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
-    if (!state.isTouching && state.activeEntities.length>0) {
-      const firstEntity = state.activeEntities[0];
+    if (!state.isTouching && activeEntities.length>0) {
+      const firstEntity = activeEntities[0];
       const firstTimerMinusOne = firstEntity.timer-1;
-      console.log(firstTimerMinusOne);
+      //console.log(firstTimerMinusOne);
       firstEntity.timer=Math.max(0,firstTimerMinusOne);
       firstEntity.fraction=firstTimerMinusOne/timerDuration; // 0-1
-
+      if (firstTimerMinusOne===0) {
+        // remove it from the list
+        activeEntities.splice(0,1);
+        // decrease the ids for the rest of the list
+        activeEntities.forEach(iEntity => {
+          iEntity.activeIdx=iEntity.activeIdx-1;
+        });
+      }
     }
-    // console.log(state.activeEntities.length);
+
+    //console.log(state.activeEntities);
     state.growth=activeEntities.length;//+state.flow;
 
     //console.log(state.buffer.isResized);
