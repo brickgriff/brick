@@ -38,18 +38,18 @@ const World = (function (/*api*/) {
       {x:-1.05,y:-1.05,r:0.1},
     ];
 
-    // for (let i=0; i<1000; i++) {
+    for (let i=0; i<1000; i++) {
 
-    //   const distance = Math.random()*100;
-    //   const angle = Math.random()*Math.PI*2;
-    //   const x =distance*Math.cos(angle);
-    //   const y =distance*Math.sin(angle);
-    //   const r = 0.5;
+      const distance = Math.random()*100;
+      const angle = Math.random()*Math.PI*2;
+      const x =distance*Math.cos(angle);
+      const y =distance*Math.sin(angle);
+      const r = 0.5;
 
-    //   state.entities.push({
-    //     x:x,y:y,r:r
-    //   });
-    // }
+      state.entities.push({
+        x:x,y:y,r:r
+      });
+    }
 
     return state;
   };
@@ -60,7 +60,7 @@ const World = (function (/*api*/) {
     //console.log(`update(frame=${state.frame})`);
     //console.log("state:",state);
     const fps = Math.floor(1/dt);
-    console.log(fps);
+    //console.log(fps);
     state.frame++;
 
     const level=client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
@@ -116,15 +116,17 @@ const World = (function (/*api*/) {
       firstEntity.timer=Math.max(0,firstTimerMinusOne);
       firstEntity.fraction=firstTimerMinusOne/timerDuration; // 0-1
       if (firstTimerMinusOne===0) {
-        // remove it from the list
-        activeEntities.splice(0,1);
         // decrease the ids for the rest of the list
+        //const old = activeEntities[1].activeIdx;
         activeEntities.forEach(iEntity => {
           iEntity.activeIdx=iEntity.activeIdx-1;
         });
+        // remove it from the list
+        activeEntities.splice(0,1);
       }
     }
 
+    console.log(state.activeEntities);
     //console.log(state.activeEntities);
     state.growth=activeEntities.length;//+state.flow;
 
