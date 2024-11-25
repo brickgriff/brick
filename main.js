@@ -26,17 +26,19 @@ const client = {
 function loop(now,state,ctx) {
   const elapsed = (now - state.start) / 1000; // deltaTime in seconds
   const dt = elapsed > 1 ? 1 : elapsed; // cap deltaTime to 1s
-  state.fps= Math.floor(1/dt);
-  const minDim = Math.min(client.width,client.height); // one screen unit
-  client.cr = minDim/2; // center radius
-
-  //console.log(now,state.start);
-  
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
+  //console.log(now,state.start);
+  client.fps= Math.floor(1/dt);
+  state.canvas.width=client.width;
+  state.canvas.height=client.height;
 
-  //testDraw();
+  ctx.clearRect(0,0,client.width,client.height);
+  //const minDim = Math.min(client.width,client.height); // one screen unit
+  client.cr = Math.min(client.width,client.height)/2; // center radius
+  
+  //drawTest();
 
-  //World.update(state, dt); // update entities
+  World.update(state, dt); // update entities
   Display.draw(state, ctx); // draw entities
   //Buffer.flush(state); // reset buffer
   //console.log(state.canvas.width,state.canvas.height);
@@ -45,12 +47,25 @@ function loop(now,state,ctx) {
   // maybe Display is allowed to use other canvas contexts to draw
   // ... like maybe an offscreen canvas context
 
+  drawDebug(ctx);
+
   if (client.isQuit) return console.log("quit");
   state.start=now;
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }
 
-function testDraw() {
+function drawDebug(ctx) {
+  if (!client.isDebug) return;
+
+  ctx.fillStyle="red";
+  //const fontSize = client.cr*client.scalingFactor/10;
+  //ctx.font=`${fontSize}px sans-serif`
+  //console.log(fontSize,ctx.font);
+  ctx.fillText(""+client.fps,0,10);
+}
+
+
+function drawTest() {
   let ctx = client.ctx;
   ctx.save();
 
@@ -195,8 +210,8 @@ function main() {
   client.width=window.innerWidth;
   client.height=window.innerHeight;
   // make the canvas large enough to resize to fit large screens
-  canvas.width=5000;
-  canvas.height=5000;
+  canvas.width=client.width;
+  canvas.height=client.height;
   canvas.focus();
 
   const state = World.create(canvas); // initialize!

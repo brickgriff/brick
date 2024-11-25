@@ -42,19 +42,19 @@ const Display = (function (/*api*/) {
     ctx.rect(0,0,client.width,client.height);
     ctx.stroke();
 
-    drawDebug(ctx,state);
+    //drawDebug(ctx,state);
 
   };
 
-  function drawDebug(ctx,state) {
-    if (!client.isDebug) return;
+  // function drawDebug(ctx,state) {
+  //   if (!client.isDebug) return;
 
-    ctx.fillStyle="red";
-    //const fontSize = client.cr*client.scalingFactor/10;
-    //ctx.font=`${fontSize}px sans-serif`
-    //console.log(fontSize,ctx.font);
-    ctx.fillText(""+state.fps,0,10);
-  }
+  //   ctx.fillStyle="red";
+  //   //const fontSize = client.cr*client.scalingFactor/10;
+  //   //ctx.font=`${fontSize}px sans-serif`
+  //   //console.log(fontSize,ctx.font);
+  //   ctx.fillText(""+state.fps,0,10);
+  // }
 
   function drawBackground(ctx) {
     ctx.fillStyle=background;
