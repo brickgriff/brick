@@ -42,7 +42,7 @@ const Display = (function (/*api*/) {
     drawLevel(ctx,lMargin,eMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hrMargin+hMargin);
-    drawEntities(ctx,state.entities);
+    drawEntities(ctx,state.nearbyEntities);
     drawPlayer(ctx,state);
     ctx.restore();
     // centered on width/2,height/2
