@@ -6,7 +6,7 @@ const Display = (function (/*api*/) {
     //console.log(`draw`);
 
     const minDim = client.cr*2; // one screen unit
-    const homeward = Math.atan2(client.cy,client.cx);
+    const homeward = (client.cy===0&&client.cx===-0)?Math.PI/2:Math.atan2(client.cy,client.cx);
 
     ctx.fillStyle="dimgray";//client.abc%2===0?"black":"white";
     ctx.fillRect(0,0,client.width,(client.height-minDim)/2);
@@ -93,15 +93,15 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=light;
     const vector1 = {x:0,y:0};
     const vector2 = {x:0,y:0};
-    const distance1=client.cr-2*margin;
-    const distance2=client.cr;
+    const distance1=client.cr-oMargin;
+    const distance2=client.cr-oMargin-iMargin;
 
     vector1.x = (distance1)*Math.cos(middle);
     vector1.y = (distance1)*Math.sin(middle);
     vector2.x = (distance2)*Math.cos(middle);
     vector2.y = (distance2)*Math.sin(middle);
     ctx.beginPath();
-    ctx.lineWidth=margin;
+    ctx.lineWidth=iMargin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
     move(ctx,vector1.x,vector1.y);
@@ -110,6 +110,7 @@ const Display = (function (/*api*/) {
   }
 
   function drawLevel(ctx,margin,middle=Math.PI/2) {
+    ctx.strokeStyle=light;
 
     ctx.beginPath();
     ctx.lineWidth=margin;
@@ -157,7 +158,7 @@ const Display = (function (/*api*/) {
     ctx.lineDashOffset=segmentLength/2;
     
     ctx.beginPath();
-    //ctx.lineWidth=1;
+    ctx.lineWidth=1;
     ctx.strokeStyle=light;
     circle(ctx,client.offsetX,client.offsetY,radius);
     ctx.stroke();
