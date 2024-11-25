@@ -1,6 +1,9 @@
 //keyboard.js
 function pushInput(event) {
-  event.preventDefault()
+  //event.preventDefault()
+  if (event.code==="ArrowUp"||event.code==="ArrowDown"||event.code==="ArrowLeft"||event.code==="ArrowRight"){
+    event.preventDefault();
+  }
   const list = client.buttons;
   
   const input = event.code ? event.code : event.button;
