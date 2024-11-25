@@ -37,7 +37,8 @@ const World = (function (/*api*/) {
       // very first one should be tutorial ring
       {x:1.5,y:0,r:0.1,value:5},
       {x:0,y:1.5,r:0.1,value:5},
-      {x:-1.05,y:-1.05,r:0.1,value:10},
+      {x:-1.05,y:-1.05,r:0.1,value:5},
+      {x:-1.05,y:-1.05,r:0.15,value:5},
       // there should be other rings
       // potentially overlapping
       // with different rules affecting growth
