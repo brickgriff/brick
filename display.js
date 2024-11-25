@@ -38,7 +38,7 @@ const Display = (function (/*api*/) {
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
-    drawReset(ctx,eMargin,state.progress*Math.PI);
+    drawReset(ctx,state.progress*Math.PI,eMargin);
     drawLevel(ctx,lMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hrMargin+hMargin);
