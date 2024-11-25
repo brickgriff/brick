@@ -39,7 +39,7 @@ const Display = (function (/*api*/) {
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
     drawReset(ctx,state.progress*Math.PI,eMargin);
-    drawLevel(ctx,lMargin);
+    drawLevel(ctx,lMargin,eMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hrMargin+hMargin);
     drawEntities(ctx,state.entities);
@@ -110,18 +110,18 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawLevel(ctx,margin,middle=Math.PI/2) {
+  function drawLevel(ctx,margin,oMargin,middle=Math.PI/2) {
     ctx.strokeStyle=light;
 
     ctx.beginPath();
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,0,client.cr-margin*2);
+    move(ctx,0,client.cr-oMargin);
     line(ctx,0,client.cr);
 
     for (let i=0;i<client.level;i++) {
-      circle(ctx,0,0,client.cr-9-i*margin*2);
+      circle(ctx,0,0,client.cr-oMargin-margin*2-i*margin*2);
     }
     ctx.stroke();
   }
