@@ -34,9 +34,9 @@ const World = (function (/*api*/) {
     };
 
     state.entities = [
-      {x:1.5,y:0,r:0.1},
-      {x:0,y:1.5,r:0.1},
-      {x:-1.05,y:-1.05,r:0.1},
+      {x:1.5,y:0,r:0.1,value:5},
+      {x:0,y:1.5,r:0.1,value:5},
+      {x:-1.05,y:-1.05,r:0.1,value:10},
     ];
 
     for (let i=0; i<1000; i++) {
@@ -68,7 +68,10 @@ const World = (function (/*api*/) {
 
     //console.log(state.activeEntities);
     const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
-    state.growth=activeEntities.length;//+state.flow;
+    state.growth=activeEntities.reduce((acc,cur)=>{
+      if (cur.value===undefined) cur.value=1;
+      return acc+curr.value;
+    },0);//+state.flow;
     client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
     const scalingFactor = client.scalingFactor = 1/(client.level+2);
     client.offsetX=client.cx*client.speed*client.cr*2*scalingFactor;
