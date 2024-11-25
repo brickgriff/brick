@@ -59,7 +59,7 @@ const World = (function (/*api*/) {
     //console.log(`update(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
     //console.log(`update(frame=${state.frame})`);
     //console.log("state:",state);
-    const fps= state.fps= Math.floor(1/dt);
+    //state.fps= Math.floor(1/dt);
     //console.log(fps);
     state.frame++;
 
@@ -153,12 +153,12 @@ const World = (function (/*api*/) {
     if (list.includes("KeyF")||list.includes("KeyL")||list.includes("ArrowRight")) {
       vector.x-=1;
     }
-    if (list.includes("Escape")) {
-      state.isQuit=true;
-    }
-    if (list.includes("Backquote")) {
-      state.isDebug=(state.isDebug^=true);
-    }
+    // if (list.includes("Escape")) {
+    //   state.isQuit=true;
+    // }
+    // if (list.includes("Backquote")) {
+    //   state.isDebug=(state.isDebug^=true);
+    // }
 
     // reset override
     const resetDuration = 60*60;

@@ -10,6 +10,12 @@ function pushInput(event) {
 
   //console.log(client.buttons);
   if (!list.includes(input)) list.push(input);
+    if (list.includes("Escape")) {
+      client.isQuit=true;
+    }
+    if (list.includes("Backquote")) {
+      client.isDebug=(client.isDebug^=true);
+    }
 
   //testDraw();
 }  

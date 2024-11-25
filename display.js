@@ -4,6 +4,13 @@ const Display = (function (/*api*/) {
   // public api is a function
   api.draw = function (state, ctx) {
     //console.log(`draw`);
+    const minDim = client.cr*2; // one screen unit
+    ctx.fillStyle="dimgray";//client.abc%2===0?"black":"white";
+    ctx.fillRect(0,0,client.width,(client.height-minDim)/2);
+    ctx.fillRect(0,minDim+(client.height-minDim)/2,client.width,(client.height-minDim)/2);
+    ctx.fillRect(0,0,(client.width-minDim)/2,client.height);
+    ctx.fillRect(minDim+(client.width-minDim)/2,0,(client.width-minDim)/2,client.height);
+
     ctx.save();
     ctx.translate(client.width/2,client.height/2);
     //console.log(state.growth);
@@ -28,11 +35,19 @@ const Display = (function (/*api*/) {
     drawPlayer(ctx,state);
     ctx.restore();
     // centered on width/2,height/2
+
+    ctx.beginPath();
+    ctx.lineWidth=5;
+    ctx.strokeStyle="black";
+    ctx.rect(0,0,client.width,client.height);
+    ctx.stroke();
+
     drawDebug(ctx,state);
+
   };
 
   function drawDebug(ctx,state) {
-    if (!state.isDebug) return;
+    if (!client.isDebug) return;
 
     ctx.fillStyle="red";
     //const fontSize = client.cr*client.scalingFactor/10;
