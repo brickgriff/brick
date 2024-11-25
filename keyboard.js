@@ -1,6 +1,6 @@
 //keyboard.js
 function pushInput(event) {
-  e.preventDefault()
+  event.preventDefault()
   const list = client.buttons;
   
   const input = event.code ? event.code : event.button;
