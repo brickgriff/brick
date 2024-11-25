@@ -38,7 +38,7 @@ const Display = (function (/*api*/) {
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
-    drawReset(ctx,state.progress*Math.PI);
+    drawReset(ctx,eMargin,state.progress*Math.PI);
     drawLevel(ctx,lMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hrMargin+hMargin);
@@ -90,6 +90,7 @@ const Display = (function (/*api*/) {
   }
 
   function drawHomeward(ctx,iMargin,oMargin,middle=Math.PI/2) {
+    if (client.level===0) return;
     ctx.strokeStyle=light;
     const vector1 = {x:0,y:0};
     const vector2 = {x:0,y:0};
@@ -116,7 +117,7 @@ const Display = (function (/*api*/) {
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,0,client.cr-5);
+    move(ctx,0,client.cr-margin*2);
     line(ctx,0,client.cr);
 
     for (let i=0;i<client.level;i++) {
@@ -137,15 +138,15 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawReset(ctx,offset,middle=Math.PI/2) {
+  function drawReset(ctx,offset,margin,middle=Math.PI/2) {
     const a = middle - offset;
     const b = middle + offset;
 
     ctx.strokeStyle=thorns;
 
     ctx.beginPath();
-    ctx.lineWidth=5;
-    arc(ctx,0,0,client.cr-5/2,a,b);
+    ctx.lineWidth=margin;
+    arc(ctx,0,0,client.cr-margin/2,a,b);
     ctx.stroke();
   }
 
