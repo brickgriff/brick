@@ -29,7 +29,6 @@ function loop(now,state,ctx) {
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
   //console.log(now,state.start);
   client.fps= Math.floor(1/dt);
-  client.scalingFactor= 0.5;
   client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
   state.canvas.width=client.width;
   state.canvas.height=client.height;
@@ -211,12 +210,14 @@ function main() {
   //canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   client.width=window.innerWidth;
   client.height=window.innerHeight;
+  client.scalingFactor= 0.5;
   // make the canvas large enough to resize to fit large screens
   canvas.width=client.width;
   canvas.height=client.height;
   canvas.focus();
 
   const state = World.create(canvas); // initialize!
+  client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
 
   document.body.appendChild(canvas); // add it to body
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
