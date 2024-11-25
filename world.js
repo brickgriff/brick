@@ -29,6 +29,7 @@ const World = (function (/*api*/) {
       ch:0,
       entities:[],
       activeEntities:[],
+      nearbyEntities:[],
       //minDim:0,
       start:0,
     };
@@ -98,6 +99,20 @@ const World = (function (/*api*/) {
       if (entity.timer===undefined) entity.timer=0;
       if (entity.fraction===undefined) entity.fraction=0;
       if (entity.activeIdx===undefined) entity.activeIdx=-1;
+      if (entity.nearbyIdx===undefined) entity.activeIdx=-1;
+
+      if (distance<2*unitR) {
+        if (entity.nearbyIdx===-1) {
+          entity.nearbyIdx=state.nearbyEntities.length;
+          state.nearbyEntities.push(entity);
+        }
+      } else {
+        state.nearbyEntities.splice(entity.nearbyIdx,1);
+        state.nearbyEntities.slice(entity.nearbyIdx).forEach(iEntity => {
+          iEntity.nearbyIdx=iEntity.nearbyIdx-1;
+        });
+        entity.nearbyIdx=-1;
+      }
       
       if (isTouching) {
         entity.timer=timerDuration;
