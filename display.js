@@ -100,39 +100,61 @@ const Display = (function (/*api*/) {
   }
 
   function drawEntities(ctx, entities) {
-    const fraction=1/24;
+    const cFraction=1/24;
     const radius = client.cr*client.scalingFactor;
     const circumference = 2 * Math.PI * radius;
-    ctx.setLineDash([fraction*circumference]);
-    ctx.lineDashOffset=fraction*circumference/2;
+    ctx.setLineDash([cFraction*circumference]);
+    ctx.lineDashOffset=cFraction*circumference/2;
     
     ctx.beginPath();
+    //ctx.lineWidth=1;
     ctx.strokeStyle=light;
     circle(ctx,client.offsetX,client.offsetY,radius);
     ctx.stroke();
     ctx.setLineDash([]);
     
-    entities.forEach(entity=>{
+    entities.forEach((entity,idx)=>{
+      //if (idx!==2)return;
       if (!(entity.x!=null&&entity.y!=null&&entity.r!=null)) return;
 
       const entityX = entity.x*client.scalingFactor*client.cr+client.offsetX;
       const entityY = entity.y*client.scalingFactor*client.cr+client.offsetY;
       const entityR = entity.r*client.cr*client.scalingFactor;
+      const eFraction = entity.fraction;
+      //const alpha = Math.min(15,eFraction*16); // 0-15
+      //const alphaHex = (alpha+alpha).toString(16);
+      const avgColor=weightedAvg(active,inactive,eFraction);
 
       ctx.beginPath();
-      ctx.strokeStyle=inactive;//entity.isActive?active:inactive;
+      ctx.strokeStyle=avgColor;
+      //if (idx===2)console.log(eFraction, active, inactive, avgColor,ctx.strokeStyle);
+      //console.log(ctx.strokeStyle,ctx.globalAlpha);
       circle(ctx,entityX,entityY,entityR);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.strokeStyle=active;
-      //console.log(entity.timer);
-      ctx.globalAlpha=entity.timer/10;
-      circle(ctx,entityX,entityY,entityR);
-      ctx.stroke();
-      ctx.globalAlpha=1;
     });
   }
+     // ina act sub 1 spl 2 par 16 avg str 16 cat #
+ function weightedAvg(hex1,hex2,weight) {
+   const hex1List=hex1.substring(1).match(/.{1,2}/g);
+   const hex2List=hex2.substring(1).match(/.{1,2}/g);
+   //console.log(hex1List,hex2List, weight);
+   //str.match(/.{1,n}/g); // Replace n with the size of the substring
+   //yourNumber = parseInt(hexString, 16);
+   //hexString = yourNumber.toString(16);
+   const hexList=[];
+   for ( let i=0; i<3;i++) {
+    const h1 = parseInt(hex1List[i], 16);
+    const h2 = parseInt(hex2List[i], 16);
+    const h = (h1 - h2)*weight+h2;
+    //console.log(h1,h2,h);
+    hexList.push(h.toString(16).substring(0,2));
+   }
+   //console.log(hex1List,hex2List, weight,hexList);
+   return hexList.reduce((acc,cur)=>{
+     return acc + "" + cur;
+   },"#");
 
+ }
   const gray0=shadow="#111111"; // shadow
   const gray1=background="#222222"; // background
   const gray2=inactive="#444444"; // inactive

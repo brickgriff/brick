@@ -19,7 +19,7 @@ const World = (function (/*api*/) {
       flow:0,
       growthRate:0,
       decayRate:0,
-      isTouching:-1,
+      isTouching:false,
       reset:0,
       // center position
       cx:0,
@@ -27,6 +27,7 @@ const World = (function (/*api*/) {
       cw:0,
       ch:0,
       entities:[],
+      activeEntities:[],
       //minDim:0,
       start:0,
     };
@@ -58,12 +59,17 @@ const World = (function (/*api*/) {
     //console.log(`update(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
     //console.log(`update(frame=${state.frame})`);
     //console.log("state:",state);
+    const fps = Math.floor(1/dt);
+    //console.log(fps<60);
     state.frame++;
 
     const level=client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
     const scalingFactor = client.scalingFactor = 1/(level+2);
     client.offsetX=client.cx*client.speed*client.cr*2*scalingFactor;
     client.offsetY=client.cy*client.speed*client.cr*2*scalingFactor;
+
+    state.isTouching=false;
+    const timerDuration = 1*60;
 
     state.entities.forEach((entity,idx)=>{
       const unitR = client.cr*client.scalingFactor;
@@ -73,47 +79,49 @@ const World = (function (/*api*/) {
 
       const distance = Math.hypot(entityY,entityX);
       const isTouching=Math.abs(distance)<=unitR+entityR;
-      //if (idx===2) console.log(isTouching,entity.timer);
 
       if (entity.timer===undefined) entity.timer=0;
-      
-      if (isTouching) {
-        entity.timer=100;
-        state.isTouching=idx;
-      } else if (idx===state.isTouching) {
-        state.isTouching=-1;
-      } else if (state.isTouching!==-1) {
-        // pause
-      } else {
-        entity.timer=Math.max(0,entity.timer-1);
-      }
-      entity.isActive=entity.timer>0;
 
+      if (isTouching) {
+        entity.timer=timerDuration;
+        state.isTouching=true;
+
+        // move it in the list
+        if (entity.activeIdx>-1) {
+          // remove it from the list
+          state.activeEntities.splice(entity.activeIdx,1);
+          // decrease the ids for the rest of the list
+          state.activeEntities.slice(entity.activeIdx).forEach(iEntity => {
+            iEntity.activeIdx=iEntity.activeIdx-1;
+          });
+        }
+        entity.activeIdx = state.activeEntities.length;
+        state.activeEntities.push(entity);
+      } else if (entity.activeIdx>-1 && entity.timer===0) {
+        // remove it from the list
+        state.activeEntities.splice(entity.activeIdx,1);
+        // decrease the ids for the rest of the list
+        state.activeEntities.forEach(iEntity => {
+          iEntity.activeIdx=iEntity.activeIdx-1;
+        });
+      }
     });
 
     // TODO: make the decay function polynomial to maintain challenge
     //const decay = state.decayRate * (state.growth/50);
     //state.flow+=1;//+state.growthRate - decay;
-    state.growth=state.entities.filter(entity=>entity.isActive).length+state.flow;
+    
+    const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
+    if (!state.isTouching && state.activeEntities.length>0) {
+      const firstEntity = state.activeEntities[0];
+      const firstTimerMinusOne = firstEntity.timer-1;
+      console.log(firstTimerMinusOne);
+      firstEntity.timer=Math.max(0,firstTimerMinusOne);
+      firstEntity.fraction=firstTimerMinusOne/timerDuration; // 0-1
 
-    //console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
-
-
-    // auto reset
-    const resetDuration = state.duration = 60*60;
-    if (state.growth===0) {
-      state.reset=state.reset-1;
-    } else {
-      state.reset=resetDuration;
     }
-
-    if (state.reset===0) {
-      client.cx=0;
-      client.cy=0;
-      state.reset=resetDuration;
-    }
-
-    state.progress = 1-state.reset/resetDuration;
+    // console.log(state.activeEntities.length);
+    state.growth=activeEntities.length;//+state.flow;
 
     //console.log(state.buffer.isResized);
     //state.zoom=Math.min(5,Math.max(0.5,state.zoom+client.zoom));
@@ -143,18 +151,33 @@ const World = (function (/*api*/) {
     if (list.includes("Escape")) {
       state.isQuit=true;
     }
+
     // reset override
-    const quitDuration = state.duration = 5*60;
+    const resetDuration = 60*60;
+    state.isOverride=false; 
+    if (state.reset===0)state.reset=resetDuration;
     if (list.includes("Backspace")) {
-      state.reset=state.reset-1;
+      state.reset-=12;
+      state.isOverride=true;
       //state.isQuit=state.quitting===0;
       //console.log(state.quitting,state.isQuit);
-    } else {
-      state.reset+=state.reset<quitDuration?1:0;
+    }
+    //console.log(state.reset,state.frame,state.reset<=state.frame, state.growth);
+
+    // auto reset
+    if (state.growth===0) {
+      state.reset-=1;
+    } else if (!state.isOverride) {
+      state.reset=resetDuration;
     }
 
-    state.progress = 1-state.reset/quitDuration;
+    if (state.reset<1) {
+      client.cx=0;
+      client.cy=0;
+      state.reset=resetDuration;
+    }
 
+    state.progress=1-state.reset/resetDuration;
 
     // calculate movement vector
     const length = Math.min(1,Math.hypot(vector.y,vector.x));
