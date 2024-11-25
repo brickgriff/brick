@@ -99,20 +99,22 @@ const World = (function (/*api*/) {
       if (entity.timer===undefined) entity.timer=0;
       if (entity.fraction===undefined) entity.fraction=0;
       if (entity.activeIdx===undefined) entity.activeIdx=-1;
-      if (entity.nearbyIdx===undefined) entity.activeIdx=-1;
+      if (entity.nearbyIdx===undefined) entity.nearbyIdx=-1;
 
-      if (distance<2*unitR) {
+      if (distance<client.cr*(client.level+2)) {
         if (entity.nearbyIdx===-1) {
           entity.nearbyIdx=state.nearbyEntities.length;
           state.nearbyEntities.push(entity);
         }
-      } else {
+      } else if (entity.nearbyIdx>-1) {
         state.nearbyEntities.splice(entity.nearbyIdx,1);
         state.nearbyEntities.slice(entity.nearbyIdx).forEach(iEntity => {
           iEntity.nearbyIdx=iEntity.nearbyIdx-1;
         });
         entity.nearbyIdx=-1;
       }
+
+      if (entity.nearbyIdx<-1) console.log(entity);
       
       if (isTouching) {
         entity.timer=timerDuration;
