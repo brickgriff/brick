@@ -20,7 +20,7 @@ const client = {
   buttons:[],
   // input mouse
   // zoom:1,
-  speed:0.05, // move 5% of center radial offset (cr)
+  speed:0.005, // move 1% of center radial offset (cr)
 };
 
 function loop(now,state,ctx) {
@@ -34,7 +34,7 @@ function loop(now,state,ctx) {
 
   ctx.clearRect(0,0,client.width,client.height);
   //const minDim = Math.min(client.width,client.height); // one screen unit
-  client.cr = Math.min(client.width,client.height)/2; // center radius
+  client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
   
   //drawTest();
 

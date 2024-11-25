@@ -11,7 +11,7 @@ const World = (function (/*api*/) {
       // player position
       //px:0,
       //py:0,
-      speed:0.1,
+      speed:0.005,
       radius:5,
       length:0,
       angle:0,
@@ -24,6 +24,7 @@ const World = (function (/*api*/) {
       // center position
       cx:0,
       cy:0,
+      cr:0,
       cw:0,
       ch:0,
       entities:[],
