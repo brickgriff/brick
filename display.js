@@ -102,7 +102,8 @@ const Display = (function (/*api*/) {
   }
 
   function drawExperience(ctx,offset,margin) {
-    const middle=Math.PI/2;
+    const homeward = Math.atan2(client.cy,client.cx);
+    const middle=client.level>0?homeward:Math.PI/2;
     const a = middle - offset;
     const b = middle + offset;
 
@@ -115,7 +116,8 @@ const Display = (function (/*api*/) {
   }
 
   function drawReset(ctx,offset) {
-    const middle=Math.PI/2;
+    const homeward = Math.atan2(client.cy,client.cx);
+    const middle=client.level>0?homeward:Math.PI/2;
     const a = middle - offset;
     const b = middle + offset;
 
