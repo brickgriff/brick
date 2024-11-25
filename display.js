@@ -26,7 +26,18 @@ const Display = (function (/*api*/) {
     drawPlayer(ctx,state);
     ctx.restore();
     // centered on width/2,height/2
+    drawDebug(ctx,state);
   };
+
+  function drawDebug(ctx,state) {
+    if (!state.isDebug) return;
+
+    ctx.fillStyle="red";
+    const fontSize = client.cr*client.scalingFactor/10;
+    ctx.font=`${fontSize}px sans-serif`
+    console.log(fontSize,ctx.font);
+    ctx.fillText(""+state.fps,0,fontSize);
+  }
 
   function drawBackground(ctx) {
     ctx.fillStyle=background;
@@ -112,9 +123,10 @@ const Display = (function (/*api*/) {
     circle(ctx,client.offsetX,client.offsetY,radius);
     ctx.stroke();
     ctx.setLineDash([]);
-    
-    entities.forEach((entity,idx)=>{
+
+    const batchDraw = (entity,idx) => {
       //if (idx!==2)return;
+
       if (!(entity.x!=null&&entity.y!=null&&entity.r!=null)) return;
 
       const entityX = entity.x*client.scalingFactor*client.cr+client.offsetX;
@@ -123,15 +135,30 @@ const Display = (function (/*api*/) {
       const eFraction = entity.fraction;
       //const alpha = Math.min(15,eFraction*16); // 0-15
       //const alphaHex = (alpha+alpha).toString(16);
-      const avgColor=weightedAvg(active,inactive,eFraction);
 
-      ctx.beginPath();
-      ctx.strokeStyle=avgColor;
-      //if (idx===2)console.log(eFraction, active, inactive, avgColor,ctx.strokeStyle);
-      //console.log(ctx.strokeStyle,ctx.globalAlpha);
-      circle(ctx,entityX,entityY,entityR);
-      ctx.stroke();
-    });
+      if (eFraction>0) {
+        const avgColor=weightedAvg(active,inactive,eFraction);
+        ctx.strokeStyle=avgColor;      
+        ctx.beginPath();
+        circle(ctx,entityX,entityY,entityR);
+        ctx.stroke();
+      } else {
+        circle(ctx,entityX,entityY,entityR);
+      }    
+    }
+
+    ctx.beginPath();
+    ctx.strokeStyle=inactive;
+    entities.filter(entity=>{
+      return entity.fraction===0;
+    }).forEach(batchDraw);
+    ctx.stroke();
+
+    entities.filter(entity=>{
+      return entity.fraction>0;
+    }).forEach(batchDraw);
+
+    //entities.forEach((entity,idx)=>{});
   }
      // ina act sub 1 spl 2 par 16 avg str 16 cat #
  function weightedAvg(hex1,hex2,weight) {

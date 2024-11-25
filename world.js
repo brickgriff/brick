@@ -59,7 +59,7 @@ const World = (function (/*api*/) {
     //console.log(`update(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
     //console.log(`update(frame=${state.frame})`);
     //console.log("state:",state);
-    const fps = Math.floor(1/dt);
+    const fps= state.fps= Math.floor(1/dt);
     //console.log(fps);
     state.frame++;
 
@@ -125,8 +125,6 @@ const World = (function (/*api*/) {
         activeEntities.splice(0,1);
       }
     }
-
-    console.log(state.activeEntities);
     //console.log(state.activeEntities);
     state.growth=activeEntities.length;//+state.flow;
 
@@ -157,6 +155,9 @@ const World = (function (/*api*/) {
     }
     if (list.includes("Escape")) {
       state.isQuit=true;
+    }
+    if (list.includes("Backquote")) {
+      state.isDebug=(state.isDebug^=true);
     }
 
     // reset override
