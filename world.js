@@ -70,7 +70,7 @@ const World = (function (/*api*/) {
     const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
     state.growth=activeEntities.reduce((acc,cur)=>{
       if (cur.value===undefined) cur.value=1;
-      return acc+curr.value;
+      return acc+cur.value;
     },0);//+state.flow;
     client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
     const scalingFactor = client.scalingFactor = 1/(client.level+2);
