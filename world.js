@@ -34,9 +34,13 @@ const World = (function (/*api*/) {
     };
 
     state.entities = [
+      // very first one should be tutorial ring
       {x:1.5,y:0,r:0.1,value:5},
       {x:0,y:1.5,r:0.1,value:5},
       {x:-1.05,y:-1.05,r:0.1,value:10},
+      // there should be other rings
+      // potentially overlapping
+      // with different rules affecting growth
     ];
 
     for (let i=0; i<1000; i++) {
@@ -197,8 +201,8 @@ const World = (function (/*api*/) {
     const length = Math.min(1,Math.hypot(vector.y,vector.x));
     const angle = Math.atan2(vector.y,vector.x);
 
-    client.cx += Math.round(length * Math.cos(angle));
-    client.cy += Math.round(length * Math.sin(angle));
+    client.cx += length * Math.cos(angle);
+    client.cy += length * Math.sin(angle);
   };
 
   // return the public api
