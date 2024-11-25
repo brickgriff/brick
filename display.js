@@ -17,7 +17,7 @@ const Display = (function (/*api*/) {
     const lMargin = 2;
     const hMargin = 1;
 
-    console.log(state.growth,client.level,limit,count,offset);
+    //console.log(state.growth,client.level,limit,count,offset);
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
