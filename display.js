@@ -6,10 +6,10 @@ const Display = (function (/*api*/) {
     //console.log(`draw`);
     ctx.save();
     ctx.translate(client.width/2,client.height/2);
-    
-    const limit = Math.pow(10,client.level+1); // f(0)=10,f(1)=100,etc
+    //console.log(state.growth);
+    const limit = Math.pow(10,client.level); // f(0)=10,f(1)=100,etc
     const count = Math.floor(state.growth%limit);
-    const offset = count/limit*Math.PI;
+    const offset = count*Math.PI/(limit*10);
     //const middle=Math.PI/2;
     //const a = middle - offset;
     //const b = middle + offset;

@@ -63,8 +63,11 @@ const World = (function (/*api*/) {
     //console.log(fps);
     state.frame++;
 
-    const level=client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
-    const scalingFactor = client.scalingFactor = 1/(level+2);
+    //console.log(state.activeEntities);
+    const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
+    state.growth=activeEntities.length;//+state.flow;
+    client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
+    const scalingFactor = client.scalingFactor = 1/(client.level+2);
     client.offsetX=client.cx*client.speed*client.cr*2*scalingFactor;
     client.offsetY=client.cy*client.speed*client.cr*2*scalingFactor;
 
@@ -108,7 +111,6 @@ const World = (function (/*api*/) {
     //const decay = state.decayRate * (state.growth/50);
     //state.flow+=1;//+state.growthRate - decay;
     
-    const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
     if (!state.isTouching && activeEntities.length>0) {
       const firstEntity = activeEntities[0];
       const firstTimerMinusOne = firstEntity.timer-1;
@@ -125,8 +127,6 @@ const World = (function (/*api*/) {
         activeEntities.splice(0,1);
       }
     }
-    //console.log(state.activeEntities);
-    state.growth=activeEntities.length;//+state.flow;
 
     //console.log(state.buffer.isResized);
     //state.zoom=Math.min(5,Math.max(0.5,state.zoom+client.zoom));
