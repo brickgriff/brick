@@ -29,14 +29,14 @@ function loop(now,state,ctx) {
   //console.log(`gameLoop(frame=${state.frame}, dt=${dt}, fps=${Math.floor(1/dt)})`);
   //console.log(now,state.start);
   client.fps= Math.floor(1/dt);
-  client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
+  client.cr = Math.min(client.width,client.height)/2; // center radius
   state.canvas.width=client.width;
   state.canvas.height=client.height;
 
   ctx.clearRect(0,0,client.width,client.height);
   //const minDim = Math.min(client.width,client.height); // one screen unit
   
-  //drawTest();
+  //drawTest(ctx);
 
   World.update(state, dt); // update entities
   Display.draw(state, ctx); // draw entities
@@ -66,8 +66,8 @@ function drawDebug(ctx) {
 }
 
 
-function drawTest() {
-  let ctx = client.ctx;
+function drawTest(ctx) {
+  //let ctx = client.ctx;
   ctx.save();
 
   // normalize coordinates
@@ -205,7 +205,7 @@ function main() {
   // TODO: display factory/service to allow different output modes
   // 2D? 3D? 4D? 1D? ASCII? Voxel? 8-bit? 16-bit? 32-bit? 1-bit?
   const canvas = document.createElement("canvas"); // default canvas
-  const ctx = client.ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
+  const ctx = canvas.getContext("2d", { willReadFrequently: true }); // now we can draw
 
   //canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   client.width=window.innerWidth;
@@ -217,7 +217,7 @@ function main() {
   canvas.focus();
 
   const state = World.create(canvas); // initialize!
-  client.cr = state.cr = Math.min(client.width,client.height)/2; // center radius
+  client.cr = Math.min(client.width,client.height)/2; // center radius
 
   document.body.appendChild(canvas); // add it to body
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private

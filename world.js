@@ -40,9 +40,10 @@ const World = (function (/*api*/) {
     ];
 
     for (let i=0; i<1000; i++) {
+      //console.log(client.cr);
 
-      const distance = Math.random()*100+client.cr*client.scalingFactor/1000;
-      console.log(client.cr, client.scalingFdistance);
+      const distance = Math.random()*100+1.5;
+      //console.log(client.cr, client.scalingFactor, distance);
       const angle = Math.random()*Math.PI*2;
       const x =distance*Math.cos(angle);
       const y =distance*Math.sin(angle);
