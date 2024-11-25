@@ -7,15 +7,17 @@ const Display = (function (/*api*/) {
     ctx.save();
     ctx.translate(client.width/2,client.height/2);
     //console.log(state.growth);
-    const limit = Math.pow(10,client.level); // f(0)=10,f(1)=100,etc
-    const count = Math.floor(state.growth%limit);
-    const offset = count*Math.PI/(limit*10);
+    const limit = Math.pow(10,client.level+1); // f(0)=10,f(1)=100,etc
+    const count = Math.floor(state.growth%limit)-(client.level>0?limit/10:0);
+    const offset = count/limit*Math.PI;
     //const middle=Math.PI/2;
     //const a = middle - offset;
     //const b = middle + offset;
     const eMargin = 5;
     const lMargin = 2;
     const hMargin = 1;
+
+    console.log(state.growth,client.level,limit,count,offset);
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin);
@@ -35,7 +37,7 @@ const Display = (function (/*api*/) {
     ctx.fillStyle="red";
     const fontSize = client.cr*client.scalingFactor/10;
     ctx.font=`${fontSize}px sans-serif`
-    console.log(fontSize,ctx.font);
+    //console.log(fontSize,ctx.font);
     ctx.fillText(""+state.fps,0,fontSize);
   }
 
@@ -137,8 +139,8 @@ const Display = (function (/*api*/) {
       //const alphaHex = (alpha+alpha).toString(16);
 
       if (eFraction>0) {
-        const avgColor=weightedAvg(active,inactive,eFraction);
-        ctx.strokeStyle=avgColor;      
+        const color=blendColors(active,inactive,eFraction);
+        ctx.strokeStyle=color;      
         ctx.beginPath();
         circle(ctx,entityX,entityY,entityR);
         ctx.stroke();
@@ -161,7 +163,7 @@ const Display = (function (/*api*/) {
     //entities.forEach((entity,idx)=>{});
   }
      // ina act sub 1 spl 2 par 16 avg str 16 cat #
- function weightedAvg(hex1,hex2,weight) {
+ function blendColors(hex1,hex2,weight) {
    const hex1List=hex1.substring(1).match(/.{1,2}/g);
    const hex2List=hex2.substring(1).match(/.{1,2}/g);
    //console.log(hex1List,hex2List, weight);
