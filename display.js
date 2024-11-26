@@ -8,11 +8,8 @@ const Display = (function (/*api*/) {
     const minDim = client.cr*2; // one screen unit
     const homeward = (client.cy===0&&client.cx===-0)?Math.PI/2:Math.atan2(client.cy,client.cx);
 
-    ctx.fillStyle="dimgray";//client.abc%2===0?"black":"white";
-    ctx.fillRect(0,0,client.width,(client.height-minDim)/2);
-    ctx.fillRect(0,minDim+(client.height-minDim)/2,client.width,(client.height-minDim)/2);
-    ctx.fillRect(0,0,(client.width-minDim)/2,client.height);
-    ctx.fillRect(minDim+(client.width-minDim)/2,0,(client.width-minDim)/2,client.height);
+    ctx.fillStyle=background;
+    ctx.fillRect(0,0,client.width,client.height);
     ctx.beginPath();
     ctx.lineWidth=5;
     ctx.strokeStyle="black";
@@ -38,8 +35,8 @@ const Display = (function (/*api*/) {
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin,hrMargin);
-    drawReset(ctx,state.progress*Math.PI,eMargin+hrMargin);
-    drawLevel(ctx,lMargin,eMargin+hrMargin);
+    drawReset(ctx,state.progress*Math.PI,eMargin,hrMargin);
+    drawLevel(ctx,lMargin,eMargin,hrMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     // save before clipping
     ctx.save();
@@ -116,18 +113,18 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawLevel(ctx,margin,oMargin,middle=Math.PI/2) {
+  function drawLevel(ctx,margin,oMargin,hrMargin,middle=Math.PI/2) {
     ctx.strokeStyle=light;
 
     ctx.beginPath();
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,0,client.cr-oMargin);
-    line(ctx,0,client.cr);
+    move(ctx,0,client.cr-oMargin-hrMargin);
+    line(ctx,0,client.cr-hrMargin);
 
     for (let i=0;i<client.level;i++) {
-      circle(ctx,0,0,client.cr-oMargin-i*margin*2);
+      circle(ctx,0,0,client.cr-oMargin-hrMargin-(i+1)*margin*2);
     }
     ctx.stroke();
   }
@@ -169,7 +166,7 @@ const Display = (function (/*api*/) {
       const entityY = entity.y*unitR+client.offsetY;
       const entityR = entity.r*unitR;
 
-      const tooFarAway=client.cr-hrMargin;
+      const tooFarAway=client.cr-hrMargin/2;
       const wayTooFarAway=client.cr*(client.level+0.5);
       const distance=Math.hypot(entityY,entityX);
 
