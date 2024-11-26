@@ -31,14 +31,14 @@ const Display = (function (/*api*/) {
     //const b = middle + offset;
     const eMargin = 5;
     const lMargin = 2;
-    const hrMargin = 1;
+    const hrMargin = 5;
     const hMargin = 3;
 
     //console.log(state.growth,client.level,limit,count,offset);
 
     drawBackground(ctx);
-    drawExperience(ctx,offset,eMargin);
-    drawReset(ctx,state.progress*Math.PI,eMargin);
+    drawExperience(ctx,offset,eMargin,hrMargin);
+    drawReset(ctx,state.progress*Math.PI,eMargin,hrMargin);
     drawLevel(ctx,lMargin,eMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     // save before clipping
@@ -49,7 +49,7 @@ const Display = (function (/*api*/) {
     // undo clipping
     ctx.restore();
     // draw on the ring
-    drawHorizonEntities(ctx,state.nearbyEntities);
+    drawHorizonEntities(ctx,state.nearbyEntities,hrMargin);
     ctx.restore();
     // centered on width/2,height/2
     //drawDebug(ctx,state);
@@ -95,13 +95,13 @@ const Display = (function (/*api*/) {
     //ctx.strokeStyle=gray5;
   }
 
-  function drawHomeward(ctx,iMargin,oMargin,middle=Math.PI/2) {
-    if (client.level===0) return;
+  function drawHomeward(ctx,iMargin,oMargin,hrMargin,middle=Math.PI/2) {
+    if (client.level<1) return;
     ctx.strokeStyle=light;
     const vector1 = {x:0,y:0};
     const vector2 = {x:0,y:0};
-    const distance1=client.cr-oMargin;
-    const distance2=client.cr-oMargin-iMargin;
+    const distance1=client.cr-oMargin-hrMargin;
+    const distance2=client.cr-oMargin-iMargin-hrMargin;
 
     vector1.x = (distance1)*Math.cos(middle);
     vector1.y = (distance1)*Math.sin(middle);
@@ -116,23 +116,23 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawLevel(ctx,margin,oMargin,middle=Math.PI/2) {
+  function drawLevel(ctx,margin,oMargin,hrMargin,middle=Math.PI/2) {
     ctx.strokeStyle=light;
 
     ctx.beginPath();
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,0,client.cr-oMargin);
-    line(ctx,0,client.cr);
+    move(ctx,0,client.cr-oMargin-hrMargin);
+    line(ctx,0,client.cr-hrMargin);
 
     for (let i=0;i<client.level;i++) {
-      circle(ctx,0,0,client.cr-oMargin-margin*2-i*margin*2);
+      circle(ctx,0,0,client.cr-oMargin-margin*2-i*margin*2-hrMargin);
     }
     ctx.stroke();
   }
 
-  function drawExperience(ctx,offset,margin,middle=Math.PI/2) {
+  function drawExperience(ctx,offset,margin,hrMargin,middle=Math.PI/2) {
     const a = middle - offset;
     const b = middle + offset;
 
@@ -140,11 +140,11 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
-    arc(ctx,0,0,client.cr-margin/2,a,b);
+    arc(ctx,0,0,client.cr-margin/2-hrMargin,a,b);
     ctx.stroke();
   }
 
-  function drawReset(ctx,offset,margin,middle=Math.PI/2) {
+  function drawReset(ctx,offset,margin,hrMargin,middle=Math.PI/2) {
     const a = middle - offset;
     const b = middle + offset;
 
@@ -152,10 +152,13 @@ const Display = (function (/*api*/) {
 
     ctx.beginPath();
     ctx.lineWidth=margin;
-    arc(ctx,0,0,client.cr-margin/2,a,b);
+    arc(ctx,0,0,client.cr-margin/2-hrMargin,a,b);
     ctx.stroke();
   }
-  function drawHorizonEntities(ctx, entities) {
+
+  function drawHorizonEntities(ctx,entities,hrMargin) {
+    if (client.level<2)return;
+
     ctx.lineWidth=1;
 
     const batchDraw = (entity,idx) => {
@@ -166,14 +169,16 @@ const Display = (function (/*api*/) {
       const entityY = entity.y*unitR+client.offsetY;
       const entityR = entity.r*unitR;
 
-      const tooFarAway=client.cr;
+      const tooFarAway=client.cr-hrMargin;
+      const wayTooFarAway=client.cr*(client.level+0.5);
       const distance=Math.hypot(entityY,entityX);
 
-      if (distance<=tooFarAway) return;
+      if (distance<=tooFarAway+entityR || distance>wayTooFarAway) return;
 
       const angle=Math.atan2(entityY,entityX);
       const diff = distance-tooFarAway;
-      const apparentR = Math.max(0,entityR-diff);
+      const apparentR = Math.max(0,
+        entityR*(1-diff/wayTooFarAway));
       const apparentX = tooFarAway*Math.cos(angle);
       const apparentY = tooFarAway*Math.sin(angle);
 
@@ -188,7 +193,7 @@ const Display = (function (/*api*/) {
     entities.forEach(batchDraw);
   }
 
-  function drawEntities(ctx, entities) {
+  function drawEntities(ctx,entities,hrMargin) {
     const cFraction=1/24;
     const radius = client.cr*client.scalingFactor;
     const circumference = 2 * Math.PI * radius;
