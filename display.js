@@ -30,7 +30,7 @@ const Display = (function (/*api*/) {
     const eMargin = 5;
     const lMargin = 2;
     const hrMargin = 5;
-    const hMargin = 5;
+    const hMargin = 10;
 
     //console.log(state.growth,client.level,limit,count,offset);
 
