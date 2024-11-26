@@ -114,8 +114,6 @@ const World = (function (/*api*/) {
         entity.nearbyIdx=-1;
       }
 
-      if (entity.nearbyIdx<-1) console.log(entity);
-      
       if (isTouching) {
         entity.timer=timerDuration;
         entity.fraction=1;
