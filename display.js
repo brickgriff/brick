@@ -174,7 +174,7 @@ const Display = (function (/*api*/) {
     ctx.strokeStyle=thorns;
 
     ctx.beginPath();
-    ctx.lineWidth=margin;
+    ctx.lineWidth=margin+2;
     arc(ctx,0,0,client.cr-margin/2-hrMargin,a,b);
     ctx.stroke();
   }
