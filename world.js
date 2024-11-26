@@ -36,10 +36,14 @@ const World = (function (/*api*/) {
 
     state.entities = [
       // very first one should be tutorial ring
-      {x:1.5,y:0,r:0.1,value:5},
-      {x:0,y:1.5,r:0.1,value:5},
-      {x:-1.05,y:-1.05,r:0.1,value:5},
-      {x:-1.05,y:-1.05,r:0.15,value:5},
+      {x:1.5,y:0,r:0.1,value:10},
+      {x:0,y:1.5,r:0.1,value:10},
+      {x:-1.06,y:-1.06,r:0.1,value:50},
+      {x:-1.06,y:-1.06,r:0.15,value:50},
+      //{x:0,y:0,r:5,rate:-0.5},
+      //{x:0,y:0,r:10,rate:-0.5},
+      //{x:0,y:0,r:9,rate:0.1},
+      //{x:0,y:0,r:12,rate:1},
       // there should be other rings
       // potentially overlapping
       // with different rules affecting growth
@@ -55,9 +59,7 @@ const World = (function (/*api*/) {
       const y =distance*Math.sin(angle);
       const r = 0.5;
 
-      state.entities.push({
-        x:x,y:y,r:r
-      });
+      state.entities.push({x:x,y:y,r:r,value:1});
     }
 
     return state;
@@ -74,12 +76,21 @@ const World = (function (/*api*/) {
 
     //console.log(state.activeEntities);
     const activeEntities=state.activeEntities;//state.entities.filter(entity=>entity.timer>0);
-    state.growth=activeEntities.reduce((acc,cur)=>{
-      if (cur.value===undefined) cur.value=1;
+
+    state.growth=Math.max(0,activeEntities.reduce((acc,cur)=>{
+      if (cur.value===undefined) cur.value=0;
+      //if (cur.rate!==undefined) cur.value+=cur.rate*dt;
       return acc+cur.value;
-    },0);//+state.flow;
+    },0));
+
+    if (state.growth>0 && activeEntities.length===0) {
+      state.growth=Math.max(0,state.growth-dt);
+    }
+
     client.level=state.growth<1 ? 0 : Math.floor(Math.log10(state.growth));
-    const scalingFactor = client.scalingFactor = 1/(client.level+2);
+    
+    const zoom = state.zoom = client.level+5;
+    const scalingFactor = client.scalingFactor = 1/zoom;
     client.offsetX=client.cx*client.speed*client.cr*2*scalingFactor;
     client.offsetY=client.cy*client.speed*client.cr*2*scalingFactor;
 
@@ -101,7 +112,7 @@ const World = (function (/*api*/) {
       if (entity.activeIdx===undefined) entity.activeIdx=-1;
       if (entity.nearbyIdx===undefined) entity.nearbyIdx=-1;
 
-      if (distance<client.cr*(client.level+2)) {
+      if (distance<client.cr*zoom) {
         if (entity.nearbyIdx===-1) {
           entity.nearbyIdx=state.nearbyEntities.length;
           state.nearbyEntities.push(entity);
@@ -131,6 +142,7 @@ const World = (function (/*api*/) {
         entity.activeIdx = state.activeEntities.length;
         state.activeEntities.push(entity);
       }
+
     });
 
     // TODO: make the decay function polynomial to maintain challenge
@@ -139,11 +151,11 @@ const World = (function (/*api*/) {
     
     if (!state.isTouching && activeEntities.length>0) {
       const firstEntity = activeEntities[0];
-      const firstTimerMinusOne = firstEntity.timer-1;
+      //const firstTimerMinusOne = firstEntity.timer-firstEntity.value;
       //console.log(firstTimerMinusOne);
-      firstEntity.timer=Math.max(0,firstTimerMinusOne);
-      firstEntity.fraction=firstTimerMinusOne/timerDuration; // 0-1
-      if (firstTimerMinusOne===0) {
+      firstEntity.timer=Math.max(0,firstEntity.timer-firstEntity.value);
+      firstEntity.fraction=firstEntity.timer/timerDuration; // 0-1
+      if (firstEntity.timer===0) {
         // decrease the ids for the rest of the list
         //const old = activeEntities[1].activeIdx;
         activeEntities.forEach(iEntity => {
@@ -151,6 +163,7 @@ const World = (function (/*api*/) {
         });
         // remove it from the list
         activeEntities.splice(0,1);
+        if (firstEntity.rate!==undefined) firstEntity.value=0;
       }
     }
 

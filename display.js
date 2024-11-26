@@ -24,13 +24,18 @@ const Display = (function (/*api*/) {
     const remainder = (client.level>0?limit/10:0);
     const count = Math.floor(state.growth%limit)-remainder;
     const offset = count/(limit-remainder)*Math.PI;
+
+    const distanceToOrigin = Math.hypot(client.cy,client.cx);
+    const distanceToRing = client.cr;
+    const diff = distanceToOrigin-distanceToRing;
+
     //const middle=Math.PI/2;
     //const a = middle - offset;
     //const b = middle + offset;
     const eMargin = 5;
     const lMargin = 2;
     const hrMargin = 5;
-    const hMargin = 10;
+    const hMargin = 10*Math.min(2,Math.max(0,diff/distanceToRing));
 
     //console.log(state.growth,client.level,limit,count,offset);
 
@@ -95,23 +100,43 @@ const Display = (function (/*api*/) {
 
   function drawHomeward(ctx,iMargin,oMargin,middle=Math.PI/2) {
     if (client.level<1) return;
+
+    const cFraction=1/12;
+    const radius = iMargin/2;
+    const circumference = 2 * Math.PI * radius;
+    const segmentLength = cFraction*circumference;
+    ctx.setLineDash([segmentLength]);
+    ctx.lineDashOffset=3*segmentLength/2;
+
     ctx.strokeStyle=light;
     const vector1 = {x:0,y:0};
-    const vector2 = {x:0,y:0};
-    const distance1=client.cr-oMargin;
-    const distance2=client.cr-oMargin-iMargin;
+    //const vector2 = {x:0,y:0};
+    // FIXME: rename these as `coords` and use `vector` for {angle, distance} pairs
+    const distanceToOrigin = Math.hypot(client.cy,client.cx);
+    const distanceToRing = client.cr;
+    const diff = distanceToOrigin-distanceToRing;
+
+    if (diff<0) return;
+
+    
+    const distance1=client.cr-oMargin-iMargin/2;
+    //const distance1=client.cr-oMargin;
+    //const distance2=client.cr-oMargin-iMargin;
 
     vector1.x = (distance1)*Math.cos(middle);
     vector1.y = (distance1)*Math.sin(middle);
-    vector2.x = (distance2)*Math.cos(middle);
-    vector2.y = (distance2)*Math.sin(middle);
+    //vector2.x = (distance2)*Math.cos(middle);
+    //vector2.y = (distance2)*Math.sin(middle);
     ctx.beginPath();
-    ctx.lineWidth=iMargin;
+    ctx.lineWidth=1;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,vector1.x,vector1.y);
-    line(ctx,vector2.x,vector2.y);
+    //move(ctx,vector1.x,vector1.y);
+    //line(ctx,vector2.x,vector2.y);
+    circle(ctx,vector1.x,vector1.y,iMargin/2);
     ctx.stroke();
+    ctx.stroke();
+    ctx.setLineDash([]);
   }
 
   function drawLevel(ctx,margin,oMargin,hrMargin,middle=Math.PI/2) {

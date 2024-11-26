@@ -20,7 +20,7 @@ const client = {
   buttons:[],
   // input mouse
   // zoom:1,
-  speed:0.005, // move 1% of center radial offset (cr)
+  speed:0.01, // move 1% of center radial offset (cr)
 };
 
 function loop(now,state,ctx) {
@@ -215,7 +215,7 @@ function main() {
   //canvas.style="border:1px solid #000000; image-rendering: pixelated; image-rendering: crisp-edges;";
   client.width=window.innerWidth;
   client.height=window.innerHeight;
-  client.scalingFactor= 0.5;
+  client.scalingFactor= 0.2;
   // make the canvas large enough to resize to fit large screens
   canvas.width=client.width;
   canvas.height=client.height;
