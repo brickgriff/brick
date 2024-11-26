@@ -21,8 +21,9 @@ const Display = (function (/*api*/) {
     ctx.translate(client.width/2,client.height/2);
     //console.log(state.growth);
     const limit = Math.pow(10,client.level+1); // f(0)=10,f(1)=100,etc
-    const count = Math.floor(state.growth%limit)-(client.level>0?limit/10:0);
-    const offset = count/limit*Math.PI;
+    const remainder = (client.level>0?limit/10:0);
+    const count = Math.floor(state.growth%limit)-remainder;
+    const offset = count/(limit-remainder)*Math.PI;
     //const middle=Math.PI/2;
     //const a = middle - offset;
     //const b = middle + offset;
