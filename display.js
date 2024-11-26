@@ -266,9 +266,9 @@ const Display = (function (/*api*/) {
    },"#");
 
  }
-  const gray0=shadow="#111111"; // shadow
-  const gray1=background="#222222"; // background
-  const gray2=inactive="#444444"; // inactive
+  const gray0=shadow="#222222"; // shadow
+  const gray1=background="#444444"; // background
+  const gray2=inactive="#666666"; // inactive
   const gray3=player="#888888"; // player
   const gray4=active="#cccccc"; // active
   const gray5=light="#eeeeee"; // light
