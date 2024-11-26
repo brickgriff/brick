@@ -48,21 +48,21 @@ function loop(now,state,ctx) {
   // ... like maybe an offscreen canvas context
 
   if (client.debug) client.debug--;
-  drawDebug(ctx);
+  drawDebug(state,ctx);
 
   if (client.isQuit) return console.log("quit");
   state.start=now;
   requestAnimationFrame(now=>loop(now,state,ctx)); // keep state private
 }
 
-function drawDebug(ctx) {
+function drawDebug(state,ctx) {
   if (!client.isDebug) return;
 
   ctx.fillStyle="red";
   //const fontSize = client.cr*client.scalingFactor/10;
   //ctx.font=`${fontSize}px sans-serif`
   //console.log(fontSize,ctx.font);
-  ctx.fillText(""+client.fps,0,10);
+  ctx.fillText(`FPS: ${client.fps}\n\rScore: ${state.growth}\n\rLevel: ${client.level}`,0,10);
 }
 
 
