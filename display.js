@@ -176,7 +176,7 @@ const Display = (function (/*api*/) {
       const angle=Math.atan2(entityY,entityX);
       const diff = distance-tooFarAway;
       const apparentR = Math.max(0,
-        entityR*(1-diff/wayTooFarAway));
+        entityR*(1-diff/wayTooFarAway))/2;
       const apparentX = tooFarAway*Math.cos(angle);
       const apparentY = tooFarAway*Math.sin(angle);
 
