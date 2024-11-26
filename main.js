@@ -36,7 +36,7 @@ function loop(now,state,ctx) {
   ctx.clearRect(0,0,client.width,client.height);
   //const minDim = Math.min(client.width,client.height); // one screen unit
   
-  //drawTest(ctx);
+  //drawTest(state,ctx);
 
   World.update(state, dt); // update entities
   Display.draw(state, ctx); // draw entities
