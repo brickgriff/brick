@@ -41,9 +41,15 @@ const Display = (function (/*api*/) {
     drawReset(ctx,state.progress*Math.PI,eMargin);
     drawLevel(ctx,lMargin,eMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
+    // save before clipping
+    ctx.save();
     clipHorizon(ctx,eMargin+lMargin*2*client.level+hrMargin+hMargin);
     drawEntities(ctx,state.nearbyEntities);
     drawPlayer(ctx,state);
+    // undo clipping
+    ctx.restore();
+    // draw on the ring
+    drawHorizonEntities(ctx,state.nearbyEntities);
     ctx.restore();
     // centered on width/2,height/2
     //drawDebug(ctx,state);
@@ -149,6 +155,38 @@ const Display = (function (/*api*/) {
     arc(ctx,0,0,client.cr-margin/2,a,b);
     ctx.stroke();
   }
+  function drawHorizonEntities(ctx, entities) {
+    ctx.lineWidth=1;
+
+    const batchDraw = (entity,idx) => {
+      if (!(entity.x!=null&&entity.y!=null&&entity.r!=null)) return;
+
+      const unitR = client.cr*client.scalingFactor;
+      const entityX = entity.x*unitR+client.offsetX;
+      const entityY = entity.y*unitR+client.offsetY;
+      const entityR = entity.r*unitR;
+
+      const tooFarAway=client.cr;
+      const distance=Math.hypot(entityY,entityX);
+
+      if (distance<=tooFarAway) return;
+
+      const angle=Math.atan2(entityY,entityX);
+      const diff = distance-tooFarAway;
+      const apparentR = Math.max(0,entityR-diff);
+      const apparentX = tooFarAway*Math.cos(angle);
+      const apparentY = tooFarAway*Math.sin(angle);
+
+      const eFraction = entity.fraction;
+      const color=blendColors(active,inactive,eFraction);
+      ctx.strokeStyle=color;      
+      ctx.beginPath();
+      circle(ctx,apparentX,apparentY,apparentR);
+      ctx.stroke();
+    };
+
+    entities.forEach(batchDraw);
+  }
 
   function drawEntities(ctx, entities) {
     const cFraction=1/24;
@@ -170,9 +208,11 @@ const Display = (function (/*api*/) {
 
       if (!(entity.x!=null&&entity.y!=null&&entity.r!=null)) return;
 
-      const entityX = entity.x*client.scalingFactor*client.cr+client.offsetX;
-      const entityY = entity.y*client.scalingFactor*client.cr+client.offsetY;
-      const entityR = entity.r*client.cr*client.scalingFactor;
+      const unitR = client.cr*client.scalingFactor;
+      const entityX = entity.x*unitR+client.offsetX;
+      const entityY = entity.y*unitR+client.offsetY;
+      const entityR = entity.r*unitR;
+
       const eFraction = entity.fraction;
       //const alpha = Math.min(15,eFraction*16); // 0-15
       //const alphaHex = (alpha+alpha).toString(16);
@@ -185,7 +225,7 @@ const Display = (function (/*api*/) {
         ctx.stroke();
       } else {
         circle(ctx,entityX,entityY,entityR);
-      }    
+      }
     }
 
     ctx.beginPath();
