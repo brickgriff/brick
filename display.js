@@ -38,8 +38,8 @@ const Display = (function (/*api*/) {
 
     drawBackground(ctx);
     drawExperience(ctx,offset,eMargin,hrMargin);
-    drawReset(ctx,state.progress*Math.PI,eMargin,hrMargin);
-    drawLevel(ctx,lMargin,eMargin);
+    drawReset(ctx,state.progress*Math.PI,eMargin+hrMargin);
+    drawLevel(ctx,lMargin,eMargin+hrMargin);
     drawHomeward(ctx,hMargin,eMargin+lMargin*2*client.level+hrMargin,homeward);
     // save before clipping
     ctx.save();
@@ -95,13 +95,13 @@ const Display = (function (/*api*/) {
     //ctx.strokeStyle=gray5;
   }
 
-  function drawHomeward(ctx,iMargin,oMargin,hrMargin,middle=Math.PI/2) {
+  function drawHomeward(ctx,iMargin,oMargin,middle=Math.PI/2) {
     if (client.level<1) return;
     ctx.strokeStyle=light;
     const vector1 = {x:0,y:0};
     const vector2 = {x:0,y:0};
-    const distance1=client.cr-oMargin-hrMargin;
-    const distance2=client.cr-oMargin-iMargin-hrMargin;
+    const distance1=client.cr-oMargin;
+    const distance2=client.cr-oMargin-iMargin;
 
     vector1.x = (distance1)*Math.cos(middle);
     vector1.y = (distance1)*Math.sin(middle);
@@ -116,18 +116,18 @@ const Display = (function (/*api*/) {
     ctx.stroke();
   }
 
-  function drawLevel(ctx,margin,oMargin,hrMargin,middle=Math.PI/2) {
+  function drawLevel(ctx,margin,oMargin,middle=Math.PI/2) {
     ctx.strokeStyle=light;
 
     ctx.beginPath();
     ctx.lineWidth=margin;
     //circle(ctx,0,0,client.cr-5);
     //circle(ctx,0,0,client.cr);
-    move(ctx,0,client.cr-oMargin-hrMargin);
-    line(ctx,0,client.cr-hrMargin);
+    move(ctx,0,client.cr-oMargin);
+    line(ctx,0,client.cr);
 
     for (let i=0;i<client.level;i++) {
-      circle(ctx,0,0,client.cr-oMargin-margin*2-i*margin*2-hrMargin);
+      circle(ctx,0,0,client.cr-oMargin-i*margin*2);
     }
     ctx.stroke();
   }
