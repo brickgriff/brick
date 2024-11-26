@@ -62,7 +62,10 @@ function drawDebug(state,ctx) {
   //const fontSize = client.cr*client.scalingFactor/10;
   //ctx.font=`${fontSize}px sans-serif`
   //console.log(fontSize,ctx.font);
-  ctx.fillText(`FPS: ${client.fps}\n\rScore: ${state.growth}\n\rLevel: ${client.level}`,0,10);
+  const msg = `FPS: ${client.fps}
+    Score: ${state.growth}
+    Level: ${client.level}`;
+  ctx.fillText(msg,0,10);
 }
 
 
